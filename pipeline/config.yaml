@@ -1,0 +1,74 @@
+# =============================================================================
+# 101 Advisors — Pipeline configuration
+# =============================================================================
+# Editá este archivo para cambiar las reglas de filtrado SIN tocar código.
+# Después de cualquier cambio: commit + push, y GitHub Actions usa la nueva config.
+# =============================================================================
+
+# ----- Geographic scope ----------------------------------------------------
+counties:
+  - Miami-Dade
+  # - Broward       # activar cuando el collector esté listo
+  # - Palm Beach    # activar cuando el collector esté listo
+
+# ----- Property type filter -----------------------------------------------
+# DOR Use Codes (Florida Department of Revenue) que SÍ queremos.
+# Referencia: https://floridarevenue.com/property/Documents/UseCodes.pdf
+include_dor_codes:
+  - "0001"   # Single Family
+  - "0002"   # Mobile Home
+  - "0003"   # Multi Family <10 units
+  - "0004"   # Condominium  ← marcado pero excluído por settings abajo
+  - "0008"   # Multi Family
+
+# Lista textual de property types para filtrado (cuando el DOR code no está disponible).
+include_property_types:
+  - "Single Family"
+  - "Multi Family"
+  - "Duplex"
+  - "Triplex"
+  - "Fourplex"
+
+exclude_property_types:
+  - "Condominium"
+  - "Apartment"
+  - "Townhome"
+  - "Townhouse"
+  - "Vacant Land"
+
+# ----- Categories to scan -------------------------------------------------
+categories:
+  foreclosure: true
+  lis_pendens: true
+  probate: true
+  tax_delinquent: true
+  liens: false           # turn on after liens collector is built
+
+# ----- Caps & limits (cost protection) ------------------------------------
+limits:
+  miami_dade_api_max_calls_per_run: 100
+  batch_skip_max_lookups_per_month: 100
+  batch_skip_priority_order:        # cuando el cap se llena, estos van primero
+    - "Foreclosure"
+    - "Probate"
+    - "Tax Delinquent"
+    - "Lis Pendens"
+    - "Liens"
+
+# ----- Output --------------------------------------------------------------
+output:
+  csv_path: "data/leads.csv"            # leído por el dashboard
+  history_csv_path: "data/history.csv"  # archivo histórico
+  state_db_path: "data/state.sqlite"    # tracking de qué leads ya vimos
+
+# ----- Lead deduplication -------------------------------------------------
+# Dos leads son "el mismo" si comparten el folio (parcel ID) o el address normalizado.
+dedup_keys:
+  - "folio"
+  - "normalized_address"
+
+# ----- Refresh cadence ----------------------------------------------------
+# Solo informativo — el cron real se configura en .github/workflows/daily_pipeline.yml
+refresh:
+  cadence: "daily"           # "daily" | "every-2-days"
+  time_et: "06:00"

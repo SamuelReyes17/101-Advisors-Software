@@ -108,14 +108,31 @@ if not check_password():
 # Data loading
 # =========================================================================
 @st.cache_data(ttl=300)
-def load_data() -> pd.DataFrame:
-    """Load leads from CSV. Once Google Sheets is wired up, swap this fn."""
-    path = Path(__file__).parent / "data" / "sample_leads.csv"
+def load_data() -> tuple[pd.DataFrame, str]:
+    """Load leads from CSV.
+
+    Preference order:
+        1. data/leads.csv (production — written by the pipeline)
+        2. data/sample_leads.csv (development fallback)
+
+    Returns the dataframe and a label indicating which source was used.
+    """
+    base = Path(__file__).parent / "data"
+    real = base / "leads.csv"
+    sample = base / "sample_leads.csv"
+
+    if real.exists():
+        path = real
+        source_label = "production"
+    else:
+        path = sample
+        source_label = "demo"
+
     df = pd.read_csv(path, parse_dates=["first_seen", "last_updated"])
     df["full_address"] = df["property_address"] + ", " + df["city"] + " " + df["zip"].astype(str)
-    df["owner_name"] = df["owner_first"] + " " + df["owner_last"]
+    df["owner_name"] = df["owner_first"].fillna("") + " " + df["owner_last"].fillna("")
     df["total_unpaid_taxes"] = df["unpaid_taxes_2024"].fillna(0) + df["unpaid_taxes_2025"].fillna(0)
-    return df
+    return df, source_label
 
 
 def fmt_currency(value) -> str:
@@ -141,7 +158,7 @@ def status_badge(status: str) -> str:
     return f'<span class="badge {cls}">{status}</span>'
 
 
-df = load_data()
+df, data_source = load_data()
 
 # =========================================================================
 # Header
@@ -149,9 +166,10 @@ df = load_data()
 hcol1, hcol2 = st.columns([4, 1])
 with hcol1:
     st.title("101 Advisors · Distressed Property Leads")
+    src_badge = "🟢 Datos reales" if data_source == "production" else "🟡 Datos de demo"
     st.caption(
         f"Last refresh: {datetime.now().strftime('%Y-%m-%d %H:%M')} ET · "
-        "Próximo refresh automático: mañana 6:00 AM"
+        f"Próximo refresh automático: mañana 6:00 AM · {src_badge}"
     )
 with hcol2:
     st.write("")

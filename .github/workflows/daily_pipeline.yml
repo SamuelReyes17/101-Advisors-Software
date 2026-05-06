@@ -1,0 +1,48 @@
+name: Daily Pipeline
+
+# Corre todos los días a las 6:00 AM ET (10:00 UTC en horario estándar / 11:00 UTC en daylight saving).
+# Para cambiar a cada 2 días, reemplazá '0 10 * * *' por '0 10 */2 * *'.
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch: {}        # permite correrlo a mano desde la pestaña Actions
+
+permissions:
+  contents: write              # necesario para que el bot commitee data/leads.csv
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run pipeline
+        env:
+          BATCH_SKIP_API_KEY: ${{ secrets.BATCH_SKIP_API_KEY }}
+        run: |
+          python -m pipeline.run
+
+      - name: Commit updated data
+        run: |
+          git config user.name "101advisors-bot"
+          git config user.email "bot@101advisors.local"
+          git add data/leads.csv data/history.csv data/state.sqlite || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(pipeline): daily update $(date -u +'%Y-%m-%d')"
+            git push
+          fi
