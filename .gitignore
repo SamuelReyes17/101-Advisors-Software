@@ -1,0 +1,44 @@
+# Streamlit secrets — never commit
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+.env
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local data / DB
+*.sqlite3
+*.db
+data/cache/
+data/raw/
+
+# Logs
+*.log
+logs/
+
+# Anthropic / Claude planning files (kept locally only)
+"101 Advisors - Plataforma Lead Generation.docx"
+"101 Advisors - Plataforma Lead Generation v2.docx"
+"101 Advisors - Costos y Timeline.xlsx"
+"101 Advisors - Costos y Plan v2.xlsx"
