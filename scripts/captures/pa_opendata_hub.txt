@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en-us"><head>
+    <title>Open Data Hub Site</title><meta name="twitter:title" content="Open Data Hub Site"><meta property="og:title" content="Open Data Hub Site"><meta name="description" content="Open Data Hub Site from Miami-Dade County, Florida"><meta name="twitter:description" content="Open Data Hub Site from Miami-Dade County, Florida"><meta property="og:description" content="Open Data Hub Site from Miami-Dade County, Florida"><meta name="twitter:image" content="https://gisms.miamidade.gov/OpenData/images/mdc_logo_white.png"><meta property="og:image" content="https://gisms.miamidade.gov/OpenData/images/mdc_logo_white.png"><meta name="twitter:card" content="summary"><meta property="og:url" content="https://gis-mdc.opendata.arcgis.com/"><meta property="og:type" content="website">
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="V9SzvB895BKr2ff7JVvaJQM1CIgPqOL5FPooX1aqENo">
+    <meta name="msvalidate.01" content="217F0EED65C5B131219477CE2CEAAF8E">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      (function () {
+        // check for unsupported browsers
+        function isIE () {
+          return (
+            (navigator.appName === 'Microsoft Internet Explorer') ||
+            ((navigator.appName === 'Netscape') && (new RegExp('Trident/.*rv:([0-9]{1,}[.0-9]{0,})').exec(navigator.userAgent) != null))
+          );
+        }
+        function isEdge () {
+          return navigator.userAgent.toLowerCase().includes('edge');
+        }
+        if (isIE() || isEdge()) {
+          window.location.replace('./unsupported.html');
+        }
+      })();
+    </script>
+    
+<meta name="activation-engine/config/environment" content="%7B%22modulePrefix%22%3A%22activation-engine%22%2C%22environment%22%3A%22production%22%2C%22ember-do-forms%22%3A%7B%22defaultClasses%22%3A%7B%22field%22%3A%5B%22field%22%5D%2C%22label%22%3A%5B%22label%22%5D%2C%22control%22%3A%5B%22control%22%5D%2C%22feedback%22%3A%5B%22feedback%22%5D%2C%22hint%22%3A%5B%22hint%22%5D%7D%2C%22validationClasses%22%3A%7B%22fieldSuccess%22%3A%5B%22field-success%22%5D%2C%22fieldError%22%3A%5B%22field-error%22%5D%2C%22controlSuccess%22%3A%5B%22control-success%22%5D%2C%22controlError%22%3A%5B%22control-error%22%5D%7D%7D%7D">
+<meta name="community-engine/config/environment" content="%7B%22modulePrefix%22%3A%22community-engine%22%2C%22environment%22%3A%22production%22%7D">
+<meta name="content-library-engine/config/environment" content="%7B%22modulePrefix%22%3A%22content-library-engine%22%2C%22environment%22%3A%22production%22%2C%22ember-do-forms%22%3A%7B%22defaultClasses%22%3A%7B%22field%22%3A%5B%22field%22%5D%2C%22label%22%3A%5B%22label%22%5D%2C%22control%22%3A%5B%22control%22%5D%2C%22feedback%22%3A%5B%22feedback%22%5D%2C%22hint%22%3A%5B%22hint%22%5D%7D%2C%22validationClasses%22%3A%7B%22fieldSuccess%22%3A%5B%22field-success%22%5D%2C%22fieldError%22%3A%5B%22field-error%22%5D%2C%22controlSuccess%22%3A%5B%22control-success%22%5D%2C%22controlError%22%3A%5B%22control-error%22%5D%7D%7D%7D">
+<meta name="events-engine/config/environment" content="%7B%22modulePrefix%22%3A%22events-engine%22%2C%22environment%22%3A%22production%22%2C%22ember-do-forms%22%3A%7B%22defaultClasses%22%3A%7B%22field%22%3A%5B%22field%22%5D%2C%22label%22%3A%5B%22label%22%5D%2C%22control%22%3A%5B%22control%22%5D%2C%22feedback%22%3A%5B%22feedback%22%5D%2C%22hint%22%3A%5B%22hint%22%5D%7D%2C%22validationClasses%22%3A%7B%22fieldSuccess%22%3A%5B%22field-success%22%5D%2C%22fieldError%22%3A%5B%22field-error%22%5D%2C%22controlSuccess%22%3A%5B%22control-success%22%5D%2C%22controlError%22%3A%5B%22control-error%22%5D%7D%7D%7D">
+<meta name="feedback-engine/config/environment" content="%7B%22modulePrefix%22%3A%22feedback-engine%22%2C%22environment%22%3A%22production%22%7D">
+<meta name="initiative-editor-engine/config/environment" content="%7B%22modulePrefix%22%3A%22initiative-editor-engine%22%2C%22environment%22%3A%22production%22%7D">
+<meta name="layout-editor-engine/config/environment" content="%7B%22modulePrefix%22%3A%22layout-editor-engine%22%2C%22environment%22%3A%22production%22%2C%22ember-do-forms%22%3A%7B%22defaultClasses%22%3A%7B%22field%22%3A%5B%22field%22%5D%2C%22label%22%3A%5B%22label%22%5D%2C%22control%22%3A%5B%22control%22%5D%2C%22feedback%22%3A%5B%22feedback%22%5D%2C%22hint%22%3A%5B%22hint%22%5D%7D%2C%22validationClasses%22%3A%7B%22fieldSuccess%22%3A%5B%22field-success%22%5D%2C%22fieldError%22%3A%5B%22field-error%22%5D%2C%22controlSuccess%22%3A%5B%22control-success%22%5D%2C%22controlError%22%3A%5B%22control-error%22%5D%7D%7D%7D">
+<meta name="overview-engine/config/environment" content="%7B%22modulePrefix%22%3A%22overview-engine%22%2C%22environment%22%3A%22production%22%7D">
+<meta name="solutions-engine/config/environment" content="%7B%22modulePrefix%22%3A%22solutions-engine%22%2C%22environment%22%3A%22production%22%2C%22ember-do-forms%22%3A%7B%22defaultClasses%22%3A%7B%22field%22%3A%5B%22field%22%5D%2C%22label%
