@@ -54,10 +54,22 @@ DOR_CODE_TO_TYPE = {
 
 
 def _http_get_json(url: str, timeout: int = 15) -> dict[str, Any]:
-    """Wrapper around urllib for testability."""
-    req = urllib.request.Request(url, headers={"User-Agent": "101AdvisorsBot/0.2"})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    """Wrapper around requests for SSL robustness on macOS."""
+    try:
+        import requests
+    except ImportError:
+        # Fallback to urllib so this module imports even when requests is missing.
+        req = urllib.request.Request(url, headers={"User-Agent": "101AdvisorsBot/0.2"})
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (compatible; 101AdvisorsBot/0.2)",
+        "Accept": "application/json",
+    }
+    resp = requests.get(url, headers=headers, timeout=timeout)
+    resp.raise_for_status()
+    return resp.json()
 
 
 def enrich_by_folio(folio: str) -> dict[str, Any] | None:

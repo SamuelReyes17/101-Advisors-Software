@@ -51,19 +51,24 @@ REALAUCTION_CALENDAR = f"{REALAUCTION_BASE}/index.cfm?zaction=AUCTION&Zmethod=PR
 
 
 def _http_get(url: str, timeout: int = 20) -> str:
-    """Fetch a URL and return the response body. Raises on HTTP errors."""
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": (
-                "Mozilla/5.0 (compatible; 101AdvisorsBot/0.2; "
-                "+https://github.com/SamuelReyes17/101-Advisors-Software)"
-            ),
-            "Accept": "text/html,application/json",
-        },
-    )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read().decode("utf-8", errors="ignore")
+    """Fetch a URL and return the response body. Uses `requests` for SSL robustness."""
+    try:
+        import requests
+    except ImportError as e:
+        raise RuntimeError("requests not installed. Add to requirements.txt.") from e
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/123.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    resp = requests.get(url, headers=headers, timeout=timeout)
+    resp.raise_for_status()
+    return resp.text
 
 
 def fetch_realauction_calendar(days_ahead: int = 30) -> list[dict]:
