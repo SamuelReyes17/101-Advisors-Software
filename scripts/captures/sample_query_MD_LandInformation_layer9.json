@@ -1,0 +1,203 @@
+{
+  "displayFieldName": "SPID",
+  "fieldAliases": {
+    "OBJECTID": "OBJECTID",
+    "FOLIO": "Folio",
+    "ADDRESS": "Address",
+    "CITY": "City",
+    "ZIPCODE": "Zip Code",
+    "PREMTYPE": "Premise Type",
+    "DESCRIPTION": "Description",
+    "DUNIT": "Dwelling Unit",
+    "INSTALLDATE": "Date Installed",
+    "LOC": "Meter Location",
+    "LOCDETAIL": "Location Detail",
+    "TYPE": "Service Type",
+    "METERFREQ": "Meter Reading Frequency",
+    "TAZ": "TAZ",
+    "BADGENBR": "BADGENBR",
+    "AMRAMIFLAG": "AMRAMIFLAG",
+    "ENDPOINTID": "ENDPOINTID",
+    "ACCTNO": "ACCTNO",
+    "CONFIDENTIALFLAG": "CONFIDENTIALFLAG",
+    "WASDCONFFLAG": "WASDCONFFLAG",
+    "GlobalID": "GlobalID",
+    "METERSIZE": "METERSIZE",
+    "CITYFLAG": "CITYFLAG"
+  },
+  "geometryType": "esriGeometryPoint",
+  "spatialReference": {
+    "wkid": 102658,
+    "latestWkid": 2236
+  },
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "FOLIO",
+      "type": "esriFieldTypeString",
+      "alias": "Folio",
+      "length": 13
+    },
+    {
+      "name": "ADDRESS",
+      "type": "esriFieldTypeString",
+      "alias": "Address",
+      "length": 50
+    },
+    {
+      "name": "CITY",
+      "type": "esriFieldTypeString",
+      "alias": "City",
+      "length": 25
+    },
+    {
+      "name": "ZIPCODE",
+      "type": "esriFieldTypeInteger",
+      "alias": "Zip Code"
+    },
+    {
+      "name": "PREMTYPE",
+      "type": "esriFieldTypeString",
+      "alias": "Premise Type",
+      "length": 8
+    },
+    {
+      "name": "DESCRIPTION",
+      "type": "esriFieldTypeString",
+      "alias": "Description",
+      "length": 30
+    },
+    {
+      "name": "DUNIT",
+      "type": "esriFieldTypeString",
+      "alias": "Dwelling Unit",
+      "length": 5
+    },
+    {
+      "name": "INSTALLDATE",
+      "type": "esriFieldTypeDate",
+      "alias": "Date Installed",
+      "length": 8
+    },
+    {
+      "name": "LOC",
+      "type": "esriFieldTypeString",
+      "alias": "Meter Location",
+      "length": 4
+    },
+    {
+      "name": "LOCDETAIL",
+      "type": "esriFieldTypeString",
+      "alias": "Location Detail",
+      "length": 200
+    },
+    {
+      "name": "TYPE",
+      "type": "esriFieldTypeString",
+      "alias": "Service Type",
+      "length": 4
+    },
+    {
+      "name": "METERFREQ",
+      "type": "esriFieldTypeString",
+      "alias": "Meter Reading Frequency",
+      "length": 1
+    },
+    {
+      "name": "TAZ",
+      "type": "esriFieldTypeSmallInteger",
+      "alias": "TAZ"
+    },
+    {
+      "name": "BADGENBR",
+      "type": "esriFieldTypeString",
+      "alias": "BADGENBR",
+      "length": 15
+    },
+    {
+      "name": "AMRAMIFLAG",
+      "type": "esriFieldTypeString",
+      "alias": "AMRAMIFLAG",
+      "length": 2
+    },
+    {
+      "name": "ENDPOINTID",
+      "type": "esriFieldTypeString",
+      "alias": "ENDPOINTID",
+      "length": 10
+    },
+    {
+      "name": "ACCTNO",
+      "type": "esriFieldTypeString",
+      "alias": "ACCTNO",
+      "length": 10
+    },
+    {
+      "name": "CONFIDENTIALFLAG",
+      "type": "esriFieldTypeString",
+      "alias": "CONFIDENTIALFLAG",
+      "length": 1
+    },
+    {
+      "name": "WASDCONFFLAG",
+      "type": "esriFieldTypeString",
+      "alias": "WASDCONFFLAG",
+      "length": 1
+    },
+    {
+      "name": "GlobalID",
+      "type": "esriFieldTypeGlobalID",
+      "alias": "GlobalID",
+      "length": 38
+    },
+    {
+      "name": "METERSIZE",
+      "type": "esriFieldTypeString",
+      "alias": "METERSIZE",
+      "length": 4
+    },
+    {
+      "name": "CITYFLAG",
+      "type": "esriFieldTypeString",
+      "alias": "CITYFLAG",
+      "length": 5
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 358671,
+        "FOLIO": "0141160040250",
+        "ADDRESS": "2735 SW 36TH AVE",
+        "CITY": "MIAMI",
+        "ZIPCODE": 33133,
+        "PREMTYPE": "RES",
+        "DESCRIPTION": "Residence",
+        "DUNIT": "    1",
+        "INSTALLDATE": 34387200000,
+        "LOC": "C",
+        "LOCDETAIL": "C SPL B1",
+        "TYPE": "WS",
+        "METERFREQ": "Q",
+        "TAZ": 1068,
+        "BADGENBR": "41186176",
+        "AMRAMIFLAG": "N",
+        "ENDPOINTID": "",
+        "ACCTNO": "9861993200",
+        "CONFIDENTIALFLAG": "N",
+        "WASDCONFFLAG": null,
+        "GlobalID": "{D053B49B-16E5-410D-A470-44A8A13A3161}",
+        "METERSIZE": "5/8",
+        "CITYFLAG": ""
+      },
+      "geometry": {
+        "x": 902588.2499454543,
+        "y": 512287.93772820383
+      }
+    }
+  ]
+}

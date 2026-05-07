@@ -1,0 +1,176 @@
+{
+  "displayFieldName": "EDITOR_NAME",
+  "fieldAliases": {
+    "OBJECTID": "OBJECTID",
+    "PID": "PID",
+    "TTRRSS": "TTRRSS",
+    "FOLIO": "FOLIO",
+    "CONDOFLG": "CONDOFLG",
+    "MOD_DATE": "MOD_DATE",
+    "MOD_TYPE": "MOD_TYPE",
+    "SUBCODE": "SUBCODE",
+    "PARCEL": "PARCEL",
+    "EDITOR_NAME": "EDITOR_NAME",
+    "EDIT_DATE": "EDIT_DATE",
+    "PARCEL_STRAP": "PARCEL_STRAP",
+    "GLOBALID": "GLOBALID",
+    "Shape.STArea()": "Shape.STArea()",
+    "Shape.STLength()": "SHAPE.STLength()",
+    "MODIFY_BY": "MODIFY_BY",
+    "MODIFY_DATE": "MODIFY_DATE"
+  },
+  "geometryType": "esriGeometryPolygon",
+  "spatialReference": {
+    "wkid": 102658,
+    "latestWkid": 2236
+  },
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "PID",
+      "type": "esriFieldTypeInteger",
+      "alias": "PID"
+    },
+    {
+      "name": "TTRRSS",
+      "type": "esriFieldTypeString",
+      "alias": "TTRRSS",
+      "length": 6
+    },
+    {
+      "name": "FOLIO",
+      "type": "esriFieldTypeString",
+      "alias": "FOLIO",
+      "length": 13
+    },
+    {
+      "name": "CONDOFLG",
+      "type": "esriFieldTypeString",
+      "alias": "CONDOFLG",
+      "length": 1
+    },
+    {
+      "name": "MOD_DATE",
+      "type": "esriFieldTypeString",
+      "alias": "MOD_DATE",
+      "length": 8
+    },
+    {
+      "name": "MOD_TYPE",
+      "type": "esriFieldTypeString",
+      "alias": "MOD_TYPE",
+      "length": 1
+    },
+    {
+      "name": "SUBCODE",
+      "type": "esriFieldTypeString",
+      "alias": "SUBCODE",
+      "length": 3
+    },
+    {
+      "name": "PARCEL",
+      "type": "esriFieldTypeString",
+      "alias": "PARCEL",
+      "length": 4
+    },
+    {
+      "name": "EDITOR_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "EDITOR_NAME",
+      "length": 50
+    },
+    {
+      "name": "EDIT_DATE",
+      "type": "esriFieldTypeDate",
+      "alias": "EDIT_DATE",
+      "length": 8
+    },
+    {
+      "name": "PARCEL_STRAP",
+      "type": "esriFieldTypeString",
+      "alias": "PARCEL_STRAP",
+      "length": 25
+    },
+    {
+      "name": "GLOBALID",
+      "type": "esriFieldTypeGlobalID",
+      "alias": "GLOBALID",
+      "length": 38
+    },
+    {
+      "name": "Shape.STArea()",
+      "type": "esriFieldTypeDouble",
+      "alias": "Shape.STArea()"
+    },
+    {
+      "name": "Shape.STLength()",
+      "type": "esriFieldTypeDouble",
+      "alias": "SHAPE.STLength()"
+    },
+    {
+      "name": "MODIFY_BY",
+      "type": "esriFieldTypeString",
+      "alias": "MODIFY_BY",
+      "length": 50
+    },
+    {
+      "name": "MODIFY_DATE",
+      "type": "esriFieldTypeDate",
+      "alias": "MODIFY_DATE",
+      "length": 8
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 94056,
+        "PID": 126754,
+        "TTRRSS": "544116",
+        "FOLIO": "0141160040250",
+        "CONDOFLG": "N",
+        "MOD_DATE": null,
+        "MOD_TYPE": null,
+        "SUBCODE": "004",
+        "PARCEL": "0250",
+        "EDITOR_NAME": " ",
+        "EDIT_DATE": null,
+        "PARCEL_STRAP": null,
+        "GLOBALID": "{965039B9-F52A-4A4A-A1B8-BC0104398AD5}",
+        "Shape.STArea()": 8380.63523797461,
+        "Shape.STLength()": 404.9818551441638,
+        "MODIFY_BY": null,
+        "MODIFY_DATE": null
+      },
+      "geometry": {
+        "rings": [
+          [
+            [
+              902661.8439393975,
+              512257.4198475033
+            ],
+            [
+              902518.6168143973,
+              512252.7657850012
+            ],
+            [
+              902514.1071268991,
+              512310.7137225047
+            ],
+            [
+              902659.6060018986,
+              512315.35959750414
+            ],
+            [
+              902661.8439393975,
+              512257.4198475033
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

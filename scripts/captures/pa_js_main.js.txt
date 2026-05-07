@@ -1,0 +1,3045 @@
+document.addEventListener("DOMContentLoaded", function () {
+  class PaHeader extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+    }
+
+
+    connectedCallback() {
+
+      const alertSection = `
+        <div class="alert alert-danger hide-content" role="alert">
+          <div class="container-fluid alert-container"></div>
+        </div>
+      `;
+
+      const secondaryNav = `
+        <div class="header-secondary hide-content">
+          <div class="container-fluid">
+            <ul class="header-secondary-list" role="presentation"></ul>
+            <ul class="header-secondary-icons"></ul>
+          </div>
+        </div>
+      `;
+
+      const siteInfo = `
+        <div class="header-site">
+          <div class="container-fluid">
+            <div class="header-site-parent">
+              <div class="header-site__logo">
+                <a href="" class="header-logo-link">
+                  <img src="" alt="" class="header-logo">
+                </a>
+                <div class="header-site__name">
+                  <div class="header-site__name-official"></div>
+                  <div class="header-site__name-agency"></div>
+                </div>
+              </div>
+              <div class="header-site__item">
+
+                <div class="header-site__top-nav-social">
+                    <a href="https://www.instagram.com/paofmiamidade/" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-instagram.png" alt="Instagram Icon" />
+                    </a>
+
+                    <a href="https://www.facebook.com/MiamiDadePA" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-facebook.png" alt="Facebook Icon" />
+                    </a>
+
+                    <a href="https://x.com/PAofMiamiDade" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-x.png" alt="X Icon" />
+                    </a>
+
+                    <a href="https://www.youtube.com/@PAofMiamiDade" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-youtube.png" alt="Youtube Icon" />
+                    </a>
+
+                    <a href="https://www.linkedin.com/company/miamidadeopa" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-linkedin.png" alt="Linked In Icon" />
+                    </a>
+                </div>
+
+                <div class="header-site__translate-search-wrapper">
+                  <!--Translate-->
+                  <div translate="no" class="header-site__tools-translate">
+                    <label class="sr-only" for="translate-dropdown"
+                      >Select Language:</label
+                    >
+
+                    <select class="notranslate" id="translate-dropdown">
+                      <option value="en">English</option>
+                      <option value="es">Spanish</option>
+                      <option value="ht">Haitian Creole</option>
+                    </select>
+                    <div style="display: none" id="google_translate_element"></div>
+                  </div>
+                  <!--Translate-->
+
+                  <!--Search-->
+                  <div class="header-site__nav-bottom__search">
+                    <button id="search-button" class="header-site__tools-search-button" aria-label="Search Property Appraiser website">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="mdc-custom__header-search__svg"
+                        viewBox="0 0 18 18"
+                        height="18"
+                        width="18"
+                      >
+                        <path
+                          stroke-width="0.5"
+                          d="M13.3266 11.304C14.292 9.96647 14.7189 8.34135 14.5213 6.72495C14.3141 5.03078 13.4368 3.47634 12.0697 2.37088C10.703 1.26574 8.94685 0.689783 7.15266 0.754989C5.35845 0.820196 3.6539 1.52196 2.38076 2.72365C1.10721 3.92572 0.359106 5.53995 0.290772 7.24437C0.222434 8.94886 0.839206 10.6124 2.01352 11.9025C3.18743 13.1921 4.83155 14.0134 6.61556 14.2063C8.32644 14.3912 10.0491 13.9856 11.4669 13.0663L15.5177 16.887C15.5177 16.887 15.5177 16.887 15.5177 16.887C15.7644 17.1198 16.096 17.2482 16.4389 17.2483C16.7819 17.2485 17.1136 17.1202 17.3604 16.8876C17.6077 16.6545 17.7497 16.335 17.7498 15.9986C17.7499 15.6621 17.6082 15.3426 17.3611 15.1093L17.361 15.1093L13.3266 11.304ZM13.0092 7.49815C13.0092 8.18549 12.8657 8.86648 12.5865 9.50238C12.3072 10.1383 11.8974 10.7171 11.3798 11.2054C10.8621 11.6936 10.2468 12.0817 9.56856 12.3466C8.89032 12.6116 8.16293 12.7481 7.42803 12.7481C6.69313 12.7481 5.96574 12.6116 5.2875 12.3466C4.60927 12.0817 3.99394 11.6936 3.47628 11.2054C2.95864 10.7171 2.54887 10.1383 2.26959 9.50238C1.99033 8.86648 1.84682 8.18549 1.84682 7.49815C1.84682 6.11063 2.43106 4.77677 3.47628 3.79093C4.52199 2.80461 5.94324 2.24815 7.42803 2.24815C8.91282 2.24815 10.3341 2.80461 11.3798 3.79093C12.425 4.77677 13.0092 6.11063 13.0092 7.49815Z"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <!--/Search-->
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const headerNavInfo = `
+        <!--Main Nav-->
+        <div class="header-nav">
+          <div class="container-fluid">
+            <nav
+              aria-label="Main Navigation"
+              id="mainMenu"
+              class="navbar-light mdc-custom__global-nav"
+            >
+              <!--Mobile Menu Button-->
+              <button
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="navbarMainMenu"
+                type="button"
+                class="navbar-toggler"
+                id="mainMobileButton"
+              >
+                <div class="mobile-menu-bars">
+                  <span></span><span></span><span></span>
+                  <div>Menu</div>
+                </div>
+              </button>
+              <!--/Mobile Menu Button-->
+
+              <!--Main Navigation-->
+              <div
+                id="navbarMainMenu"
+                class="mdc-custom__global-nav__main collapse-menu collapse navbar-collapse"
+                hidden
+              >
+                <ul class="mdc-custom__global-nav__list">
+                  <li class="mdc-custom__global-nav__social">
+                    <a href="https://www.instagram.com/paofmiamidade/" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-instagram.png" alt="Instagram Icon" />
+                    </a>
+
+                    <a href="https://www.facebook.com/MiamiDadePA" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-facebook.png" alt="Facebook Icon" />
+                    </a>
+
+                    <a href="https://x.com/PAofMiamiDade" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-x.png" alt="X Icon" />
+                    </a>
+
+                    <a href="https://www.youtube.com/@PAofMiamiDade" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-youtube.png" alt="Youtube Icon" />
+                    </a>
+
+                    <a href="https://www.linkedin.com/company/miamidadeopa" target="_blank" rel="noopener">
+                      <img src="https://www.miamidadepa.gov/resources-pa/images/social/white/social-linkedin.png" alt="Linked In Icon" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <!--/Main Navigation-->
+            </nav>
+          </div>
+        </div>
+        <!--/Main Nav-->
+
+      `;
+
+      const searchOverlayInfo = `
+        <!--Search Overlay-->
+          <div
+            id="mdc-custom_search-overlay"
+            class="mdc-custom_fullscreen-search-overlay"
+          >
+            <button
+              id="mdc-custom_fullscreen-close-button"
+              class="btn mdc-custom_fullscreen-close"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 384 512"
+                height="1.5em"
+              >
+                <path
+                  d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                ></path>
+              </svg>
+            </button>
+            <div class="mdc-custom_fullscreen-search-wrapper">
+              <form
+                onsubmit="return q.value!=''"
+                class="mdc-custom_fullscreen-searchform"
+                method="get"
+                action="https://www.miamidadepa.gov/pa/search.page"
+              >
+                <input
+                  name="q"
+                  class="mdc-custom_fullscreen-search-input"
+                  value=""
+                  type="text"
+                  placeholder="Search..."
+                /><input class="mdc-custom_fullscreen_submit" type="submit" value="" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mdc-custom_fullscreen-search-icon"
+                  fill="none"
+                  viewBox="0 0 18 18"
+                  height="1.5em"
+                >
+                  <path
+                    stroke-width="0.5"
+                    stroke="white"
+                    fill="white"
+                    d="M13.3266 11.304C14.292 9.96647 14.7189 8.34135 14.5213 6.72495C14.3141 5.03078 13.4368 3.47634 12.0697 2.37088C10.703 1.26574 8.94685 0.689783 7.15266 0.754989C5.35845 0.820196 3.6539 1.52196 2.38076 2.72365C1.10721 3.92572 0.359106 5.53995 0.290772 7.24437C0.222434 8.94886 0.839206 10.6124 2.01352 11.9025C3.18743 13.1921 4.83155 14.0134 6.61556 14.2063C8.32644 14.3912 10.0491 13.9856 11.4669 13.0663L15.5177 16.887C15.5177 16.887 15.5177 16.887 15.5177 16.887C15.7644 17.1198 16.096 17.2482 16.4389 17.2483C16.7819 17.2485 17.1136 17.1202 17.3604 16.8876C17.6077 16.6545 17.7497 16.335 17.7498 15.9986C17.7499 15.6621 17.6082 15.3426 17.3611 15.1093L17.361 15.1093L13.3266 11.304ZM13.0092 7.49815C13.0092 8.18549 12.8657 8.86648 12.5865 9.50238C12.3072 10.1383 11.8974 10.7171 11.3798 11.2054C10.8621 11.6936 10.2468 12.0817 9.56856 12.3466C8.89032 12.6116 8.16293 12.7481 7.42803 12.7481C6.69313 12.7481 5.96574 12.6116 5.2875 12.3466C4.60927 12.0817 3.99394 11.6936 3.47628 11.2054C2.95864 10.7171 2.54887 10.1383 2.26959 9.50238C1.99033 8.86648 1.84682 8.18549 1.84682 7.49815C1.84682 6.11063 2.43106 4.77677 3.47628 3.79093C4.52199 2.80461 5.94324 2.24815 7.42803 2.24815C8.91282 2.24815 10.3341 2.80461 11.3798 3.79093C12.425 4.77677 13.0092 6.11063 13.0092 7.49815Z"
+                  ></path>
+                </svg>
+              </form>
+            </div>
+          </div>
+          <!--/Search Overlay-->
+      `;
+
+      const headerHTML = `
+        <style>
+          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          /*------------------------------------------------
+
+          Table of Contents
+
+          01. GENERAL
+          02. HEADER
+              a. Important Message
+              b. Secondary Nav
+              c. Header Site
+          03. MAIN NAV
+          04. SEARCH OVERLAY
+          05. FOOTER
+
+          ------------------------------------------------*/
+          /* ------------------------------------------------*/
+          /* ---------------->>> GENERAL <<<-----------------*/
+          /* ------------------------------------------------*/
+          
+          .header {
+            --primary-color: hsl(217, 80%, 10%);
+            --secondary-color: hsl(213, 78%, 25%);
+            --secondary-color-500: hsl(213, 78%, calc(25% * 0.7));
+            --link-color: hsl(210, 56%, 37%);
+
+            --title-font-family: "Noto Serif", serif;
+            --nav-font-family: "Noto Sans", sans-serif;
+
+            --box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+          }
+
+
+          .header *,
+          .header::after,
+          .header::before {
+            box-sizing: border-box;
+          }
+
+          .header * {
+            margin: 0;
+            padding: 0;
+          }
+
+          a {
+            color: var(--link-color);
+          }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-family: var(--title-font-family);
+            font-weight: bold;
+          }
+
+          button {
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+
+          .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+          }
+
+          .sr-only-focusable:active,
+          .sr-only-focusable:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+          }
+
+          .hide-content {
+            display: none !important;
+          }
+
+          .container-fluid {
+            width: 100%;
+            padding-inline: 15px;
+            margin-inline: auto;
+          }
+
+          @media (width >= 1450px) {
+            .container-fluid {
+              padding-inline: 5rem;
+            }
+          }
+
+          /* ------------------------------------------------*/
+          /* ----------->>> BOOTSTRAP OVERRIDES <<<-----------*/
+          /* ------------------------------------------------*/
+
+          .btn-link {
+            color: var(--primary-color);
+          }
+
+          /* ------------------------------------------------*/
+          /* ----------------->>> HEADER <<<-----------------*/
+          /* ------------------------------------------------*/
+
+          .header {
+            margin-bottom: 2rem;
+
+            font-family: "Roboto", sans-serif;
+          }
+
+          /*--Important Message--*/
+
+          .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+          }
+
+          .header .alert {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0;
+            margin-bottom: 0;
+            text-align: center;
+
+            & p {
+              margin-top: 0;
+            }
+
+            & p:last-child {
+              margin-bottom: 0;
+            }
+          }
+          
+          .header .alert a {
+          	color: #721c24;
+            font-weight: bold;
+          }
+
+          /*--Secondary Nav--*/
+
+          .header-secondary {
+            padding-block: 1em;
+            font-size: 0.75rem;
+
+            & a {
+              text-decoration: none;
+            }
+          }
+
+          .header-secondary-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+          }
+          
+          .header-secondary-list a {
+              color: var(--primary-color);
+              text-decoration: none;
+           }
+           
+           .header-secondary-list a:hover,
+           .header-secondary-list a:focus{ text-decoration: underline; }
+
+          /*--Header Site--*/
+
+          .header-site {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding-block: 1rem;
+          }
+
+          .header-logo {
+            max-height: 130px;
+          }
+
+          .header-site-parent {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+          }
+
+          .header-site__logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+          }
+
+          .header-site__name {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+          .header-site__name-official {
+            font-family: var(--title-font-family);
+            font-size: clamp(1.5rem, 2.25vw, 2.25rem);
+            font-weight: 700;
+            line-height: 1;
+          }
+
+          .header-site__name-agency {
+            font-family: var(--title-font-family);
+            font-size: clamp(1.25rem, 2vw, 2rem);
+            font-weight: 500;
+            line-height: 1.3;
+          }
+
+          .header-site__tools {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: auto;
+          }
+          
+          .header-site__tools-translate select {
+              background-color: var(--primary-color);
+              color: #fff;
+              border: none;
+          }
+          
+          .header-site__tools-translate option {
+              background-color: #fff;
+              color: var(--primary-color);
+           }
+
+          .header-site__tools-search-button {
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            border-width: 0;
+            height: 40px;
+            aspect-ratio: 1/1;
+
+            display: grid;
+            place-items: center;
+          }
+          
+          .header-site__tools-search-button svg { fill: #fff; }
+
+
+          .header-site__item {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            justify-content: center;          
+          }
+
+          .header-site__top-nav-social {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            & img {
+              width: 40px;
+            }
+          }
+
+          @media (width > 736px) {
+            .header-site__top-nav-social {
+              justify-content: flex-end;
+            }
+          }
+
+          .header-site__translate-search-wrapper {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .header-secondary > .container-fluid {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+            flex-wrap: wrap;       
+          }
+
+          .header-secondary-icons {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+
+            & li {
+              display: flex;
+              gap: 0.5rem;
+              align-items: center;
+            }
+
+            & img {
+              filter: brightness(0) saturate(100%) invert(14%) sepia(17%) saturate(4380%) hue-rotate(181deg) brightness(100%) contrast(110%);
+              height: 12px;
+              width: auto;
+            }
+          }
+
+          /* ------------------------------------------------*/
+          /* ----------------->>> MAIN NAV <<<---------------*/
+          /* ------------------------------------------------*/
+
+          .navbar-light .navbar-toggler {
+            color: rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 0, 0, 0.1);
+          }
+
+          .mobile-menu-bars {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .mobile-menu-bars span {
+            height: 4px;
+            width: 100%;
+            background: #666;
+            border-radius: 9px;
+            margin-bottom: 4px;
+          }
+
+          .header-nav {
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+
+            position: relative;
+          }
+
+          .mdc-custom__global-nav__list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+            overflow: visible;
+            z-index: 4000;
+
+            display: flex;
+          }
+
+          .mdc-custom__global-nav__list li {
+            line-height: 1.5;
+          }
+
+          .mdc-custom__global-nav__list
+            > li
+            > :is(
+              .mdc-custom__mega-container__link,
+              .mdc-custom__single-container__link,
+              a
+            ),
+          .mdc-custom__global-nav__home-icon-link {
+            padding: 0 1rem;
+            letter-spacing: 1px;
+          }
+
+          .mdc-custom__mega-container__link,
+          .mdc-custom__single-container__link,
+          .mdc-custom__link-container__link {
+            min-height: 51px;
+          }
+
+          .mdc-custom__link-container__link {
+            text-decoration: none;
+          }
+
+          :is(
+              .mdc-custom__mega-container__link,
+              .mdc-custom__single-container__link,
+              .mdc-custom__link-container__link
+            ):is(:hover, :focus) {
+            text-decoration: none;
+            color: #0056b3;
+          }
+
+          button.mdc-custom__mega-container__link,
+          button.mdc-custom__single-container__link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+
+          .mdc-custom__global-nav__list > li > :is(button, a) {
+            font-family: var(--nav-font-family);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: none;
+          }
+
+          .mdc-custom__global-nav__arrow {
+            height: 10px;
+            aspect-ratio: 1 / 1;
+            fill: var(--primary-color);
+            margin-top: 3px;
+            transition: transform 0.3s ease-out;
+          }
+
+          .mdc-custom__global-nav__list
+            button[aria-expanded="true"]
+            .mdc-custom__global-nav__arrow {
+            transform: rotate(180deg);
+          }
+
+          .mdc-custom__mega-container ul,
+          .mdc-custom__single-container ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0;
+          }
+
+          .mdc-custom__mega-container > ul {
+            padding: 2rem 15px;
+
+            top: 100%;
+            left: 0;
+            padding: 2rem 5rem;
+            overflow: hidden;
+            width: 100%;
+          }
+
+          .mdc-custom__global-nav__main > .mdc-custom__global-nav__list > li {
+            padding-block: 0.5rem;
+          }
+
+          .mdc-custom__mega-container > ul,
+          .mdc-custom__single-container > ul {
+            transition: all 0.4s ease-in-out;
+            box-shadow: rgba(2, 3, 3, 0.1) 0px 10px 30px 10px;
+            background-color: #fff;
+            z-index: 4000;
+          }
+
+          .mdc-custom__mega-container__list {
+            --min-column-size: 20rem;
+            display: grid;
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(min(var(--min-column-size), 100%), 1fr)
+            );
+            gap: 2rem;
+          }
+
+          .mdc-custom__mega-container__title {
+            font-family: var(--title-font-family);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0 !important;
+            padding-bottom: 0.5em;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid hsla(0, 0%, 0%, 0.24);
+          }
+
+          .mdc-custom__mega-container__item__title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+          }
+
+          .mdc-custom__mega-container__description {
+            margin-bottom: 1.5rem;
+          }
+
+          .mdc-custom__mega-container__child:nth-child(1) {
+            flex-grow: 2;
+            min-width: 70%;
+          }
+
+          .mdc-custom__link-container {
+            align-content: center;
+          }
+          
+          .mdc-custom__link-container a {
+          	color: var(--primary-color);
+            padding-inline: 1rem;
+          }
+
+          .toggle-btn {
+            color: var(--primary-color);
+          }
+
+          /*--Single Dropdown--*/
+          .mdc-custom__single-container {
+            position: relative;
+          }
+
+          .mdc-custom__single-li-container > ul {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+          }
+
+          .mdc-custom__single-container__child {
+            margin-top: 1em;
+          }
+
+          .mdc-custom__mega-container__button {
+            display: block;
+            margin-top: 2rem;
+            padding: 0.75em 2em;
+            line-height: 36px;
+            text-align: center;
+
+            background-color: var(--secondary-color);
+            color: #fff !important;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-out, color 0.3s ease-out;
+          }
+          
+          .mdc-custom__mega-container__button:hover,
+          .mdc-custom__mega-container__button:focus { background-color: var(--secondary-color-500); }
+
+
+
+          .toggle-panel {
+            overflow: hidden;
+            transition: height 0.3s ease;
+            height: 0;
+
+            & a {
+              text-decoration: none;
+            }
+          }
+
+          .toggle-panel:not([hidden]) {
+            visibility: visible;
+          }
+
+          /*--Desktop--*/
+          @media (width >= 1550px) {
+            .navbar-toggler {
+              display: none;
+            }
+
+            .mdc-custom__mega-container > ul,
+            .mdc-custom__single-container > ul {
+              position: absolute;
+            }
+
+            .navbar-collapse {
+              display: flex !important;
+            }
+
+            .mdc-custom__single-container > ul {
+              width: 190%;
+              max-width: 280px;
+              top: 100%;
+            }
+          }
+
+          .collapse-menu {
+            transition: height 0.3s ease;
+            overflow: visible;
+          }
+
+          @media (width >= 1300px) {
+            #navbarMainMenu {
+              display: block !important;
+              height: auto !important;
+              overflow: visible !important;
+            }
+
+            #mainMobileButton,
+            .mdc-custom__global-nav__social {
+              display: none;
+            }
+
+          }
+
+          @media (width < 1300px) {
+            .mdc-custom__global-nav {
+              padding-block: 1.5rem;
+            }
+
+            .mdc-custom__global-nav__list {
+              flex-direction: column;
+              gap: 1rem;
+            }
+
+            .header-site__name,
+            .header-site__top-nav-social {
+              display: none;
+            }
+
+            .header-wrapper {
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: flex-end;
+              align-items: center;
+              background-color: var(--primary-color);
+
+              & > * {
+                flex: 1;
+              }
+            }
+
+            .header-nav {
+              background-color: var(--primary-color);
+            }
+
+            .header-site__logo {
+              margin-left: -50px;
+              z-index: 2;
+
+              & .header-logo {
+                max-width: 75px;
+              }
+            }
+
+            .mobile-menu-bars { color: #fff; }
+            
+            .mobile-menu-bars span { background: #fff; }
+
+            .mdc-custom__global-nav__main {
+              position: absolute;
+              background-color: #fff;
+              z-index: 100;
+              width: 100vw;
+              margin-left: -15px;
+              top: 135%;
+            }
+
+
+            .mdc-custom__mega-container__link, .mdc-custom__single-container__link, .mdc-custom__link-container__link {
+              min-height: auto;
+            }
+
+            .mdc-custom__global-nav__social {
+
+              & a {
+                display: inline-block;
+              }
+
+              & a:not(:first-child) {
+                padding-left: 0;
+              }
+            }
+
+
+          }
+
+          @media (width <= 1220px) {
+            .mdc-custom__mega-container > ul {
+              padding: 1rem;
+            }
+
+            .mdc-custom__single-li-container {
+              overflow: auto;
+            }
+          }
+
+          @media (width <= 400px) {
+            .header-secondary-icons {
+              & img { display: none; }
+            }
+          }
+
+          /* ------------------------------------------------*/
+          /* ------------->>> SEARCH OVERLAY <<<-------------*/
+          /* ------------------------------------------------*/
+
+          .mdc-custom_fullscreen_submit {
+            position: absolute;
+            width: 50px;
+            height: 100%;
+            background-color: transparent;
+            border: 0;
+            right: 0;
+            top: 0;
+          }
+          .mdc-custom_fullscreen-searchform:focus {
+            outline: none;
+            border: none;
+          }
+
+          .mdc-custom_fullscreen-searchform {
+            position: relative;
+          }
+
+          .mdc-custom_fullscreen-search-input {
+            width: clamp(20rem, 70vw, 40rem);
+            background-color: transparent;
+            box-shadow: 0 3px 0 0 rgba(255, 255, 255, 1);
+            border: 0;
+            text-align: center;
+            font-size: clamp(1rem, -0.5625rem + 5vw, 2.25rem);
+            padding: 20px 60px 20px 20px;
+            color: #fff;
+            transition: all 0.3s ease-out;
+          }
+          .mdc-custom_fullscreen-search-input:focus {
+            border: none;
+            outline: none;
+            box-shadow: 0px 3px 0px 0px rgba(255, 255, 255, 0.54);
+          }
+
+          .mdc-custom_fullscreen-search-input::placeholder {
+            color: #fff;
+            opacity: 0.7;
+          }
+
+          .mdc-custom_fullscreen-search-overlay.show {
+            visibility: visible;
+            opacity: 1;
+          }
+
+          .mdc-custom_fullscreen-search-overlay {
+            --primary-color-opacity: hsla(217, 80%, calc(10% * 0.8), 0.9);
+
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            background-color: var(--primary-color-opacity);
+            text-align: center;
+            transition: all ease-in-out 0.25s;
+          }
+
+          .mdc-custom_animate-element,
+          .mdc-custom_effect-bg-layer,
+          .mdc-custom_fullscreen-search-overlay {
+            transform: translateZ(0);
+          }
+
+          .mdc-custom_fullscreen-search-overlay {
+            z-index: 5000;
+          }
+
+          .mdc-custom_fullscreen-close:is(:link, :visited) {
+            color: #fff;
+          }
+
+          .mdc-custom_fullscreen-close:focus {
+            box-shadow: none;
+          }
+
+          .mdc-custom_fullscreen-close {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            font-size: 26px;
+            transition: transform ease-out 0.2s;
+            transform: rotate(0deg);
+            fill: #fff;
+          }
+
+          .mdc-custom_fullscreen-search-overlay.show
+            .mdc-custom_fullscreen-search-wrapper {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+          }
+
+          .mdc-custom_fullscreen-search-wrapper {
+            display: inline-block;
+            max-width: 1000px;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18px;
+
+            transform: scale(0.9);
+            opacity: 0;
+            visibility: hidden;
+            transition: all ease-in-out 0.3s;
+          }
+
+          .mdc-custom_search-trigger {
+            transition: color 0.2s ease-in-out;
+          }
+
+          .mdc-custom_fullscreen-search-icon {
+            position: absolute;
+            z-index: -1;
+            top: 35%;
+            right: 10px;
+            fill: #fff;
+          }
+        </style>
+
+        <header class="header">
+          <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+          ${alertSection}
+          ${secondaryNav}
+          <div class="header-wrapper">
+            ${siteInfo}
+            ${headerNavInfo}
+          </div>
+          ${searchOverlayInfo}
+        </header>
+      `;
+
+      this.shadowRoot.innerHTML = headerHTML;
+      this.setupHeaderLogic();
+
+    // Once DOM is set, you can now safely select from shadow DOM
+    const shadow = this.shadowRoot;
+
+    // Important Message
+    const alertWrapper = shadow.querySelector(".alert");
+    const alertContainer = shadow.querySelector(".alert-container");
+
+    // Secondary links
+    const secondaryContainer = shadow.querySelector(".header-secondary");
+    const secondaryContainerList = shadow.querySelector(".header-secondary-list");
+    const secondaryContainerListIcons = shadow.querySelector(".header-secondary-icons");
+
+    // Logo
+    const logoImg = shadow.querySelector(".header-logo");
+    const logoLink = shadow.querySelector(".header-logo-link");
+
+    //Name
+    const nameLine01 = shadow.querySelector(".header-site__name-official");
+    const nameLine02 = shadow.querySelector(".header-site__name-agency");
+
+    //Main Nav
+    const navList = shadow.querySelector(".mdc-custom__global-nav__list");
+    const navSocial = shadow.querySelector(".mdc-custom__global-nav__social");
+
+
+
+      function moveTranslateDropdown() {
+
+        const translateDropdown = shadow.querySelector(".header-site__tools-translate");
+        const originalContainer = shadow.querySelector(".header-site__translate-search-wrapper");
+        const targetContainer = shadow.querySelector(".header-secondary-icons");
+
+        if (!translateDropdown || !originalContainer || !targetContainer) return;
+
+
+          if (window.innerWidth <= 1300 && !targetContainer.contains(translateDropdown)) {
+            translateDropdown.remove();
+            const li = document.createElement("li");
+            li.appendChild(translateDropdown);
+            targetContainer.appendChild(li);
+          }
+
+          if (window.innerWidth > 1300 && !originalContainer.contains(translateDropdown)) {
+            // Remove from <li> and reinsert as first child in original container
+            const li = translateDropdown.parentElement;
+            if (li && li.tagName === "LI") {
+              li.remove();
+            }
+            originalContainer.insertBefore(translateDropdown, originalContainer.firstChild);
+          }
+      }
+
+
+
+
+
+
+
+
+
+    function bindDropdownEvents(shadowRoot) {
+      const buttons = shadowRoot.querySelectorAll(".toggle-btn");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+
+          event.stopPropagation(); // Prevent event from bubbling
+
+          const panelId = button.getAttribute("aria-controls");
+          const panel = shadowRoot.getElementById(panelId);
+          const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+          if (!isExpanded) {
+            closeAllPanels(shadowRoot, button);
+            button.setAttribute("aria-expanded", "true");
+            expandPanel(panel);
+          } else {
+            button.setAttribute("aria-expanded", "false");
+            collapsePanel(panel);
+          }
+        });
+      });
+    }
+
+    // Utility functions that operate inside the shadow DOM
+    function closeAllPanels(shadowRoot, except = null) {
+      shadowRoot.querySelectorAll(".toggle-btn").forEach((btn) => {
+        const panelId = btn.getAttribute("aria-controls");
+        const panel = shadowRoot.getElementById(panelId);
+
+        if (btn !== except && panel?.classList.contains("open")) {
+          btn.setAttribute("aria-expanded", "false");
+          collapsePanel(panel);
+        }
+      });
+    }
+
+    function expandPanel(panel) {
+      panel.hidden = false;
+      panel.classList.add("open");
+      panel.style.height = "0px";
+      requestAnimationFrame(() => {
+        const fullHeight = panel.scrollHeight + "px";
+        panel.style.height = fullHeight;
+        panel.addEventListener("transitionend", function handler() {
+          panel.style.height = "auto";
+          panel.removeEventListener("transitionend", handler);
+        });
+      });
+    }
+
+    function collapsePanel(panel) {
+      const currentHeight = panel.scrollHeight + "px";
+      panel.style.height = currentHeight;
+      panel.offsetHeight;
+      panel.style.height = "0px";
+      panel.addEventListener("transitionend", function handler() {
+        panel.hidden = true;
+        panel.classList.remove("open");
+        panel.style.height = "";
+        panel.removeEventListener("transitionend", handler);
+      });
+    }
+
+    // API Header call
+    fetch("https://api2.miamidade.gov/secureLscs/v1/document/$?format=json&includeDCRContent=true&q=TeamSite/LiveSite/Id:=m060q72v&project=//s0146562/BETA/main/Property%20Appraiser&format=json&includeDCRContent=true", {
+      method: "GET",
+      headers: {
+        "api-key": "0f3eb378ab6bc9ed"
+      }
+
+    })
+      .then((res) => res.json())
+      .then((data) => {
+
+        const apiPath = data.results.assets[0].content
+
+        //Controlling the doamin being injected when the path is relative
+        function resolveUrl(path) {
+          if (!path) return "#";
+
+          // If it's already a full URL, return as-is
+          if (path.startsWith("http")) return path;
+
+          // Remove leading slashes
+          const cleanPath = path.replace(/^\/+/, "");
+
+          // If it already has an extension (like .png), don't append .page
+          const hasExtension = /\.\w+$/.test(cleanPath);
+
+          return hasExtension
+            ? `https://www.miamidadepa.gov/${cleanPath}`
+            : `https://www.miamidadepa.gov/pa/${cleanPath}.page`;
+        }
+
+
+        /*******************
+        IMPORTANT MESSAGE
+        *******************/
+        const importantMessageCheck = apiPath.navigationTop.importantShow;
+        const importantMessage = apiPath.navigationTop.importantDescription;
+
+        //Handle Important Message
+        if (importantMessageCheck === "yes" && importantMessage) {
+          alertContainer.innerHTML = importantMessage;
+          alertWrapper.classList.remove("hide-content");
+        } 
+
+        /*******************
+        SECONDARY LINKS
+        *******************/
+        const secondaryContainerLinks = apiPath.navigationTop["secondary-links"];
+        let secondaryVisibleLinks = false;
+
+        secondaryContainerLinks.forEach((linkData) => {
+          const title = linkData["secondary-link__title"];
+          const url = resolveUrl(linkData["secondary-link__url"]);
+          const newWindow = linkData["secondary-link__new-window"];
+
+          if (title && title.trim() !== "") {
+
+            secondaryContainer.classList.remove("hide-content");
+
+            secondaryVisibleLinks = true;
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.textContent = title;
+            a.href = url || "#";
+            if (newWindow === "_blank") {
+              a.target = "_blank";
+              a.rel = "noopener";
+            }
+            li.appendChild(a);
+            secondaryContainerList.appendChild(li);
+          }
+        });
+
+        let secondaryContainerIcons = apiPath.navigationTop["secondary-links__custom-text"];
+
+        // Normalize the value so it's always an array
+        if (!Array.isArray(secondaryContainerIcons)) {
+          secondaryContainerIcons = secondaryContainerIcons ? [secondaryContainerIcons] : [];
+        }
+
+
+
+        secondaryContainerIcons.forEach((linkData) => {
+          const title = linkData["secondary-link__custom-text__text"];
+          const url = resolveUrl(linkData["secondary-link__custom-text__url"]);
+          const newWindow = linkData["secondary-link__custom-text__new-window"];
+          const icon = linkData["secondary-link__custom-text__icon"];
+
+          if (title && title.trim() !== "") {
+
+            secondaryContainer.classList.remove("hide-content");
+
+            secondaryVisibleLinks = true;
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            const img = document.createElement("img")
+
+            a.textContent = title;
+            a.href = url || "#";
+            if (newWindow === "_blank") {
+              a.target = "_blank";
+              a.rel = "noopener";
+            }
+
+            img.src = resolveUrl(icon);
+            img.alt = "";
+
+            li.appendChild(img);
+
+            li.appendChild(a);
+            secondaryContainerListIcons.appendChild(li);
+          }
+        });
+
+
+        /*******************
+        HEADER SITE
+        *******************/
+        // Logo
+        const siteLogo = apiPath.navigationTop.siteLogo;
+
+        if (siteLogo && logoImg && logoLink) {
+          logoImg.src = resolveUrl(siteLogo.logo);
+          logoImg.alt = siteLogo.siteLogoAlt || "Site Logo";
+          logoLink.href = resolveUrl(siteLogo.siteLogoLink);
+        }
+
+        // Name
+        const siteTitleLine01 = apiPath.navigationTop.siteTitle.siteTitleLine01;
+        const siteTitleLine02 = apiPath.navigationTop.siteTitle.siteTitleLine02;
+
+        if(siteTitleLine01) {
+          nameLine01.innerHTML = siteTitleLine01;
+        }
+
+        if(siteTitleLine02) {
+          nameLine02.innerHTML = siteTitleLine02;
+        }
+
+        /*******************
+        MAIN NAVIGATION
+        *******************/
+        // Get the data from the JSON
+        const mainNavContainer = data.results.assets[0].content.navigationTop.mainContainer;
+
+
+        //Clean ID's
+        function sanitizeId(text) {
+          return text.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '') + 'Nav';
+        }
+
+        //Billboard Logic
+        function createBillboardNavSection(item) {
+          const ul = document.createElement("ul");
+          const text = item.title;
+          ul.className = "toggle-panel";
+          ul.id = sanitizeId(text);
+          ul.setAttribute("hidden", "");
+
+          const li = document.createElement("li");
+          li.className = "mdc-custom__mega-container__child";
+
+          // Billboard link/title block
+          const link = document.createElement("a");
+          const billboardUrl = resolveUrl(item.billboard?.billboard__url || "#");
+          link.href = billboardUrl;
+
+          const title = document.createElement("h2");
+          title.className = "mdc-custom__mega-container__title";
+          title.textContent = item.billboard?.billboard__title || item.title;
+          link.appendChild(title);
+          li.appendChild(link);
+
+          // Description
+          if (item.billboard?.billboard__description) {
+            const desc = document.createElement("div");
+            desc.className = "mdc-custom__mega-container__description";
+            desc.innerHTML = item.billboard.billboard__description;
+            li.appendChild(desc);
+          }
+
+          // Links list
+          const list = document.createElement("ul");
+          list.className = "mdc-custom__mega-container__list";
+
+          (item.billboard?.["billboard-links"] || []).forEach((linkItem) => {
+            const innerLi = document.createElement("li");
+            innerLi.className = "mdc-custom__mega-container__item";
+
+            const innerA = document.createElement("a");
+            const href = resolveUrl(linkItem["billboard-link__url"] || "#");
+            innerA.href = href;
+
+            const target = linkItem["billboard-link__new-window"];
+            if (target === "_blank") innerA.target = "_blank";
+
+            const innerTitle = document.createElement("h3");
+            innerTitle.className = "mdc-custom__mega-container__item__title";
+            innerTitle.textContent = linkItem["billboard-link__title"];
+            innerA.appendChild(innerTitle);
+
+            innerLi.appendChild(innerA);
+
+            // Link description
+            const linkDesc = document.createElement("div");
+            linkDesc.className = "mdc-custom__mega-container__item__description";
+            linkDesc.textContent = linkItem["billboard-links__description"] || "";
+            innerLi.appendChild(linkDesc);
+
+            list.appendChild(innerLi);
+          });
+
+          li.appendChild(list);
+
+          // Billboard button (optional)
+          const buttonData = item.billboard?.["billboard-button"];
+          if (buttonData?.["billboard-button__title"]) {
+            const buttonA = document.createElement("a");
+            buttonA.href = resolveUrl(buttonData["billboard-button__url"] || "#");
+            buttonA.className = "btn btn-light mdc-custom__mega-container__button";
+            buttonA.textContent = buttonData["billboard-button__title"];
+            li.appendChild(buttonA);
+          }
+
+          ul.appendChild(li);
+          return ul;
+        }
+
+        // Loop through mainContainer and create <li> for each title
+        mainNavContainer.forEach((item) => {
+          const title = item.title || "";
+          const displayOption = item["display-options"] || "";
+          const li = document.createElement("li");
+
+          const sanitizedId = sanitizeId(title);
+
+
+          const arrowSvg = `
+          <svg xmlns="http://www.w3.org/2000/svg" class="mdc-custom__global-nav__arrow" viewBox="0 0 448 512">
+            <path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path>
+          </svg>`;
+
+
+
+          if (displayOption === "billboard" || displayOption === "singleDropdown") {
+            li.className =
+              displayOption === "billboard"
+                ? "mdc-custom__mega-container mdc-custom__main-nav-link"
+                : "mdc-custom__single-container mdc-custom__main-nav-link";
+
+            const button = document.createElement("button");
+            button.setAttribute("aria-controls", sanitizedId);
+            button.setAttribute("aria-expanded", "false");
+            button.setAttribute("type", "button");
+            button.className = 
+              displayOption === "billboard"
+                ? "mdc-custom__mega-container__link toggle-btn"
+                : "mdc-custom__single-container__link toggle-btn";
+
+
+            button.innerHTML = `${title}${arrowSvg}`;
+
+            // Add button
+            li.appendChild(button);
+
+            //li.appendChild(ul);
+            navList.insertBefore(li, navSocial);
+
+            if (item["display-options"] === "billboard") {
+              const panel = createBillboardNavSection(item);
+              li.appendChild(panel);
+            }
+
+            if (displayOption === "singleDropdown" && Array.isArray(item.singleDropdown)) {
+              // Create outer <ul>
+              const dropdownUl = document.createElement("ul");
+              dropdownUl.id = sanitizedId; // aria-controls match
+              dropdownUl.className = "toggle-panel";
+              dropdownUl.setAttribute("hidden", "");
+
+              // Create the single li wrapper
+              const wrapperLi = document.createElement("li");
+              wrapperLi.className = "mdc-custom__single-li-container";
+
+              // Create inner <ul> where links go
+              const innerUl = document.createElement("ul");
+
+              item.singleDropdown.forEach((dropdownItem) => {
+                const text = dropdownItem.singleDropdownText || "";
+                const href = resolveUrl(dropdownItem.singleDropdownUrl);
+                const newWindow = dropdownItem.singleDropdownLinkNewWindow === "_blank";
+
+                if (text.trim()) {
+                  const subLi = document.createElement("li");
+                  subLi.className = "mdc-custom__single-container__child";
+
+                  const link = document.createElement("a");
+                  link.textContent = text;
+
+                  link.href = href;
+
+                  if (newWindow || link.href.startsWith("http")) {
+                    link.setAttribute("target", "_blank");
+                    link.setAttribute("rel", "noopener noreferrer");
+                  }
+
+                  subLi.appendChild(link);
+                  innerUl.appendChild(subLi);
+                }
+              });
+
+              wrapperLi.appendChild(innerUl);
+              dropdownUl.appendChild(wrapperLi);
+              li.appendChild(dropdownUl); // `li` is your outer nav li for this section
+            }
+
+          }
+
+          if (displayOption === "link") {
+            li.className = "mdc-custom__link-container mdc-custom__main-nav-link";
+            li.setAttribute("tabindex", "0");
+
+              const a = document.createElement("a");
+              a.className = "mdc-custom__link-container__link";
+
+              // Normalize URL
+              const singleUrl = resolveUrl(item.url);
+
+              a.href = singleUrl;
+
+              if (item.linkNewWindow === "_blank") {
+                a.setAttribute("target", "_blank");
+                a.setAttribute("rel", "noopener noreferrer");
+              }
+
+              a.textContent = title;
+              li.appendChild(a);
+              navList.insertBefore(li, navSocial);
+              return;
+          }
+
+          
+        });
+
+
+        // Run on load and resize
+        moveTranslateDropdown();
+        window.addEventListener("resize", moveTranslateDropdown);
+
+
+
+
+
+
+        bindDropdownEvents(shadow);
+
+      })
+      .catch((err) => {
+        console.error("API fetch error:", err);
+
+          /*******************
+          HEADER SITE
+          *******************/
+
+          // Logo
+          logoImg.src = `https://www.miamidadepa.gov/resources-pa/images/main-pa-logo.png`;
+          logoImg.alt =  `Site Logo`;
+          logoLink.href = `https://www.miamidadepa.gov/pa/home.page`;
+
+          // Name
+          nameLine01.innerHTML = `Tomas Regalado`;
+          nameLine02.innerHTML = `Property Appraiser of Miami-Dade County`;
+
+
+
+      });
+    }
+
+    setupHeaderLogic() {
+      // Dispatch a custom event to signal a language change
+      this.shadowRoot
+        .getElementById("translate-dropdown")
+        .addEventListener("change", (e) => {
+          const selected = e.target.options[e.target.selectedIndex].text;
+          this.dispatchEvent(
+            new CustomEvent("pa-translate-language", {
+              bubbles: true,
+              detail: { language: selected },
+            })
+          );
+        });
+
+      /**************************
+          GOOGLE TRANSLATE
+      **************************/
+
+      // 1. Declare the callback globally BEFORE loading the script
+      window.googleTranslateElementInit = function () {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,es,ht",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+      };
+
+      // 2. Dynamically load the Google Translate script
+      const script = document.createElement("script");
+      script.src =
+        "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.defer = true;
+      document.head.appendChild(script);
+
+      // 3. Handle custom event from Web Component
+      document.addEventListener("pa-translate-language", function (event) {
+        const selectedLanguage = event.detail.language;
+        const translateEl = document.getElementById("google_translate_element");
+
+        if (!translateEl) {
+          console.warn("Google Translate element not found in DOM.");
+          return;
+        }
+
+        translateEl.click();
+
+        setTimeout(() => {
+          const iframes = document.querySelectorAll("iframe.skiptranslate");
+          let targetIframe = null;
+
+          for (const iframe of iframes) {
+            if (!iframe.parentElement.classList.contains("skiptranslate")) {
+              targetIframe = iframe;
+              break;
+            }
+          }
+
+          if (targetIframe) {
+            const doc =
+              targetIframe.contentDocument ||
+              targetIframe.contentWindow.document;
+            const menuItems = doc.querySelectorAll("a .text");
+
+            for (const item of menuItems) {
+              if (
+                item.innerText.trim().toLowerCase() ===
+                selectedLanguage.trim().toLowerCase()
+              ) {
+                item.parentElement.click();
+                return;
+              }
+            }
+          } else {
+            console.error("Google Translate iframe not found.");
+          }
+        }, 500);
+      });
+
+
+
+
+
+
+      /**************************
+        MAIN SITE NAVIGATION
+      **************************/
+
+      const root = this.shadowRoot;
+      const toggleButtons = root.querySelectorAll(".toggle-btn");
+      const toggleBtn = root.getElementById("mainMobileButton");
+      const menu = root.getElementById("navbarMainMenu");
+      const breakpoint = 1550;
+
+      const closeAllPanels = (except = null) => {
+        toggleButtons.forEach((button) => {
+          const panelId = button.getAttribute("aria-controls");
+          const panel = root.getElementById(panelId);
+          if (button !== except && panel && panel.classList.contains("open")) {
+            button.setAttribute("aria-expanded", "false");
+            collapsePanel(panel);
+          }
+        });
+      };
+
+      const expandPanel = (panel) => {
+        panel.hidden = false;
+        panel.classList.add("open");
+        panel.style.height = "0px";
+        requestAnimationFrame(() => {
+          panel.style.height = panel.scrollHeight + "px";
+          panel.addEventListener(
+            "transitionend",
+            function handler() {
+              panel.style.height = "auto";
+              panel.removeEventListener("transitionend", handler);
+            },
+            { once: true }
+          );
+        });
+      };
+
+      const collapsePanel = (panel) => {
+        panel.style.height = panel.scrollHeight + "px";
+        panel.offsetHeight;
+        panel.style.height = "0px";
+        panel.addEventListener(
+          "transitionend",
+          function handler() {
+            panel.hidden = true;
+            panel.classList.remove("open");
+            panel.style.height = "";
+            panel.removeEventListener("transitionend", handler);
+          },
+          { once: true }
+        );
+      };
+
+      const expandMenu = () => {
+        menu.hidden = false;
+        menu.style.height = "0px";
+        menu.style.overflow = "hidden";
+        requestAnimationFrame(() => {
+          menu.style.height = menu.scrollHeight + "px";
+        });
+        menu.addEventListener(
+          "transitionend",
+          function handler(e) {
+            if (e.target !== menu) return;
+            menu.style.height = "";
+            menu.style.overflow = "";
+            toggleBtn.setAttribute("aria-expanded", "true");
+            menu.removeEventListener("transitionend", handler);
+          },
+          { once: true }
+        );
+      };
+
+      const collapseMenu = () => {
+        menu.style.height = menu.scrollHeight + "px";
+        menu.style.overflow = "hidden";
+        requestAnimationFrame(() => {
+          menu.style.height = "0px";
+        });
+        menu.addEventListener(
+          "transitionend",
+          function handler(e) {
+            if (e.target !== menu) return;
+            menu.hidden = true;
+            menu.style.height = "";
+            menu.style.overflow = "";
+            toggleBtn.setAttribute("aria-expanded", "false");
+            menu.removeEventListener("transitionend", handler);
+          },
+          { once: true }
+        );
+      };
+
+      toggleBtn.addEventListener("click", () => {
+        const isExpanded = toggleBtn.getAttribute("aria-expanded") === "true";
+        isExpanded ? collapseMenu() : expandMenu();
+      });
+
+      const resetMenuOnResize = () => {
+        if (window.innerWidth >= breakpoint) {
+          menu.hidden = false;
+          menu.style.height = "";
+          menu.style.overflow = "";
+          toggleBtn.setAttribute("aria-expanded", "false");
+        } else {
+          const isExpanded = toggleBtn.getAttribute("aria-expanded") === "true";
+          if (!isExpanded) {
+            menu.hidden = true;
+            menu.style.height = "";
+            menu.style.overflow = "";
+          }
+        }
+      };
+
+      window.addEventListener("resize", resetMenuOnResize);
+      resetMenuOnResize();
+
+      /**************************
+        SEARCH OVERLAY
+      **************************/
+
+      // Search overlay logic
+      const searchButton = root.getElementById("search-button");
+      const closeButton = root.getElementById(
+        "mdc-custom_fullscreen-close-button"
+      );
+      const searchOverlay = root.getElementById("mdc-custom_search-overlay");
+      const searchInput = root.querySelector(
+        ".mdc-custom_fullscreen-search-input"
+      );
+      const searchForm = root.querySelector(
+        ".mdc-custom_fullscreen-searchform"
+      );
+
+      const searchFormWrapper = root.querySelector(
+        ".mdc-custom_fullscreen-search-wrapper"
+      );
+
+
+      if (
+        searchButton &&
+        closeButton &&
+        searchOverlay &&
+        searchInput &&
+        searchForm
+      ) {
+        searchButton.addEventListener("click", () => {
+          searchOverlay.classList.add("show");
+          setTimeout(() => searchInput.focus(), 200);
+        });
+
+        closeButton.addEventListener("click", () => {
+          searchOverlay.classList.remove("show");
+        });
+
+        const alignSearchForm = () => {
+          searchFormWrapper.style.marginTop = `${
+            window.innerHeight / 2 - searchForm.offsetHeight / 2
+          }px`;
+        };
+        alignSearchForm();
+        window.addEventListener("resize", alignSearchForm);
+      }
+    }
+
+  }
+
+  class PaInternalHeader extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+    }
+
+
+    connectedCallback() {
+
+
+
+      const siteInfo = `
+        <div class="header-site">
+          <div class="container-fluid">
+            <div class="header-site-parent">
+              <div class="header-site__logo">
+                <a href="" class="header-logo-link">
+                  <img src="" alt="" class="header-logo">
+                </a>
+                <div class="header-site__name">
+                  <div class="header-site__name-official"></div>
+                  <div class="header-site__name-agency"></div>
+                </div>
+              </div>
+              <div class="header-site__tools">
+                <!--Translate-->
+                <div translate="no" class="header-site__tools-translate">
+                  <label class="sr-only" for="translate-dropdown"
+                    >Select Language:</label
+                  >
+
+                  <select class="notranslate" id="translate-dropdown">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="ht">Haitian Creole</option>
+                  </select>
+                  <div style="display: none" id="google_translate_element"></div>
+                </div>
+                <!--Translate-->
+
+                <!--Search-->
+                <div class="header-site__tools-search">
+                  <button id="search-button" class="header-site__tools-search-button">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="mdc-custom__header-search__svg"
+                      viewBox="0 0 18 18"
+                      height="18"
+                      width="18"
+                    >
+                      <path
+                        stroke-width="0.5"
+                        d="M13.3266 11.304C14.292 9.96647 14.7189 8.34135 14.5213 6.72495C14.3141 5.03078 13.4368 3.47634 12.0697 2.37088C10.703 1.26574 8.94685 0.689783 7.15266 0.754989C5.35845 0.820196 3.6539 1.52196 2.38076 2.72365C1.10721 3.92572 0.359106 5.53995 0.290772 7.24437C0.222434 8.94886 0.839206 10.6124 2.01352 11.9025C3.18743 13.1921 4.83155 14.0134 6.61556 14.2063C8.32644 14.3912 10.0491 13.9856 11.4669 13.0663L15.5177 16.887C15.5177 16.887 15.5177 16.887 15.5177 16.887C15.7644 17.1198 16.096 17.2482 16.4389 17.2483C16.7819 17.2485 17.1136 17.1202 17.3604 16.8876C17.6077 16.6545 17.7497 16.335 17.7498 15.9986C17.7499 15.6621 17.6082 15.3426 17.3611 15.1093L17.361 15.1093L13.3266 11.304ZM13.0092 7.49815C13.0092 8.18549 12.8657 8.86648 12.5865 9.50238C12.3072 10.1383 11.8974 10.7171 11.3798 11.2054C10.8621 11.6936 10.2468 12.0817 9.56856 12.3466C8.89032 12.6116 8.16293 12.7481 7.42803 12.7481C6.69313 12.7481 5.96574 12.6116 5.2875 12.3466C4.60927 12.0817 3.99394 11.6936 3.47628 11.2054C2.95864 10.7171 2.54887 10.1383 2.26959 9.50238C1.99033 8.86648 1.84682 8.18549 1.84682 7.49815C1.84682 6.11063 2.43106 4.77677 3.47628 3.79093C4.52199 2.80461 5.94324 2.24815 7.42803 2.24815C8.91282 2.24815 10.3341 2.80461 11.3798 3.79093C12.425 4.77677 13.0092 6.11063 13.0092 7.49815Z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <!--/Search-->
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const searchOverlayInfo = `
+        <!--Search Overlay-->
+          <div
+            id="mdc-custom_search-overlay"
+            class="mdc-custom_fullscreen-search-overlay"
+          >
+            <button
+              id="mdc-custom_fullscreen-close-button"
+              class="btn mdc-custom_fullscreen-close"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 384 512"
+                height="1.5em"
+              >
+                <path
+                  d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                ></path>
+              </svg>
+            </button>
+            <div class="mdc-custom_fullscreen-search-wrapper">
+              <form
+                onsubmit="return q.value!=''"
+                class="mdc-custom_fullscreen-searchform"
+                method="get"
+                action="https://www.miamidadepa.gov/pa/search.page"
+              >
+                <input
+                  name="q"
+                  class="mdc-custom_fullscreen-search-input"
+                  value=""
+                  type="text"
+                  placeholder="Search..."
+                /><input class="mdc-custom_fullscreen_submit" type="submit" value="" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="mdc-custom_fullscreen-search-icon"
+                  fill="none"
+                  viewBox="0 0 18 18"
+                  height="1.5em"
+                >
+                  <path
+                    stroke-width="0.5"
+                    stroke="white"
+                    fill="white"
+                    d="M13.3266 11.304C14.292 9.96647 14.7189 8.34135 14.5213 6.72495C14.3141 5.03078 13.4368 3.47634 12.0697 2.37088C10.703 1.26574 8.94685 0.689783 7.15266 0.754989C5.35845 0.820196 3.6539 1.52196 2.38076 2.72365C1.10721 3.92572 0.359106 5.53995 0.290772 7.24437C0.222434 8.94886 0.839206 10.6124 2.01352 11.9025C3.18743 13.1921 4.83155 14.0134 6.61556 14.2063C8.32644 14.3912 10.0491 13.9856 11.4669 13.0663L15.5177 16.887C15.5177 16.887 15.5177 16.887 15.5177 16.887C15.7644 17.1198 16.096 17.2482 16.4389 17.2483C16.7819 17.2485 17.1136 17.1202 17.3604 16.8876C17.6077 16.6545 17.7497 16.335 17.7498 15.9986C17.7499 15.6621 17.6082 15.3426 17.3611 15.1093L17.361 15.1093L13.3266 11.304ZM13.0092 7.49815C13.0092 8.18549 12.8657 8.86648 12.5865 9.50238C12.3072 10.1383 11.8974 10.7171 11.3798 11.2054C10.8621 11.6936 10.2468 12.0817 9.56856 12.3466C8.89032 12.6116 8.16293 12.7481 7.42803 12.7481C6.69313 12.7481 5.96574 12.6116 5.2875 12.3466C4.60927 12.0817 3.99394 11.6936 3.47628 11.2054C2.95864 10.7171 2.54887 10.1383 2.26959 9.50238C1.99033 8.86648 1.84682 8.18549 1.84682 7.49815C1.84682 6.11063 2.43106 4.77677 3.47628 3.79093C4.52199 2.80461 5.94324 2.24815 7.42803 2.24815C8.91282 2.24815 10.3341 2.80461 11.3798 3.79093C12.425 4.77677 13.0092 6.11063 13.0092 7.49815Z"
+                  ></path>
+                </svg>
+              </form>
+            </div>
+          </div>
+          <!--/Search Overlay-->
+      `;
+
+      const headerHTML = `
+        <style>
+          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          /*------------------------------------------------
+
+          Table of Contents
+
+          01. GENERAL
+          02. HEADER
+              a. Important Message
+              b. Secondary Nav
+              c. Header Site
+          03. MAIN NAV
+          04. SEARCH OVERLAY
+          05. FOOTER
+
+          ------------------------------------------------*/
+          /* ------------------------------------------------*/
+          /* ---------------->>> GENERAL <<<-----------------*/
+          /* ------------------------------------------------*/
+          
+          .header {
+            --primary-color: hsl(199, 98%, 30%);
+            --secondary-color: hsl(199, 98%, 15%);
+            --secondary-color-500: hsl(199, 98%, calc(15% * 0.7));
+            --link-color: hsl(210, 56%, 37%);
+
+            --title-font-family: "Noto Serif", serif;
+            --nav-font-family: "Noto Sans", sans-serif;
+
+            --box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+          }
+
+
+          .header *,
+          .header::after,
+          .header::before {
+            box-sizing: border-box;
+          }
+
+          .header * {
+            margin: 0;
+            padding: 0;
+          }
+
+          a {
+            color: var(--link-color);
+          }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-family: var(--title-font-family);
+            font-weight: bold;
+          }
+
+          button {
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+
+          .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+          }
+
+          .sr-only-focusable:active,
+          .sr-only-focusable:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+          }
+
+          .hide-content {
+            display: none !important;
+          }
+
+          .container-fluid {
+            width: 100%;
+            padding-inline: 15px;
+            margin-inline: auto;
+          }
+
+          @media (width >= 1450px) {
+            .container-fluid {
+              padding-inline: 5rem;
+            }
+          }
+
+          /* ------------------------------------------------*/
+          /* ----------->>> BOOTSTRAP OVERRIDES <<<-----------*/
+          /* ------------------------------------------------*/
+
+          .btn-link {
+            color: var(--primary-color);
+          }
+
+          /* ------------------------------------------------*/
+          /* ----------------->>> HEADER <<<-----------------*/
+          /* ------------------------------------------------*/
+
+          .header {
+            margin-bottom: 2rem;
+
+            font-family: "Roboto", sans-serif;
+          }
+
+          /*--Header Site--*/
+
+          .header-site {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding-block: 1rem;
+          }
+
+          .header-logo {
+            max-height: 130px;
+          }
+
+          .header-site-parent {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+          }
+
+          .header-site__logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+          }
+
+          .header-site__name {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+          .header-site__name-official {
+            font-family: var(--title-font-family);
+            font-size: clamp(1.5rem, 2.25vw, 2.25rem);
+            font-weight: 700;
+            line-height: 1;
+          }
+
+          .header-site__name-agency {
+            font-family: var(--title-font-family);
+            font-size: clamp(1.25rem, 2vw, 2rem);
+            font-weight: 500;
+            line-height: 1.3;
+          }
+
+          .header-site__tools {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            justify-content: center;
+          }
+          
+          .header-site__tools-translate select {
+              background-color: var(--primary-color);
+              color: #fff;
+              border: none;
+            }
+            
+            .header-site__tools-translate option {
+              background-color: #fff;
+              color: var(--primary-color);
+            }
+          
+
+          .header-site__tools-search-button {
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            border-width: 0;
+            height: 40px;
+            aspect-ratio: 1/1;
+
+            display: grid;
+            place-items: center;
+
+            & svg {
+              fill: #fff;
+            }
+          }
+
+          /* ------------------------------------------------*/
+          /* ------------->>> SEARCH OVERLAY <<<-------------*/
+          /* ------------------------------------------------*/
+
+          .mdc-custom_fullscreen_submit {
+            position: absolute;
+            width: 50px;
+            height: 100%;
+            background-color: transparent;
+            border: 0;
+            right: 0;
+            top: 0;
+          }
+          .mdc-custom_fullscreen-searchform:focus {
+            outline: none;
+            border: none;
+          }
+
+          .mdc-custom_fullscreen-searchform {
+            position: relative;
+          }
+
+          .mdc-custom_fullscreen-search-input {
+            width: clamp(20rem, 70vw, 40rem);
+            background-color: transparent;
+            box-shadow: 0 3px 0 0 rgba(255, 255, 255, 1);
+            border: 0;
+            text-align: center;
+            font-size: clamp(1rem, -0.5625rem + 5vw, 2.25rem);
+            padding: 20px 60px 20px 20px;
+            color: #fff;
+            transition: all 0.3s ease-out;
+          }
+          .mdc-custom_fullscreen-search-input:focus {
+            border: none;
+            outline: none;
+            box-shadow: 0px 3px 0px 0px rgba(255, 255, 255, 0.54);
+          }
+
+          .mdc-custom_fullscreen-search-input::placeholder {
+            color: #fff;
+            opacity: 0.7;
+          }
+
+          .mdc-custom_fullscreen-search-overlay.show {
+            visibility: visible;
+            opacity: 1;
+          }
+
+          .mdc-custom_fullscreen-search-overlay {
+            --primary-color-opacity: hsla(217, 80%, calc(10% * 0.8), 0.9);
+
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            background-color: var(--primary-color-opacity);
+            text-align: center;
+            transition: all ease-in-out 0.25s;
+          }
+
+          .mdc-custom_animate-element,
+          .mdc-custom_effect-bg-layer,
+          .mdc-custom_fullscreen-search-overlay {
+            transform: translateZ(0);
+          }
+
+          .mdc-custom_fullscreen-search-overlay {
+            z-index: 5000;
+          }
+
+          .mdc-custom_fullscreen-close:is(:link, :visited) {
+            color: #fff;
+          }
+
+          .mdc-custom_fullscreen-close:focus {
+            box-shadow: none;
+          }
+
+          .mdc-custom_fullscreen-close {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            font-size: 26px;
+            transition: transform ease-out 0.2s;
+            transform: rotate(0deg);
+            fill: #fff;
+          }
+
+          .mdc-custom_fullscreen-search-overlay.show
+            .mdc-custom_fullscreen-search-wrapper {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+          }
+
+          .mdc-custom_fullscreen-search-wrapper {
+            display: inline-block;
+            max-width: 1000px;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 18px;
+
+            transform: scale(0.9);
+            opacity: 0;
+            visibility: hidden;
+            transition: all ease-in-out 0.3s;
+          }
+
+          .mdc-custom_search-trigger {
+            transition: color 0.2s ease-in-out;
+          }
+
+          .mdc-custom_fullscreen-search-icon {
+            position: absolute;
+            z-index: -1;
+            top: 35%;
+            right: 10px;
+            fill: #fff;
+          }
+        </style>
+
+        <header class="header">
+          <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+          ${siteInfo}
+          ${searchOverlayInfo}
+        </header>
+      `;
+
+      this.shadowRoot.innerHTML = headerHTML;
+      this.setupHeaderLogic();
+
+    // Once DOM is set, you can now safely select from shadow DOM
+    const shadow = this.shadowRoot;
+
+
+    // Logo
+    const logoImg = shadow.querySelector(".header-logo");
+    const logoLink = shadow.querySelector(".header-logo-link");
+
+    //Name
+    const nameLine01 = shadow.querySelector(".header-site__name-official");
+    const nameLine02 = shadow.querySelector(".header-site__name-agency");
+
+
+
+
+
+
+
+    // API Header call
+    fetch("https://api2.miamidade.gov/secureLscs/v1/document/$?format=json&includeDCRContent=true&q=TeamSite/LiveSite/Id:=m060q72v&project=//s0146562/BETA/main/Property%20Appraiser&format=json&includeDCRContent=true", {
+      method: "GET",
+      headers: {
+        "api-key": "0f3eb378ab6bc9ed"
+      }
+
+    })
+      .then((res) => res.json())
+      .then((data) => {
+
+        const apiPath = data.results.assets[0].content
+
+        //Controlling the doamin being injected when the path is relative
+        function resolveUrl(path) {
+          if (!path) return "#";
+
+          // If it's already a full URL, return as-is
+          if (path.startsWith("http")) return path;
+
+          // Remove leading slashes
+          const cleanPath = path.replace(/^\/+/, "");
+
+          // If it already has an extension (like .png), don't append .page
+          const hasExtension = /\.\w+$/.test(cleanPath);
+
+          return hasExtension
+            ? `https://www.miamidadepa.gov/${cleanPath}`
+            : `https://www.miamidadepa.gov/pa/${cleanPath}.page`;
+        }
+
+
+        
+
+        /*******************
+        HEADER SITE
+        *******************/
+        // Logo
+        const siteLogo = apiPath.navigationTop.siteLogo;
+
+        if (siteLogo && logoImg && logoLink) {
+          logoImg.src = resolveUrl(siteLogo.logo);
+          logoImg.alt = siteLogo.siteLogoAlt || "Site Logo";
+          logoLink.href = resolveUrl(siteLogo.siteLogoLink);
+        }
+
+        // Name
+        const siteTitleLine01 = apiPath.navigationTop.siteTitle.siteTitleLine01;
+        const siteTitleLine02 = apiPath.navigationTop.siteTitle.siteTitleLine02;
+
+        if(siteTitleLine01) {
+          nameLine01.innerHTML = siteTitleLine01;
+        }
+
+        if(siteTitleLine02) {
+          nameLine02.innerHTML = siteTitleLine02;
+        }
+
+        
+
+
+      })
+      .catch((err) => {
+        console.error("API fetch error:", err);
+
+          /*******************
+          HEADER SITE
+          *******************/
+
+          // Logo
+          logoImg.src = `https://www.miamidadepa.gov/resources-pa/images/main-pa-logo.png`;
+          logoImg.alt =  `Site Logo`;
+          logoLink.href = `https://www.miamidadepa.gov/pa/home.page`;
+
+          // Name
+          nameLine01.innerHTML = `Tomas Regalado`;
+          nameLine02.innerHTML = `Property Appraiser of Miami-Dade County`;
+
+
+
+      });
+    }
+
+
+    setupHeaderLogic() {
+
+      const root = this.shadowRoot;
+
+      // Dispatch a custom event to signal a language change
+      this.shadowRoot
+        .getElementById("translate-dropdown")
+        .addEventListener("change", (e) => {
+          const selected = e.target.options[e.target.selectedIndex].text;
+          this.dispatchEvent(
+            new CustomEvent("pa-translate-language", {
+              bubbles: true,
+              detail: { language: selected },
+            })
+          );
+        });
+
+      /**************************
+          GOOGLE TRANSLATE
+      **************************/
+
+      // 1. Declare the callback globally BEFORE loading the script
+      window.googleTranslateElementInit = function () {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,es,ht",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+      };
+
+      // 2. Dynamically load the Google Translate script
+      const script = document.createElement("script");
+      script.src =
+        "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.defer = true;
+      document.head.appendChild(script);
+
+      // 3. Handle custom event from Web Component
+      document.addEventListener("pa-translate-language", function (event) {
+        const selectedLanguage = event.detail.language;
+        const translateEl = document.getElementById("google_translate_element");
+
+        if (!translateEl) {
+          console.warn("Google Translate element not found in DOM.");
+          return;
+        }
+
+        translateEl.click();
+
+        setTimeout(() => {
+          const iframes = document.querySelectorAll("iframe.skiptranslate");
+          let targetIframe = null;
+
+          for (const iframe of iframes) {
+            if (!iframe.parentElement.classList.contains("skiptranslate")) {
+              targetIframe = iframe;
+              break;
+            }
+          }
+
+          if (targetIframe) {
+            const doc =
+              targetIframe.contentDocument ||
+              targetIframe.contentWindow.document;
+            const menuItems = doc.querySelectorAll("a .text");
+
+            for (const item of menuItems) {
+              if (
+                item.innerText.trim().toLowerCase() ===
+                selectedLanguage.trim().toLowerCase()
+              ) {
+                item.parentElement.click();
+                return;
+              }
+            }
+          } else {
+            console.error("Google Translate iframe not found.");
+          }
+        }, 500);
+      });
+
+      /**************************
+        SEARCH OVERLAY
+      **************************/
+
+      // Search overlay logic
+      const searchButton = root.getElementById("search-button");
+      const closeButton = root.getElementById(
+        "mdc-custom_fullscreen-close-button"
+      );
+      const searchOverlay = root.getElementById("mdc-custom_search-overlay");
+      const searchInput = root.querySelector(
+        ".mdc-custom_fullscreen-search-input"
+      );
+      const searchForm = root.querySelector(
+        ".mdc-custom_fullscreen-searchform"
+      );
+
+      if (
+        searchButton &&
+        closeButton &&
+        searchOverlay &&
+        searchInput &&
+        searchForm
+      ) {
+        searchButton.addEventListener("click", () => {
+          searchOverlay.classList.add("show");
+          setTimeout(() => searchInput.focus(), 200);
+        });
+
+        closeButton.addEventListener("click", () => {
+          searchOverlay.classList.remove("show");
+        });
+
+        const alignSearchForm = () => {
+          searchForm.style.marginTop = `${
+            window.innerHeight / 2 - searchForm.offsetHeight / 2
+          }px`;
+        };
+        alignSearchForm();
+        window.addEventListener("resize", alignSearchForm);
+      }
+    }
+
+
+
+
+  }
+
+  
+
+  class PaFooter extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+    }
+
+    connectedCallback() {
+      this.shadowRoot.innerHTML = `
+        <style>
+          /* ------------------------------------------------*/
+          /* ----------------->>> FOOTER <<<-----------------*/
+          /* ------------------------------------------------*/
+
+          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          
+          .footer {
+            --primary-color: hsl(217, 80%, 10%);
+            --secondary-color: hsl(213, 78%, 25%);
+            --secondary-color-500: hsl(213, 78%, calc(25% * 0.7));
+            --link-color: hsl(210, 56%, 37%);
+
+            --title-font-family: "Noto Serif", serif;
+            --nav-font-family: "Noto Sans", sans-serif;
+
+            --box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+          }
+
+          .footer *,
+          .footer ::after,
+          .footer ::before {
+            box-sizing: border-box;
+          }
+
+
+          .container-fluid {
+            width: 100%;
+            padding-inline: 15px;
+            margin-inline: auto;
+          }
+
+          @media (width >= 1450px) {
+            .container-fluid {
+              padding-inline: 5rem;
+            }
+          }
+          
+          .footer {
+            font-family: "Roboto", sans-serif;
+            margin-top: 2rem;
+            background-color: var(--primary-color);
+            color: #fff;
+          }
+          
+          .footer p { margin-bottom: 1rem; }
+          
+          .footer a {
+          	color: #fff;
+            text-decoration: underline;
+          }
+          
+          .footer ul {
+              display: flex;
+    		  flex-direction: column;
+    		  gap: 0.8rem;
+
+              list-style: none;
+              padding-left: 0;
+              line-height: 1.5;
+              margin-bottom: 1rem;
+           }
+          
+          
+
+          .footer__content {
+            padding-block: 3rem 2rem;
+          }
+
+          .footer__parent {
+            --min-column-size: 16rem;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(min(var(--min-column-size), 100%), 1fr)
+            );
+          }
+
+          .footer__parent-item > p img {
+            max-height: 160px;
+            width: auto;
+          }
+
+          .footer__title {
+            font-size: clamp(1.25rem, 0.15vw + 1.21rem, 1.33rem);
+            margin-bottom: 0.5rem;
+            font-family: var(--title-font-family);
+            font-weight: bold;
+          }
+
+          .footer__text-bottom > p:has(img) {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+          }
+
+          .footer__copyright {
+            font-size: 0.8rem;
+            padding-block: 1rem;
+          }
+
+          @media (width < 1200px) {
+            .footer {
+              text-align: center;
+            }
+
+            .footer__text-bottom > p:has(img) {
+              justify-content: center;
+            }
+
+            .footer__parent-item > p img {
+              max-width: 75px;
+              height: auto;
+            }
+
+          }
+
+        </style>
+        <footer class="footer">
+          <div class="footer__content">
+            <div class="container-fluid">
+              <div class="footer__parent">
+              </div>
+            </div>
+          </div>
+          <div class="footer__copyright">
+            <div class="container-fluid">
+              <div class="footer__copyright-text">
+              </div>
+            </div>
+          </div>
+        </footer>
+      `;
+
+        // Once DOM is set, you can now safely select from shadow DOM
+        const shadow = this.shadowRoot;
+
+        //API Footer Call
+        fetch("https://api2.miamidade.gov/secureLscs/v1/document/$?format=json&includeDCRContent=true&q=TeamSite/LiveSite/Id:=m060q72i&project=//s0146562/BETA/main/Property%20Appraiser&format=json&includeDCRContent=true", {
+          method: "GET",
+          headers: {
+            "api-key": "0f3eb378ab6bc9ed"
+          }
+
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const apiPath = data.results.assets[0].content
+
+            // Variables
+            const footerContainer = shadow.querySelector(".footer__parent");
+            const footerCopyRight = shadow.querySelector(".footer__copyright-text");
+            const mainContainer = apiPath.footer.mainContainer;
+
+            function fixRelativeUrls(html) {
+              const wrapper = document.createElement("div");
+              wrapper.innerHTML = html;
+
+              // Fix image src
+              wrapper.querySelectorAll("img").forEach((img) => {
+                const src = img.getAttribute("src");
+                if (src && src.startsWith("/")) {
+                  img.setAttribute("src", `https://www.miamidadepa.gov${src}`);
+                }
+              });
+
+              // Fix anchor href
+              wrapper.querySelectorAll("a").forEach((a) => {
+                const href = a.getAttribute("href");
+                if (href && !href.startsWith("http") && !href.startsWith("#")) {
+                  const normalized = href.replace(/^\/+/, ""); // remove leading slashes
+                  a.setAttribute("href", `https://www.miamidadepa.gov/pa/${normalized}`);
+                }
+              });
+
+
+              return wrapper.innerHTML;
+            }
+
+            //Controlling the doamin being injected when the path is relative
+            function resolveUrl(path) {
+              if (!path) return "#";
+
+              // If it's already a full URL, return as-is
+              if (path.startsWith("http")) return path;
+
+              // Remove leading slashes
+              const cleanPath = path.replace(/^\/+/, "");
+
+              // If it already has an extension (like .png), don't append .page
+              const hasExtension = /\.\w+$/.test(cleanPath);
+
+              return hasExtension
+                ? `https://www.miamidadepa.gov/${cleanPath}`
+                : `https://www.miamidadepa.gov/pa/${cleanPath}.page`;
+            }
+
+            mainContainer.forEach((item) => {
+              const section = document.createElement("div");
+
+              // Default to content block unless otherwise specified
+              section.className = item.title === "" ? "footer__parent-item" : "footer-content-item";
+
+              // Logo & description block (first item)
+              if (item.description && item.title === "") {
+                section.innerHTML = fixRelativeUrls(item.description);
+              }
+
+              // Title block (Help & Support, Key Services, etc.)
+              if (item.title) {
+                const h2 = document.createElement("h2");
+                h2.className = "footer__title";
+                h2.textContent = item.title;
+                section.appendChild(h2);
+              }
+
+              // Links block
+              if (Array.isArray(item.linkContainer)) {
+                const ul = document.createElement("ul");
+
+                item.linkContainer.forEach((linkItem) => {
+                  const li = document.createElement("li");
+                  const a = document.createElement("a");
+
+                  a.textContent = linkItem.linkText;
+                  a.href = resolveUrl(linkItem.linkAddress || "#");
+
+                  if (linkItem.linkNewWindow === "_blank") {
+                    a.target = "_blank";
+                    a.rel = "noopener";
+                  }
+
+                  li.appendChild(a);
+                  ul.appendChild(li);
+                });
+
+                section.appendChild(ul);
+              }
+
+              // Bottom description (used for social media icons)
+              if (item.descriptionBottom) {
+                const div = document.createElement("div");
+                div.className = "footer__text-bottom";
+                div.innerHTML = fixRelativeUrls(item.descriptionBottom);
+                section.appendChild(div);
+              }
+
+              footerContainer.appendChild(section);
+            });
+
+            footerCopyRight.innerHTML = apiPath.footer.copyrightText;
+          })
+          .catch((err) => {
+            console.error("API fetch error:", err);
+
+            const footerContainer = shadow.querySelector(".footer__parent");
+
+            footerContainer.innerHTML = `
+              <div class="footer__parent-item">
+                <p><img src="https://www.miamidadepa.gov/resources-pa/images/main-pa-logo.png" width="951" height="1103" alt="Footer Logo"></p>
+                <p>© 2025 Property Appraiser of Miami-Dade County. All rights reserved.</p>
+              </div>
+            `
+
+          });
+
+
+    }
+  }
+
+
+  class PaInternalFooter extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+    }
+
+    connectedCallback() {
+      this.shadowRoot.innerHTML = `
+        <style>
+          /* ------------------------------------------------*/
+          /* ----------------->>> FOOTER <<<-----------------*/
+          /* ------------------------------------------------*/
+
+          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+          
+          .footer {
+            --primary-color: hsl(199, 98%, 30%);
+            --secondary-color: hsl(199, 98%, 15%);
+            --secondary-color-500: hsl(199, 98%, calc(15% * 0.7));
+            --link-color: hsl(210, 56%, 37%);
+
+            --title-font-family: "Noto Serif", serif;
+            --nav-font-family: "Noto Sans", sans-serif;
+
+            --box-shadow: 0 0 24px rgba(0, 0, 0, 0.12);
+          }
+
+          .footer *,
+          .footer ::after,
+          .footer ::before {
+            box-sizing: border-box;
+          }
+
+
+          .container-fluid {
+            width: 100%;
+            padding-inline: 15px;
+            margin-inline: auto;
+          }
+
+          @media (width >= 1450px) {
+            .container-fluid {
+              padding-inline: 5rem;
+            }
+          }
+
+          .footer {
+            font-family: "Roboto", sans-serif;
+            margin-top: 2rem;
+            background-color: var(--primary-color);
+            color: #fff;
+          }
+          
+          .footer p { margin-bottom: 1rem; }
+          
+          .footer a {
+          	color: #fff;
+            text-decoration: underline;
+          }
+          
+          .footer ul {
+              display: flex;
+    		  flex-direction: column;
+    		  gap: 0.8rem;
+
+              list-style: none;
+              padding-left: 0;
+              line-height: 1.5;
+              margin-bottom: 1rem;
+           }
+
+          .footer__content {
+            padding-block: 3rem 2rem;
+          }
+
+          .footer__parent {
+            --min-column-size: 16rem;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(min(var(--min-column-size), 100%), 1fr)
+            );
+          }
+
+          .footer__parent-item > p img {
+            max-height: 160px;
+            width: auto;
+          }
+
+          .footer__title {
+            font-size: clamp(1.25rem, 0.15vw + 1.21rem, 1.33rem);
+            margin-bottom: 0.5rem;
+            font-family: var(--title-font-family);
+            font-weight: bold;
+          }
+
+          .footer__text-bottom > p:has(img) {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+          }
+
+          .footer__copyright {
+            font-size: 0.8rem;
+            padding-block: 1rem;
+          }
+
+          @media (width < 1200px) {
+            .footer {
+              text-align: center;
+            }
+
+            .footer__text-bottom > p:has(img) {
+              justify-content: center;
+            }
+          }
+
+        </style>
+        <footer class="footer">
+          <div class="footer__content">
+            <div class="container-fluid">
+              <div class="footer__parent">
+              </div>
+            </div>
+          </div>
+          <div class="footer__copyright">
+            <div class="container-fluid">
+              <div class="footer__copyright-text">
+              </div>
+            </div>
+          </div>
+        </footer>
+      `;
+
+        // Once DOM is set, you can now safely select from shadow DOM
+        const shadow = this.shadowRoot;
+
+        //API Footer Call
+        fetch("https://api2.miamidade.gov/secureLscs/v1/document/$?format=json&includeDCRContent=true&q=TeamSite/LiveSite/Id:=m060q72i&project=//s0146562/BETA/main/Property%20Appraiser&format=json&includeDCRContent=true", {
+          method: "GET",
+          headers: {
+            "api-key": "0f3eb378ab6bc9ed"
+          }
+
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const apiPath = data.results.assets[0].content
+
+            // Variables
+            const footerContainer = shadow.querySelector(".footer__parent");
+            const footerCopyRight = shadow.querySelector(".footer__copyright-text");
+            const mainContainer = apiPath.footer.mainContainer;
+
+            function fixRelativeUrls(html) {
+              const wrapper = document.createElement("div");
+              wrapper.innerHTML = html;
+
+              // Fix image src
+              wrapper.querySelectorAll("img").forEach((img) => {
+                const src = img.getAttribute("src");
+                if (src && src.startsWith("/")) {
+                  img.setAttribute("src", `https://www.miamidadepa.gov${src}`);
+                }
+              });
+
+              // Fix anchor href
+              wrapper.querySelectorAll("a").forEach((a) => {
+                const href = a.getAttribute("href");
+                if (href && !href.startsWith("http") && !href.startsWith("#")) {
+                  const normalized = href.replace(/^\/+/, ""); // remove leading slashes
+                  a.setAttribute("href", `https://www.miamidadepa.gov/pa/${normalized}`);
+                }
+              });
+
+
+              return wrapper.innerHTML;
+            }
+
+            //Controlling the doamin being injected when the path is relative
+            function resolveUrl(path) {
+              if (!path) return "#";
+
+              // If it's already a full URL, return as-is
+              if (path.startsWith("http")) return path;
+
+              // Remove leading slashes
+              const cleanPath = path.replace(/^\/+/, "");
+
+              // If it already has an extension (like .png), don't append .page
+              const hasExtension = /\.\w+$/.test(cleanPath);
+
+              return hasExtension
+                ? `https://www.miamidadepa.gov/${cleanPath}`
+                : `https://www.miamidadepa.gov/pa/${cleanPath}.page`;
+            }
+
+            const item = mainContainer[0];
+            if (!item) return; // Exit early if item is undefined
+
+
+              const section = document.createElement("div");
+
+              // Default to content block unless otherwise specified
+              section.className = item.title === "" ? "footer__parent-item" : "footer-content-item";
+
+              // Logo & description block (first item)
+              if (item.description && item.title === "") {
+                section.innerHTML = fixRelativeUrls(item.description);
+              }
+
+              // Title block (Help & Support, Key Services, etc.)
+              if (item.title) {
+                const h2 = document.createElement("h2");
+                h2.className = "footer__title";
+                h2.textContent = item.title;
+                section.appendChild(h2);
+              }
+
+              // Links block
+              if (Array.isArray(item.linkContainer)) {
+                const ul = document.createElement("ul");
+
+                item.linkContainer.forEach((linkItem) => {
+                  const li = document.createElement("li");
+                  const a = document.createElement("a");
+
+                  a.textContent = linkItem.linkText;
+                  a.href = resolveUrl(linkItem.linkAddress || "#");
+
+                  if (linkItem.linkNewWindow === "_blank") {
+                    a.target = "_blank";
+                    a.rel = "noopener";
+                  }
+
+                  li.appendChild(a);
+                  ul.appendChild(li);
+                });
+
+                section.appendChild(ul);
+              }
+
+              // Bottom description (used for social media icons)
+              if (item.descriptionBottom) {
+                const div = document.createElement("div");
+                div.className = "footer__text-bottom";
+                div.innerHTML = fixRelativeUrls(item.descriptionBottom);
+                section.appendChild(div);
+              }
+
+              footerContainer.appendChild(section);
+
+
+            footerCopyRight.innerHTML = apiPath.footer.copyrightText;
+          })
+          .catch((err) => {
+            console.error("API fetch error:", err);
+
+            const footerContainer = shadow.querySelector(".footer__parent");
+
+            footerContainer.innerHTML = `
+              <div class="footer__parent-item">
+                <p><img src="https://www.miamidade.gov/resources-pa/images/main-pa-logo.png" width="951" height="1103" alt="Footer Logo"/></p>
+                <p>© 2025 Property Appraiser of Miami-Dade County. All rights reserved.</p>
+              </div>
+            `
+
+          });
+
+
+    }
+  }
+
+
+
+
+
+  customElements.define("pa-header", PaHeader);
+  customElements.define("pa-internal-header", PaInternalHeader);
+  customElements.define("pa-footer", PaFooter);
+  customElements.define("pa-internal-footer", PaInternalFooter);
+});

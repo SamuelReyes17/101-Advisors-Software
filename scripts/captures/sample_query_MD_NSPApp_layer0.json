@@ -1,0 +1,69 @@
+{
+  "displayFieldName": "FOLIO",
+  "fieldAliases": {
+    "FOLIO": "FOLIO",
+    "OBJECTID": "OBJECTID",
+    "TRUE_SITE_ADDR": "true_site_addr",
+    "TRUE_OWNER1": "true_owner1",
+    "MAILING_BLOCK_LINE3": "mailing_block_line3",
+    "MAILING_BLOCK_LINE4": "mailing_block_line4"
+  },
+  "geometryType": "esriGeometryPoint",
+  "spatialReference": {
+    "wkid": 102658,
+    "latestWkid": 2236
+  },
+  "fields": [
+    {
+      "name": "FOLIO",
+      "type": "esriFieldTypeString",
+      "alias": "FOLIO",
+      "length": 13
+    },
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "TRUE_SITE_ADDR",
+      "type": "esriFieldTypeString",
+      "alias": "true_site_addr",
+      "length": 100
+    },
+    {
+      "name": "TRUE_OWNER1",
+      "type": "esriFieldTypeString",
+      "alias": "true_owner1",
+      "length": 100
+    },
+    {
+      "name": "MAILING_BLOCK_LINE3",
+      "type": "esriFieldTypeString",
+      "alias": "mailing_block_line3",
+      "length": 50
+    },
+    {
+      "name": "MAILING_BLOCK_LINE4",
+      "type": "esriFieldTypeString",
+      "alias": "mailing_block_line4",
+      "length": 50
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "FOLIO": "0141160040250",
+        "OBJECTID": 57025,
+        "TRUE_SITE_ADDR": "2735 SW 36 AVE",
+        "TRUE_OWNER1": "HERNANDO AMIL LE",
+        "MAILING_BLOCK_LINE3": "2735 SW 36 AVE",
+        "MAILING_BLOCK_LINE4": "MIAMI, FL 33133"
+      },
+      "geometry": {
+        "x": 902588.5222531743,
+        "y": 512284.14017177373
+      }
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "displayFieldName": "st_name",
+  "fieldAliases": {
+    "OBJECTID": "OBJECTID",
+    "LPROP_ID": "LPROP_ID",
+    "ADDRESSID": "ADDRESSID",
+    "FOLIO": "FOLIO",
+    "POINT_X": "POINT_X",
+    "POINT_Y": "POINT_Y",
+    "HSE_NUM": "HSE_NUM",
+    "PRE_DIR": "PRE_DIR",
+    "ST_NAME": "ST_NAME",
+    "ST_TYPE": "ST_TYPE",
+    "SUF_DIR": "SUF_DIR",
+    "ZIP": "ZIP",
+    "PLUS4": "PLUS4",
+    "MUNIC": "MUNIC",
+    "SNAME": "SNAME",
+    "MAILING_MUNIC": "MAILING_MUNIC",
+    "GlobalID": "GlobalID",
+    "MUNIC_NAME": "MUNIC_NAME"
+  },
+  "geometryType": "esriGeometryPoint",
+  "spatialReference": {
+    "wkid": 102658,
+    "latestWkid": 2236
+  },
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "LPROP_ID",
+      "type": "esriFieldTypeInteger",
+      "alias": "LPROP_ID"
+    },
+    {
+      "name": "ADDRESSID",
+      "type": "esriFieldTypeInteger",
+      "alias": "ADDRESSID"
+    },
+    {
+      "name": "FOLIO",
+      "type": "esriFieldTypeString",
+      "alias": "FOLIO",
+      "length": 13
+    },
+    {
+      "name": "POINT_X",
+      "type": "esriFieldTypeDouble",
+      "alias": "POINT_X"
+    },
+    {
+      "name": "POINT_Y",
+      "type": "esriFieldTypeDouble",
+      "alias": "POINT_Y"
+    },
+    {
+      "name": "HSE_NUM",
+      "type": "esriFieldTypeInteger",
+      "alias": "HSE_NUM"
+    },
+    {
+      "name": "PRE_DIR",
+      "type": "esriFieldTypeString",
+      "alias": "PRE_DIR",
+      "length": 2
+    },
+    {
+      "name": "ST_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "ST_NAME",
+      "length": 30
+    },
+    {
+      "name": "ST_TYPE",
+      "type": "esriFieldTypeString",
+      "alias": "ST_TYPE",
+      "length": 4
+    },
+    {
+      "name": "SUF_DIR",
+      "type": "esriFieldTypeString",
+      "alias": "SUF_DIR",
+      "length": 2
+    },
+    {
+      "name": "ZIP",
+      "type": "esriFieldTypeInteger",
+      "alias": "ZIP"
+    },
+    {
+      "name": "PLUS4",
+      "type": "esriFieldTypeSmallInteger",
+      "alias": "PLUS4"
+    },
+    {
+      "name": "MUNIC",
+      "type": "esriFieldTypeSmallInteger",
+      "alias": "MUNIC"
+    },
+    {
+      "name": "SNAME",
+      "type": "esriFieldTypeString",
+      "alias": "SNAME",
+      "length": 42
+    },
+    {
+      "name": "MAILING_MUNIC",
+      "type": "esriFieldTypeString",
+      "alias": "MAILING_MUNIC",
+      "length": 25
+    },
+    {
+      "name": "GlobalID",
+      "type": "esriFieldTypeGlobalID",
+      "alias": "GlobalID",
+      "length": 38
+    },
+    {
+      "name": "MUNIC_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "MUNIC_NAME",
+      "length": 25
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 453166,
+        "LPROP_ID": 41162013,
+        "ADDRESSID": 283549,
+        "FOLIO": "0141160040250",
+        "POINT_X": 902588.25008927,
+        "POINT_Y": 512287.93757145,
+        "HSE_NUM": 2735,
+        "PRE_DIR": "SW",
+        "ST_NAME": "36TH",
+        "ST_TYPE": "AVE",
+        "SUF_DIR": null,
+        "ZIP": 33133,
+        "PLUS4": 2723,
+        "MUNIC": 1,
+        "SNAME": "SW 36TH AVE",
+        "MAILING_MUNIC": "MIAMI",
+        "GlobalID": "{9721B237-823B-45C8-ACED-53BF9BD7137A}",
+        "MUNIC_NAME": "MIAMI"
+      },
+      "geometry": {
+        "x": 902588.2500782572,
+        "y": 512287.9375773594
+      }
+    }
+  ]
+}
