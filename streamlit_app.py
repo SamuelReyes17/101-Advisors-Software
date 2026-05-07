@@ -112,26 +112,91 @@ def load_data() -> tuple[pd.DataFrame, str]:
     """Load leads from CSV.
 
     Preference order:
-        1. data/leads.csv (production — written by the pipeline)
-        2. data/sample_leads.csv (development fallback)
+        1. data/leads.csv (production — written by the pipeline) — only if it has actual data rows.
+        2. data/sample_leads.csv (development fallback).
 
     Returns the dataframe and a label indicating which source was used.
+    Robust against:
+      - empty production CSVs (just headers)
+      - mixed pandas/PyArrow string dtypes (Python 3.14 / pandas 2.2+)
+      - missing columns
+      - NaN values in string columns
     """
     base = Path(__file__).parent / "data"
     real = base / "leads.csv"
     sample = base / "sample_leads.csv"
 
+    def _read(p):
+        # Force string dtype on common text columns to avoid PyArrow vs object mixing.
+        return pd.read_csv(
+            p,
+            parse_dates=["first_seen", "last_updated"],
+            dtype={
+                "lead_id": str,
+                "county": str,
+                "category": str,
+                "property_address": str,
+                "city": str,
+                "zip": str,
+                "property_type": str,
+                "owner_first": str,
+                "owner_last": str,
+                "owner_phone": str,
+                "owner_email": str,
+                "lender_name": str,
+                "lender_phone": str,
+                "lender_email": str,
+                "bank_address": str,
+                "status": str,
+                "assigned_to": str,
+                "notes": str,
+            },
+        )
+
+    # Decide which file to use
+    df = None
+    source_label = "demo"
     if real.exists():
-        path = real
-        source_label = "production"
-    else:
-        path = sample
+        try:
+            candidate = _read(real)
+            if len(candidate) > 0:
+                df = candidate
+                source_label = "production"
+        except Exception:
+            df = None
+
+    if df is None:
+        df = _read(sample)
         source_label = "demo"
 
-    df = pd.read_csv(path, parse_dates=["first_seen", "last_updated"])
-    df["full_address"] = df["property_address"] + ", " + df["city"] + " " + df["zip"].astype(str)
-    df["owner_name"] = df["owner_first"].fillna("") + " " + df["owner_last"].fillna("")
-    df["total_unpaid_taxes"] = df["unpaid_taxes_2024"].fillna(0) + df["unpaid_taxes_2025"].fillna(0)
+    # Fillna on string cols so concatenation doesn't choke on NaN.
+    string_cols = [
+        "property_address", "city", "zip", "owner_first", "owner_last",
+        "owner_phone", "owner_email", "lender_name", "lender_phone",
+        "lender_email", "bank_address", "status", "assigned_to", "notes",
+        "property_type", "category", "county",
+    ]
+    for c in string_cols:
+        if c in df.columns:
+            df[c] = df[c].fillna("").astype(str)
+        else:
+            df[c] = ""
+
+    # Robust string concatenation
+    df["full_address"] = (
+        df["property_address"] + ", " + df["city"] + " " + df["zip"]
+    ).str.strip(" ,")
+    df["owner_name"] = (df["owner_first"] + " " + df["owner_last"]).str.strip()
+
+    # Numeric fillna
+    for c in ["unpaid_taxes_2024", "unpaid_taxes_2025", "outstanding_debt", "equity",
+              "units", "bedrooms"]:
+        if c in df.columns:
+            df[c] = pd.to_numeric(df[c], errors="coerce").fillna(0)
+        else:
+            df[c] = 0
+    df["total_unpaid_taxes"] = df["unpaid_taxes_2024"] + df["unpaid_taxes_2025"]
+
     return df, source_label
 
 
