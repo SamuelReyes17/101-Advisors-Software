@@ -441,8 +441,16 @@ selection = st.dataframe(
         "attorney_name":      st.column_config.TextColumn("Attorney Name", width="medium"),
         "attorney_phone":     st.column_config.TextColumn("Attorney Phone", width="small"),
         "attorney_email":     st.column_config.TextColumn("Attorney Email", width="medium"),
-        "unpaid_taxes_2024":  st.column_config.NumberColumn("Unpaid Taxes 2024", format="$%d", width="small"),
-        "unpaid_taxes_2025":  st.column_config.NumberColumn("Unpaid Taxes 2025", format="$%d", width="small"),
+        "unpaid_taxes_2024":  st.column_config.NumberColumn(
+            "Est. Tax 2024", format="$%d", width="small",
+            help="Estimado del tax bill anual (Taxable Value × 22 mills). "
+                 "Para delinquency real click 🧾 Tax.",
+        ),
+        "unpaid_taxes_2025":  st.column_config.NumberColumn(
+            "Est. Tax 2025", format="$%d", width="small",
+            help="Estimado del tax bill anual (Taxable Value × 22 mills). "
+                 "Para delinquency real click 🧾 Tax.",
+        ),
         # Lookup buttons al final
         "zillow_url":         st.column_config.LinkColumn("🏡", display_text="Zillow", width="small"),
         "owner_lookup_url":   st.column_config.LinkColumn(
