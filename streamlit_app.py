@@ -90,16 +90,23 @@ MLS_TO_LEON_CATEGORY = {
     "Liens":       "Liens",
 }
 
-TAX_URLS = {
-    "Miami-Dade": "https://www.miamidade.gov/Apps/PA/PropertySearch/#/?folio=",
-    "Broward":    "https://broward.county-taxes.com/public/real_estate/searches?search=",
+# Tax URLs — TESTED working URLs.
+# For Miami-Dade we have folio so we deep-link to the PA SPA (which shows
+# tax info in the Taxes tab). For Broward/PB we open the public search.
+TAX_URLS_FOLIO = {
+    "Miami-Dade": "https://apps.miamidadepa.gov/propertysearch/#/property?folio=",
+}
+TAX_URLS_ADDRESS = {
+    "Broward":    "https://web.bcpa.net/bcpaclient/#/Record-Search",
     "Palm Beach": "https://pbctax.gov/property-tax/",
 }
 
+# Clerk URLs — public portals. Most are SPAs that don't accept deep links,
+# so we open the home page; the agent does ~2 clicks to reach case search.
 CLERK_URLS = {
-    "Miami-Dade": "https://www2.miamidadeclerk.gov/ocs/Search.aspx?q=",
-    "Broward":    "https://www.browardclerk.org/Web/case_search/?DataType=PartyName&SearchName=",
-    "Palm Beach": "https://applications.mypalmbeachclerk.com/CourtCaseSearch/?Name=",
+    "Miami-Dade": "https://www2.miamidadeclerk.gov/ocs/#/Search",
+    "Broward":    "https://www.browardclerk.org/Web/case_search/",
+    "Palm Beach": "https://applications.mypalmbeachclerk.com/CourtCaseSearch/",
 }
 
 
@@ -201,29 +208,47 @@ def build_zillow_url(address: str) -> str:
     return f"https://www.zillow.com/homes/{urllib.parse.quote_plus(address)}_rb/"
 
 
-def build_owner_lookup_url(owner_name: str, city: str = "") -> str:
+def build_owner_lookup_url(owner_name: str, city: str = "", zip_code: str = "") -> str:
+    """For LLCs → Sunbiz search. For persons → TruePeopleSearch with
+    City+State+ZIP for narrower results."""
     if not owner_name:
         return ""
-    name_q = urllib.parse.quote_plus(owner_name)
+    name_q = urllib.parse.quote_plus(owner_name.strip())
     if is_llc(owner_name):
+        # LLC search on Sunbiz by entity name
         return f"https://search.sunbiz.org/Inquiry/CorporationSearch/ByName?searchTerm={name_q}"
-    city_q = urllib.parse.quote_plus(city) if city else ""
-    suffix = f"&citystatezip={city_q}+FL" if city_q else ""
-    return f"https://www.truepeoplesearch.com/results?name={name_q}{suffix}"
+
+    # Person search on TruePeopleSearch — needs city+state to narrow it down
+    citystate = (city or "Miami").strip()
+    if zip_code:
+        citystatezip = f"{citystate}%2C+FL+{zip_code}"  # "City, FL 33133"
+    else:
+        citystatezip = f"{citystate}%2C+FL"  # "City, FL"
+    return f"https://www.truepeoplesearch.com/results?name={name_q}&citystatezip={citystatezip}"
 
 
-def build_tax_url(county: str, address: str) -> str:
-    if not address:
-        return ""
-    base = TAX_URLS.get(county, TAX_URLS["Miami-Dade"])
-    return base + urllib.parse.quote_plus(address)
+def build_tax_url(county: str, address: str, folio: str = "") -> str:
+    """For Miami-Dade with folio, deep-link to the PA SPA on that property
+    (tax info is visible in the Taxes tab). For Broward/PB, open the county
+    tax search portal."""
+    # Miami-Dade — best deep link via folio
+    if county == "Miami-Dade" and folio:
+        return TAX_URLS_FOLIO["Miami-Dade"] + folio.strip()
+    # Broward — BCPA search
+    if county == "Broward":
+        return TAX_URLS_ADDRESS["Broward"]
+    # Palm Beach
+    if county == "Palm Beach":
+        return TAX_URLS_ADDRESS["Palm Beach"]
+    # Fallback: Miami-Dade PA SPA home (user can search address there)
+    return "https://apps.miamidadepa.gov/propertysearch/"
 
 
-def build_clerk_url(county: str, owner_name: str) -> str:
-    if not owner_name:
-        return ""
-    base = CLERK_URLS.get(county, CLERK_URLS["Miami-Dade"])
-    return base + urllib.parse.quote_plus(owner_name)
+def build_clerk_url(county: str, owner_name: str = "") -> str:
+    """Open the Clerk's case search page. Deep links into searches don't
+    work for these SPAs — the agent needs to type the owner name once
+    they're on the search page."""
+    return CLERK_URLS.get(county, CLERK_URLS["Miami-Dade"])
 
 
 df, data_source = load_data()
@@ -350,17 +375,15 @@ if len(filtered) == 0:
 
 display = filtered.copy()
 
-# Compute link URLs
+# Compute link URLs (using folio + zip for better targeting)
 display["zillow_url"] = display["full_address"].apply(build_zillow_url)
 display["owner_lookup_url"] = display.apply(
-    lambda r: build_owner_lookup_url(r["owner_name"], r["city"]), axis=1
+    lambda r: build_owner_lookup_url(r["owner_name"], r["city"], r["zip"]), axis=1
 )
 display["tax_url"] = display.apply(
-    lambda r: build_tax_url(r["county"], r["full_address"]), axis=1
+    lambda r: build_tax_url(r["county"], r["full_address"], r.get("folio", "")), axis=1
 )
-display["clerk_url"] = display.apply(
-    lambda r: build_clerk_url(r["county"], r["owner_name"]), axis=1
-)
+display["clerk_url"] = display["county"].apply(build_clerk_url)
 
 # Sort: Miami-Dade leads first (most data), then by tax estimate descending
 # (high-value leads on top). Empty rows last.
