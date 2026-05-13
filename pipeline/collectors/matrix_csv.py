@@ -279,6 +279,21 @@ def _row_to_lead(row: dict, today: date, default_category: str = "Foreclosure") 
     if not full_addr:
         return None
 
+    # Normalize duplicated street-type suffix that Matrix sometimes injects
+    # (e.g. "857 Wandering Willow Way Way" → "857 Wandering Willow Way").
+    # This is the canonical list of FL street suffixes that appear in MLS
+    # data. The regex collapses repeats only when the SAME suffix word
+    # immediately follows itself, so we don't accidentally clobber legit
+    # "Court Drive" or "Park Way" patterns.
+    _SUFFIX_DEDUP_RE = re.compile(
+        r'\b(Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Court|Ct|'
+        r'Place|Pl|Lane|Ln|Way|Terrace|Ter|Highway|Hwy|Circle|Cir|Parkway|Pkwy|'
+        r'Trail|Trl|Square|Sq|Loop|Run|Path|Walk|Crescent|Cres|Plaza|Plz)'
+        r'\s+\1\b',
+        re.IGNORECASE,
+    )
+    full_addr = _SUFFIX_DEDUP_RE.sub(r'\1', full_addr).strip()
+
     city = _find_column(row, *COLUMN_ALIASES["city"])
     zip_code = _find_column(row, *COLUMN_ALIASES["zip"])
 
