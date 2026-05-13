@@ -41,35 +41,43 @@ log = logging.getLogger(__name__)
 
 
 # Map possible column names to our canonical fields. Order matters — first hit wins.
+# Includes alias for SEF MLS Matrix "Agent Single Line" format.
 COLUMN_ALIASES = {
-    "mls_id": ["ML#", "MLS #", "MLS Number", "Listing ID", "MLS_ID"],
-    "status": ["Status", "MLS Status"],
-    "list_price": ["List Price", "LP$", "LP", "Price", "Asking Price"],
-    "address": ["Address", "Street Address", "Full Address"],
+    "mls_id": ["ML#", "MLS #", "MLS Number", "Listing ID", "MLS_ID",
+               "MLS # Link", "MLS#", "MLS_NUM", "MLS Link"],
+    "status": ["Status", "MLS Status", "St"],
+    "list_price": ["List Price", "LP$", "LP", "Price", "Asking Price",
+                   "Current Price", "List $"],
+    "address": ["Address", "Street Address", "Full Address", "Site Address"],
     "street_num": ["Street #", "Street Number", "HSE_NUM"],
     "street_dir": ["Street Dir", "Direction", "Pre Dir"],
     "street_name": ["Street Name", "ST_NAME"],
     "street_type": ["Street Type", "ST_TYPE"],
-    "city": ["City", "Municipality"],
-    "zip": ["Zip", "Zip Code", "Postal Code"],
-    "state": ["State", "ST"],
+    "city": ["City", "Municipality", "City Name"],
+    "zip": ["Zip", "Zip Code", "Postal Code", "ZIP"],
+    "state": ["State"],
     "county": ["County"],
-    "property_type": ["Property Type", "Type", "Type of Property", "RES Property Type"],
+    "area": ["Area"],   # Matrix uses numeric "Area" code as geographic zone
+    "property_type": ["Property Type", "Type", "Type of Property", "RES Property Type",
+                      "Property Sub Type", "Prop Type"],
     "subtype": ["Property Subtype", "Subtype"],
-    "beds": ["Beds", "Bedrooms", "# Beds", "Total Bedrooms", "BR"],
-    "baths_full": ["# Full Baths", "Full Baths", "FB"],
-    "baths_half": ["# Half Baths", "Half Baths", "HB"],
-    "sqft": ["SqFt Living Area", "Living Area", "SqFt", "Sqft Living", "Heated Area"],
-    "year_built": ["Year Built", "YR", "Year"],
-    "lot_size": ["Lot SF", "Lot Size", "Lot Sqft"],
-    "reo": ["REO", "Bank Owned", "Bank-Owned"],
-    "short_sale": ["Short Sale", "Short_Sale"],
+    "beds": ["Beds", "Bedrooms", "# Beds", "#Beds", "Total Bedrooms", "BR", "Bd"],
+    "baths_full": ["# Full Baths", "#FBaths", "Full Baths", "FB", "Full Bths"],
+    "baths_half": ["# Half Baths", "#HBaths", "Half Baths", "HB", "Half Bths"],
+    "sqft": ["SqFt Living Area", "SqFt LA", "Living Area", "SqFt", "Sqft Living",
+             "Heated Area", "SF Heated", "Heated SqFt"],
+    "year_built": ["Year Built", "YR", "Year", "Yr Built"],
+    "lot_size": ["Lot SF", "Lot Size", "Lot Sqft", "Lot Size SF", "Lot SqFt"],
+    "reo": ["REO", "Bank Owned", "Bank-Owned", "REO YN"],
+    "short_sale": ["Short Sale", "Short_Sale", "Short Sale YN"],
     "auction_type": ["Auction Type", "Auction"],
-    "dom": ["DOM", "Days on Market", "Days On Market"],
-    "agent_name": ["Listing Agent", "Listing Agent Name", "LA Name", "Agent Name"],
-    "agent_phone": ["Listing Agent Phone", "LA Phone", "Agent Phone"],
-    "subdivision": ["Subdivision", "Subdivision/Complex"],
-    "remarks": ["Remarks", "Public Remarks", "Description"],
+    "dom": ["DOM", "Days on Market", "Days On Market", "CDOM"],
+    "agent_name": ["Listing Agent", "Listing Agent Name", "LA Name", "Agent Name",
+                   "List Agent"],
+    "agent_phone": ["Listing Agent Phone", "LA Phone", "Agent Phone", "List Agent Phone"],
+    "subdivision": ["Subdivision", "Subdivision/Complex", "Sub/Complex", "Complex"],
+    "remarks": ["Remarks", "Public Remarks", "Description", "Listing Remarks"],
+    "garage": ["#Garage", "# Garage Spaces", "Garage Spaces", "Garage"],
 }
 
 
@@ -112,8 +120,8 @@ def _detect_category(row: dict) -> str:
 
 def _normalize_property_type(raw: str, beds: int) -> str:
     """Map Matrix property type strings to our standard set."""
-    r = (raw or "").lower()
-    if "single family" in r or "sfr" in r:
+    r = (raw or "").lower().strip()
+    if r == "single" or "single family" in r or "sfr" in r:
         return "Single Family"
     if "condo" in r:
         return "Condominium"
@@ -188,11 +196,15 @@ def _safe_float(s: str) -> float:
         return 0.0
 
 
-def parse_matrix_csv(content: str) -> list[Lead]:
+def parse_matrix_csv(content: str, default_category: str = "Foreclosure") -> list[Lead]:
     """Parse a Matrix CSV export string and return Lead objects.
 
     Args:
         content: raw CSV text (from file upload or file read).
+        default_category: assumed category when the CSV doesn't have REO/Short Sale
+            columns (typical for "Agent Single Line" format). All rows from a
+            specific Saved Search inherit this category. Override per-export
+            if needed (REO, Short Sale, Auction).
 
     Returns:
         List of Lead objects normalized to our canonical schema.
@@ -202,14 +214,43 @@ def parse_matrix_csv(content: str) -> list[Lead]:
 
     # Try to detect delimiter (Matrix sometimes uses tabs)
     sample = content[:2048]
-    dialect = csv.Sniffer().sniff(sample, delimiters=",\t;")
+    try:
+        dialect = csv.Sniffer().sniff(sample, delimiters=",\t;")
+    except csv.Error:
+        dialect = csv.excel
 
-    reader = csv.DictReader(io.StringIO(content), dialect=dialect)
-    for i, row in enumerate(reader, 1):
+    # Read raw rows so we can fix empty/duplicate headers
+    raw_reader = csv.reader(io.StringIO(content), dialect=dialect)
+    try:
+        headers = next(raw_reader)
+    except StopIteration:
+        log.warning("CSV is empty")
+        return []
+
+    # Rename empty/duplicate headers so DictReader doesn't drop columns
+    seen: dict[str, int] = {}
+    clean_headers: list[str] = []
+    for i, h in enumerate(headers):
+        h_clean = (h or "").strip()
+        if not h_clean:
+            h_clean = f"col_{i}"
+        if h_clean in seen:
+            seen[h_clean] += 1
+            h_clean = f"{h_clean}_{seen[h_clean]}"
+        else:
+            seen[h_clean] = 1
+        clean_headers.append(h_clean)
+
+    log.info("Detected %d columns: %s", len(clean_headers), clean_headers[:10])
+
+    for i, raw_row in enumerate(raw_reader, 1):
         try:
-            lead = _row_to_lead(row, today)
+            row = dict(zip(clean_headers, raw_row))
+            lead = _row_to_lead(row, today, default_category)
             if lead:
                 leads.append(lead)
+            else:
+                log.debug("Row %d: no MLS# or address found, skipping", i)
         except Exception as e:
             log.warning("Failed to parse row %d: %s", i, e)
             continue
@@ -218,9 +259,11 @@ def parse_matrix_csv(content: str) -> list[Lead]:
     return leads
 
 
-def _row_to_lead(row: dict, today: date) -> Lead | None:
+def _row_to_lead(row: dict, today: date, default_category: str = "Foreclosure") -> Lead | None:
     """Convert one CSV row into a Lead object."""
-    mls_id = _find_column(row, *COLUMN_ALIASES["mls_id"])
+    mls_id_raw = _find_column(row, *COLUMN_ALIASES["mls_id"])
+    # Clean MLS# — sometimes Matrix exports it with leading/trailing chars or as a link.
+    mls_id = re.sub(r"[^A-Z0-9-]", "", mls_id_raw.upper()) if mls_id_raw else ""
     if not mls_id:
         return None
 
@@ -255,7 +298,16 @@ def _row_to_lead(row: dict, today: date) -> Lead | None:
     property_type_raw = _find_column(row, *COLUMN_ALIASES["property_type"])
     property_type = _normalize_property_type(property_type_raw, beds)
 
-    category = _detect_category(row)
+    # If the CSV has REO/Short Sale/Auction columns, use them. Otherwise fall back
+    # to the default_category passed by the caller (which assumes the CSV came
+    # from a specific Saved Search like "REO Daily Alert").
+    has_distressed_cols = any(
+        _find_column(row, *COLUMN_ALIASES[k]) for k in ("reo", "short_sale", "auction_type")
+    )
+    if has_distressed_cols:
+        category = _detect_category(row)
+    else:
+        category = default_category
 
     # Build notes — captures useful info that doesn't fit canonical schema
     notes_parts = [f"MLS# {mls_id}"]
