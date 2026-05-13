@@ -43,6 +43,8 @@ st.markdown(
     .badge {display: inline-block; padding: 3px 10px; border-radius: 8px;
             font-size: 0.78rem; font-weight: 500;}
     .badge-foreclosure {background: #FCEBEB; color: #791F1F;}
+    .badge-auction {background: #FFE8D6; color: #8B3A00;}
+    .badge-shortsale {background: #E2F0D9; color: #27500A;}
     .badge-probate {background: #FAEEDA; color: #633806;}
     .badge-lispendens {background: #FBEAF0; color: #72243E;}
     .badge-tax {background: #EAF3DE; color: #27500A;}
@@ -209,6 +211,8 @@ def fmt_currency(value) -> str:
 def category_badge(cat: str) -> str:
     cls_map = {
         "Foreclosure": "badge-foreclosure",
+        "Auction": "badge-auction",
+        "Short Sale": "badge-shortsale",
         "Probate": "badge-probate",
         "Lis Pendens": "badge-lispendens",
         "Tax Delinquent": "badge-tax",
@@ -316,8 +320,8 @@ with st.sidebar:
 
     categories = st.multiselect(
         "Categoría",
-        options=["Foreclosure", "Probate", "Lis Pendens", "Tax Delinquent", "Liens"],
-        default=["Foreclosure", "Probate", "Lis Pendens", "Tax Delinquent", "Liens"],
+        options=["Foreclosure", "Auction", "Short Sale", "Probate", "Lis Pendens", "Tax Delinquent", "Liens"],
+        default=["Foreclosure", "Auction", "Short Sale", "Probate", "Lis Pendens", "Tax Delinquent", "Liens"],
     )
 
     property_types = st.multiselect(
@@ -345,6 +349,30 @@ with st.sidebar:
     )
 
     st.markdown("---")
+    st.markdown("### 📍 Filtro por ZIP code")
+
+    # Build the list of available zip codes from the data
+    available_zips = sorted(
+        z for z in df["zip"].dropna().astype(str).unique()
+        if z and z != "nan" and z.strip()
+    )
+
+    zip_input = st.text_input(
+        "Buscar por ZIP (separar con coma)",
+        placeholder="ej: 33133, 33156, 33184",
+        help="Filtrá por uno o varios ZIPs. Dejá vacío para mostrar todos.",
+    )
+
+    # Parse the user's input — split on commas and clean whitespace.
+    selected_zips: list[str] = []
+    if zip_input.strip():
+        selected_zips = [z.strip() for z in zip_input.split(",") if z.strip()]
+
+    if available_zips:
+        with st.expander(f"📋 Ver los {len(available_zips)} ZIPs disponibles"):
+            st.caption(", ".join(available_zips))
+
+    st.markdown("---")
     st.caption("Los filtros se aplican a todas las vistas")
     st.caption(f"Total leads en sistema: **{len(df)}**")
 
@@ -359,12 +387,19 @@ county_mask = df["county"].isin(counties) | df["county"].isna() | (df["county"] 
 # Property type filter: include empty/unknown so freshly imported leads show up
 ptype_mask = df["property_type"].isin(property_types) | df["property_type"].isna() | (df["property_type"] == "")
 
+# ZIP filter: when user typed ZIPs, only show those. Empty → show all.
+if selected_zips:
+    zip_mask = df["zip"].astype(str).isin(selected_zips)
+else:
+    zip_mask = pd.Series([True] * len(df), index=df.index)
+
 mask = (
     county_mask
     & df["category"].isin(categories)
     & ptype_mask
     & df["status"].isin(statuses)
     & (df["equity"] >= min_equity)
+    & zip_mask
 )
 filtered = df[mask].copy()
 
@@ -509,10 +544,26 @@ def render_table(view_df: pd.DataFrame, view_name: str):
 
         with d3:
             st.markdown("**Lender / Bank**")
-            st.write(f"🏦 {lead['lender_name']}")
-            st.write(f"📞 {lead['lender_phone']}")
-            st.write(f"✉️ {lead['lender_email']}")
-            st.caption(lead["bank_address"])
+            if lead["lender_name"]:
+                st.write(f"🏦 {lead['lender_name']}")
+                st.write(f"📞 {lead['lender_phone'] or '—'}")
+                st.write(f"✉️ {lead['lender_email'] or '—'}")
+                st.caption(lead["bank_address"] or "")
+            else:
+                st.caption("⏳ Pendiente — requiere integración con Miami-Dade Clerk API.")
+                st.caption("(Los listings de MLS no incluyen info del banco.)")
+
+        # Attorney section (currently always pending — comes from Clerk of Court)
+        st.divider()
+        a1, a2 = st.columns(2)
+        with a1:
+            st.markdown("**⚖️ Attorney / Legal**")
+            st.caption("⏳ Pendiente — requiere Miami-Dade Clerk API")
+            st.caption("Va a incluir: nombre del abogado, firma, contacto, case number")
+        with a2:
+            st.markdown("**📜 Lis Pendens / Foreclosure case**")
+            st.caption("⏳ Pendiente — requiere Miami-Dade Clerk API")
+            st.caption("Va a incluir: fecha filed, case status, court, próxima audiencia")
 
         st.divider()
         f1, f2, f3, f4 = st.columns(4)
