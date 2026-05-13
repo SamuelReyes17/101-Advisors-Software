@@ -352,10 +352,17 @@ with st.sidebar:
 # =========================================================================
 # Apply filters
 # =========================================================================
+# County filter: include leads with empty county (when CSV didn't have county info,
+# they're assumed to belong to whatever counties the user selected in the source).
+county_mask = df["county"].isin(counties) | df["county"].isna() | (df["county"] == "")
+
+# Property type filter: include empty/unknown so freshly imported leads show up
+ptype_mask = df["property_type"].isin(property_types) | df["property_type"].isna() | (df["property_type"] == "")
+
 mask = (
-    df["county"].isin(counties)
+    county_mask
     & df["category"].isin(categories)
-    & df["property_type"].isin(property_types)
+    & ptype_mask
     & df["status"].isin(statuses)
     & (df["equity"] >= min_equity)
 )
