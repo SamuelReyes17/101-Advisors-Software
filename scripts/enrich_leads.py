@@ -25,6 +25,7 @@ from pathlib import Path
 
 from pipeline.collectors.property_appraiser import enrich_by_address
 from pipeline.collectors.census_geocoder import geocode_address
+from pipeline.collectors.pa_tax import fetch_property_by_folio, extract_tax_info
 
 PROJECT = Path(__file__).resolve().parent.parent
 CSV_PATH = PROJECT / "data" / "leads.csv"
@@ -112,9 +113,32 @@ def enrich_row(row: dict) -> tuple[str, str]:
             if "folio=" not in notes.lower():
                 row["notes"] = f"{notes} · folio={folio}".strip(" ·")
 
+            # ── NEW: pull full PA record with tax + assessment data ────
+            try:
+                pa_full = fetch_property_by_folio(folio)
+                if pa_full:
+                    tax_info = extract_tax_info(pa_full)
+                    for k, v in tax_info.items():
+                        if v is not None and v != "":
+                            row[k] = str(v) if not isinstance(v, (int, float)) else v
+
+                    # Map our enrichment to the existing CSV column names
+                    # for backwards compatibility with the dashboard
+                    if tax_info.get("est_tax_2024"):
+                        row["unpaid_taxes_2024"] = tax_info["est_tax_2024"]
+                    if tax_info.get("est_tax_2025"):
+                        row["unpaid_taxes_2025"] = tax_info["est_tax_2025"]
+                    if tax_info.get("total_value_2025"):
+                        row["assessed_value"] = tax_info["total_value_2025"]
+            except Exception as e:
+                log_msg = f"PA tax fetch error: {e}"
+
         summary = f"ZIP={pa_info.get('zip','?')} · {pa_info.get('owner_name','?')} · {pa_ptype}"
         if pa_info.get("is_absentee_owner"):
             summary += " · ABSENTEE"
+        # Add tax estimate to summary if we got it
+        if row.get("unpaid_taxes_2025"):
+            summary += f" · Tax25=${int(float(row['unpaid_taxes_2025'])):,}"
         return "pa", summary
 
     # --- Fallback: Census Geocoder (works for Broward / Palm Beach) ---
