@@ -1,18 +1,19 @@
 """
 101 Advisors — Distressed Property Lead Generation Dashboard
 =============================================================
-MVP version with sample data. Once collectors are built, the data source
-switches from CSV to Google Sheets without changing the UI.
-
-Deploy: push this repo to GitHub, connect at share.streamlit.io.
-Run locally: `streamlit run streamlit_app.py`
+Simplified version focused on the 5 features Leon requested:
+    1. Filter by ZIP code
+    2. Filter by Lis Pendens (and other distressed categories)
+    3. Owner name + phone + email
+    4. Bank info
+    5. Attorney info (placeholder — requires Clerk integration)
 """
 
 import streamlit as st
 import pandas as pd
 import re
 import urllib.parse
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 # =========================================================================
@@ -23,14 +24,8 @@ st.set_page_config(
     page_icon="🏠",
     layout="wide",
     initial_sidebar_state="expanded",
-    menu_items={
-        "About": "101 Advisors Distressed Property Lead Generator · MVP v0.1"
-    },
 )
 
-# =========================================================================
-# Custom CSS — clean & minimal
-# =========================================================================
 st.markdown(
     """
     <style>
@@ -39,41 +34,28 @@ st.markdown(
     .block-container {padding-top: 2rem; padding-bottom: 2rem; max-width: 1400px;}
     div[data-testid="stMetricValue"] {font-size: 2rem; font-weight: 600;}
     div[data-testid="stMetricLabel"] {font-size: 0.85rem; color: #5F5E5A;}
-    .stTabs [data-baseweb="tab-list"] {gap: 4px;}
-    .stTabs [data-baseweb="tab"] {height: 40px; padding: 0 16px; font-size: 0.95rem;}
     .stButton button {border-radius: 8px;}
     .badge {display: inline-block; padding: 3px 10px; border-radius: 8px;
             font-size: 0.78rem; font-weight: 500;}
     .badge-foreclosure {background: #FCEBEB; color: #791F1F;}
     .badge-auction {background: #FFE8D6; color: #8B3A00;}
     .badge-shortsale {background: #E2F0D9; color: #27500A;}
-    .badge-probate {background: #FAEEDA; color: #633806;}
     .badge-lispendens {background: #FBEAF0; color: #72243E;}
-    .badge-tax {background: #EAF3DE; color: #27500A;}
-    .badge-liens {background: #EEEDFE; color: #3C3489;}
-    .badge-new {background: #E6F1FB; color: #0C447C;}
-    .badge-pending {background: #FAEEDA; color: #633806;}
-    .badge-contacted {background: #E2F0D9; color: #27500A;}
-    .badge-scheduled {background: #EEEDFE; color: #3C3489;}
-    .badge-closed {background: #F1EFE8; color: #2C2C2A;}
+    .badge-probate {background: #FAEEDA; color: #633806;}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
 # =========================================================================
-# Authentication — single shared password
+# Authentication
 # =========================================================================
 def check_password() -> bool:
-    """Returns True if the user has entered a correct password."""
-
     def _password_entered():
-        # Read the expected password from secrets, fall back to demo.
         try:
             expected = st.secrets["dashboard_password"]
         except (KeyError, FileNotFoundError):
             expected = "demo101"
-
         if st.session_state.get("password") == expected:
             st.session_state["authenticated"] = True
             del st.session_state["password"]
@@ -85,23 +67,15 @@ def check_password() -> bool:
     if st.session_state.get("authenticated"):
         return True
 
-    # Login screen
     _, mid, _ = st.columns([1, 1.2, 1])
     with mid:
         st.markdown("# 🏠 101 Advisors")
-        st.markdown("### Lead Generation Platform")
+        st.markdown("### Distressed Property Leads")
         st.markdown("Ingrese la contraseña del equipo para continuar:")
-        st.text_input(
-            "Password",
-            type="password",
-            on_change=_password_entered,
-            key="password",
-            label_visibility="collapsed",
-        )
+        st.text_input("Password", type="password", on_change=_password_entered,
+                      key="password", label_visibility="collapsed")
         if st.session_state.get("auth_error"):
-            st.error("Contraseña incorrecta. Intentá de nuevo.")
-        st.caption("Distressed Property Lead Generation Platform")
-        st.caption("Acceso restringido al equipo de 101 Advisors")
+            st.error("Contraseña incorrecta.")
     return False
 
 
@@ -113,51 +87,24 @@ if not check_password():
 # =========================================================================
 @st.cache_data(ttl=300)
 def load_data() -> tuple[pd.DataFrame, str]:
-    """Load leads from CSV.
-
-    Preference order:
-        1. data/leads.csv (production — written by the pipeline) — only if it has actual data rows.
-        2. data/sample_leads.csv (development fallback).
-
-    Returns the dataframe and a label indicating which source was used.
-    Robust against:
-      - empty production CSVs (just headers)
-      - mixed pandas/PyArrow string dtypes (Python 3.14 / pandas 2.2+)
-      - missing columns
-      - NaN values in string columns
-    """
     base = Path(__file__).parent / "data"
     real = base / "leads.csv"
     sample = base / "sample_leads.csv"
 
     def _read(p):
-        # Force string dtype on common text columns to avoid PyArrow vs object mixing.
         return pd.read_csv(
             p,
             parse_dates=["first_seen", "last_updated"],
             dtype={
-                "lead_id": str,
-                "county": str,
-                "category": str,
-                "property_address": str,
-                "city": str,
-                "zip": str,
-                "property_type": str,
-                "owner_first": str,
-                "owner_last": str,
-                "owner_phone": str,
-                "owner_email": str,
-                "lender_name": str,
-                "lender_phone": str,
-                "lender_email": str,
-                "bank_address": str,
-                "status": str,
-                "assigned_to": str,
-                "notes": str,
+                "lead_id": str, "county": str, "category": str,
+                "property_address": str, "city": str, "zip": str,
+                "property_type": str, "owner_first": str, "owner_last": str,
+                "owner_phone": str, "owner_email": str, "lender_name": str,
+                "lender_phone": str, "lender_email": str, "bank_address": str,
+                "status": str, "assigned_to": str, "notes": str,
             },
         )
 
-    # Decide which file to use
     df = None
     source_label = "demo"
     if real.exists():
@@ -168,16 +115,13 @@ def load_data() -> tuple[pd.DataFrame, str]:
                 source_label = "production"
         except Exception:
             df = None
-
     if df is None:
         df = _read(sample)
-        source_label = "demo"
 
-    # Fillna on string cols so concatenation doesn't choke on NaN.
     string_cols = [
         "property_address", "city", "zip", "owner_first", "owner_last",
         "owner_phone", "owner_email", "lender_name", "lender_phone",
-        "lender_email", "bank_address", "status", "assigned_to", "notes",
+        "lender_email", "bank_address", "status", "notes",
         "property_type", "category", "county",
     ]
     for c in string_cols:
@@ -186,26 +130,20 @@ def load_data() -> tuple[pd.DataFrame, str]:
         else:
             df[c] = ""
 
-    # Robust string concatenation
-    df["full_address"] = (
-        df["property_address"] + ", " + df["city"] + " " + df["zip"]
-    ).str.strip(" ,")
+    df["full_address"] = (df["property_address"] + ", " + df["city"] + " " + df["zip"]).str.strip(" ,")
     df["owner_name"] = (df["owner_first"] + " " + df["owner_last"]).str.strip()
 
-    # Numeric fillna
-    for c in ["unpaid_taxes_2024", "unpaid_taxes_2025", "outstanding_debt", "equity",
-              "units", "bedrooms"]:
+    for c in ["outstanding_debt", "equity", "units", "bedrooms"]:
         if c in df.columns:
             df[c] = pd.to_numeric(df[c], errors="coerce").fillna(0)
         else:
             df[c] = 0
-    df["total_unpaid_taxes"] = df["unpaid_taxes_2024"] + df["unpaid_taxes_2025"]
 
     return df, source_label
 
 
 def fmt_currency(value) -> str:
-    if pd.isna(value):
+    if pd.isna(value) or value == 0:
         return "—"
     return f"${value:,.0f}"
 
@@ -215,18 +153,11 @@ def category_badge(cat: str) -> str:
         "Foreclosure": "badge-foreclosure",
         "Auction": "badge-auction",
         "Short Sale": "badge-shortsale",
-        "Probate": "badge-probate",
         "Lis Pendens": "badge-lispendens",
-        "Tax Delinquent": "badge-tax",
-        "Liens": "badge-liens",
+        "Probate": "badge-probate",
     }
-    cls = cls_map.get(cat, "badge-new")
+    cls = cls_map.get(cat, "badge-foreclosure")
     return f'<span class="badge {cls}">{cat}</span>'
-
-
-def status_badge(status: str) -> str:
-    cls = "badge-" + status.lower().replace(" ", "")
-    return f'<span class="badge {cls}">{status}</span>'
 
 
 df, data_source = load_data()
@@ -237,76 +168,50 @@ df, data_source = load_data()
 hcol1, hcol2 = st.columns([4, 1])
 with hcol1:
     st.title("101 Advisors · Distressed Property Leads")
-    src_badge = "🟢 Live data" if data_source == "production" else "🟡 Preview mode (sample data)"
     st.caption(
         f"Última actualización: {datetime.now().strftime('%Y-%m-%d %H:%M')} ET · "
-        f"Próximo refresh automático: 6:00 AM ET · {src_badge}"
+        f"{'🟢 Datos reales' if data_source == 'production' else '🟡 Preview (sample data)'}"
     )
 
-# Demo data banner (only shown when in preview mode)
-if data_source != "production":
-    st.info(
-        "📊 **Modo Preview** — Estás viendo datos de demostración. "
-        "Para cargar leads reales: en la barra lateral izquierda hay un uploader "
-        "donde podés subir el CSV exportado desde SEF MLS Matrix. "
-        "Después de subir, este banner desaparece y verás las propiedades reales del MLS.",
-        icon="ℹ️",
-    )
 with hcol2:
     st.write("")
-    bcol1, bcol2 = st.columns(2)
-    with bcol1:
-        if st.button("🔄 Refresh", use_container_width=True):
-            st.cache_data.clear()
-            st.rerun()
-    with bcol2:
-        if st.button("Logout", use_container_width=True):
-            st.session_state.clear()
-            st.rerun()
+    if st.button("🔄 Refresh", use_container_width=True):
+        st.cache_data.clear()
+        st.rerun()
+    if st.button("Logout", use_container_width=True):
+        st.session_state.clear()
+        st.rerun()
 
 st.divider()
 
 # =========================================================================
-# Sidebar — upload + filters
+# Sidebar — solo los filtros que pidió Leon
 # =========================================================================
 with st.sidebar:
     st.markdown("### 📤 Subir leads de MLS")
-
     uploaded = st.file_uploader(
-        "Arrastrá el CSV de Matrix acá",
+        "Arrastrá el CSV de Matrix",
         type=["csv"],
-        help="Exportá los resultados de tu Saved Search en Matrix (botón 'Export') y subilo acá.",
+        help="Exportá los resultados de tu Saved Search en Matrix y subilo acá.",
         key="mls_upload",
     )
 
     if uploaded is not None:
         try:
             from pipeline.collectors.matrix_csv import parse_matrix_csv
-
             content = uploaded.read().decode("utf-8", errors="ignore")
             new_leads = parse_matrix_csv(content)
-
             if not new_leads:
-                st.warning("No se encontraron leads en el CSV. Verificá el formato.")
+                st.warning("No se encontraron leads en el CSV.")
             else:
-                # Convert Lead objects to DataFrame rows
-                import pandas as pd_inner
                 rows = [l.to_dict() for l in new_leads]
-                new_df = pd_inner.DataFrame(rows)
-
-                # Convert dates to datetime
+                new_df = pd.DataFrame(rows)
                 for col in ("first_seen", "last_updated"):
-                    new_df[col] = pd_inner.to_datetime(new_df[col])
-
-                # Save to a real CSV the dashboard will read on next refresh
+                    new_df[col] = pd.to_datetime(new_df[col])
                 target_path = Path(__file__).parent / "data" / "leads.csv"
                 target_path.parent.mkdir(parents=True, exist_ok=True)
                 new_df.to_csv(target_path, index=False)
-
-                st.success(
-                    f"✅ {len(new_leads)} leads cargados al sistema. "
-                    "Click 'Refresh' arriba para verlos en el dashboard."
-                )
+                st.success(f"✅ {len(new_leads)} leads cargados. Click 'Refresh'.")
                 st.cache_data.clear()
         except Exception as e:
             st.error(f"Error procesando el CSV: {e}")
@@ -314,427 +219,281 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### 🔍 Filtros")
 
-    counties = st.multiselect(
-        "County",
-        options=["Miami-Dade", "Broward", "Palm Beach"],
-        default=["Miami-Dade", "Broward", "Palm Beach"],
-    )
-
+    # ── 1. Category (incluye Lis Pendens) ──────────────────────────────
+    available_cats = sorted(df["category"].dropna().unique())
+    available_cats = [c for c in available_cats if c.strip()]
     categories = st.multiselect(
         "Categoría",
-        options=["Foreclosure", "Auction", "Short Sale", "Probate", "Lis Pendens", "Tax Delinquent", "Liens"],
-        default=["Foreclosure", "Auction", "Short Sale", "Probate", "Lis Pendens", "Tax Delinquent", "Liens"],
+        options=available_cats,
+        default=available_cats,
+        help="Lis Pendens incluido. Filtrá por tipo de propiedad distressed.",
     )
 
-    property_types = st.multiselect(
-        "Property type",
-        options=["Single Family", "Multi Family", "Duplex", "Triplex", "Fourplex"],
-        default=["Single Family", "Multi Family", "Duplex", "Triplex", "Fourplex"],
-    )
-
-    statuses = st.multiselect(
-        "Status",
-        options=["New", "Pending", "Contacted", "Scheduled", "Closed"],
-        default=["New", "Pending", "Scheduled"],
-    )
-
-    st.markdown("---")
-
-    max_equity_val = int(df["equity"].max())
-    min_equity = st.slider(
-        "Min equity",
-        min_value=0,
-        max_value=max_equity_val,
-        value=0,
-        step=10000,
-        format="$%d",
-    )
-
-    st.markdown("---")
-    st.markdown("### 📍 Filtro por ZIP code")
-
-    # Build the list of available zip codes from the data
+    # ── 2. ZIP code (lo más importante para Leon) ───────────────────────
+    st.markdown("**📍 ZIP code**")
     available_zips = sorted(
         z for z in df["zip"].dropna().astype(str).unique()
         if z and z != "nan" and z.strip()
     )
-
     zip_input = st.text_input(
         "Buscar por ZIP (separar con coma)",
         placeholder="ej: 33133, 33156, 33184",
-        help="Filtrá por uno o varios ZIPs. Dejá vacío para mostrar todos.",
+        help="Filtrá por uno o varios ZIPs.",
     )
-
-    # Parse the user's input — split on commas and clean whitespace.
     selected_zips: list[str] = []
     if zip_input.strip():
         selected_zips = [z.strip() for z in zip_input.split(",") if z.strip()]
 
     if available_zips:
-        with st.expander(f"📋 Ver los {len(available_zips)} ZIPs disponibles"):
+        with st.expander(f"Ver los {len(available_zips)} ZIPs disponibles"):
             st.caption(", ".join(available_zips))
 
+    # ── 3. County (opcional, por si quiere focus en un county) ──────────
+    available_counties = sorted(
+        c for c in df["county"].dropna().unique() if c.strip()
+    )
+    if available_counties:
+        counties = st.multiselect(
+            "County",
+            options=available_counties,
+            default=available_counties,
+        )
+    else:
+        counties = []
+
     st.markdown("---")
-    st.caption("Los filtros se aplican a todas las vistas")
     st.caption(f"Total leads en sistema: **{len(df)}**")
 
 
 # =========================================================================
 # Apply filters
 # =========================================================================
-# County filter: include leads with empty county (when CSV didn't have county info,
-# they're assumed to belong to whatever counties the user selected in the source).
-county_mask = df["county"].isin(counties) | df["county"].isna() | (df["county"] == "")
+mask = df["category"].isin(categories) if categories else pd.Series([True] * len(df), index=df.index)
 
-# Property type filter: include empty/unknown so freshly imported leads show up
-ptype_mask = df["property_type"].isin(property_types) | df["property_type"].isna() | (df["property_type"] == "")
-
-# ZIP filter: when user typed ZIPs, only show those. Empty → show all.
 if selected_zips:
-    zip_mask = df["zip"].astype(str).isin(selected_zips)
-else:
-    zip_mask = pd.Series([True] * len(df), index=df.index)
+    mask = mask & df["zip"].astype(str).isin(selected_zips)
 
-mask = (
-    county_mask
-    & df["category"].isin(categories)
-    & ptype_mask
-    & df["status"].isin(statuses)
-    & (df["equity"] >= min_equity)
-    & zip_mask
-)
+if counties:
+    county_mask = df["county"].isin(counties) | df["county"].isna() | (df["county"] == "")
+    mask = mask & county_mask
+
 filtered = df[mask].copy()
 
 # =========================================================================
-# KPIs
+# Top: simple count
 # =========================================================================
-today = pd.Timestamp.today().normalize()
-new_today_count = (filtered["first_seen"] >= today).sum()
-pending_count = (filtered["status"].isin(["New", "Pending"])).sum()
-contacted_week_count = (
-    (filtered["status"] == "Contacted")
-    & (filtered["last_updated"] >= today - pd.Timedelta(days=7))
-).sum()
-scheduled_count = (filtered["status"] == "Scheduled").sum()
-avg_equity = filtered["equity"].mean() if len(filtered) > 0 else 0
-
-k1, k2, k3, k4, k5 = st.columns(5)
-k1.metric("New today", int(new_today_count))
-k2.metric("Pending followup", int(pending_count))
-k3.metric("Contacted this week", int(contacted_week_count))
-k4.metric("Calls scheduled", int(scheduled_count))
-k5.metric(
-    "Avg equity",
-    f"${avg_equity / 1000:.0f}K" if avg_equity else "—",
-)
+mc1, mc2, mc3 = st.columns(3)
+mc1.metric("Leads que matchean", len(filtered))
+mc2.metric("Con phone del owner", int((filtered["owner_phone"] != "").sum()))
+mc3.metric("ZIPs únicos", filtered["zip"].nunique())
 
 st.divider()
 
 # =========================================================================
-# Tabs: Today / Pipeline / History / Stats
+# Main table
 # =========================================================================
-today_df = filtered[filtered["first_seen"] >= today]
-pipeline_df = filtered[filtered["status"].isin(["New", "Pending", "Scheduled"])]
-history_df = filtered[filtered["status"].isin(["Contacted", "Closed"])]
+if len(filtered) == 0:
+    st.info("No hay leads que coincidan con los filtros actuales.")
+    st.stop()
 
-t_today, t_pipe, t_hist, t_stats = st.tabs(
-    [
-        f"📍 Today ({len(today_df)})",
-        f"⏳ Pipeline ({len(pipeline_df)})",
-        f"✅ History ({len(history_df)})",
-        "📊 Stats",
-    ]
+display = filtered.copy()
+display = display.sort_values(["category", "zip"], ascending=[True, True])
+display["Address"] = display["full_address"]
+display["ZIP"] = display["zip"]
+display["City"] = display["city"]
+display["Owner"] = display["owner_name"]
+display["Phone"] = display["owner_phone"]
+display["Email"] = display["owner_email"]
+display["Category"] = display["category"]
+display["Type"] = display["property_type"]
+
+st.markdown(f"**{len(display)} leads** · click una fila para ver detalles")
+
+selection = st.dataframe(
+    display[["lead_id", "Address", "ZIP", "City", "Category", "Owner", "Phone", "Type"]],
+    column_config={
+        "lead_id": st.column_config.TextColumn("ID", width="small"),
+        "Address": st.column_config.TextColumn("Address", width="large"),
+        "ZIP": st.column_config.TextColumn("ZIP", width="small"),
+        "City": st.column_config.TextColumn("City", width="small"),
+        "Category": st.column_config.TextColumn("Categoría", width="small"),
+        "Owner": st.column_config.TextColumn("Owner", width="medium"),
+        "Phone": st.column_config.TextColumn("Phone", width="small"),
+        "Type": st.column_config.TextColumn("Type", width="small"),
+    },
+    hide_index=True,
+    use_container_width=True,
+    on_select="rerun",
+    selection_mode="single-row",
+    key="main_table",
 )
 
+st.download_button(
+    label="📥 Export CSV filtrado",
+    data=display.to_csv(index=False).encode("utf-8"),
+    file_name=f"101advisors_leads_{datetime.now().strftime('%Y%m%d')}.csv",
+    mime="text/csv",
+)
 
-def render_table(view_df: pd.DataFrame, view_name: str):
-    """Render filtered leads as an interactive table + detail panel."""
-    if len(view_df) == 0:
-        st.info("No hay leads que coincidan con los filtros actuales.")
-        return
+# =========================================================================
+# Detail panel (cuando se selecciona una fila)
+# =========================================================================
+if selection.selection.rows:
+    idx = selection.selection.rows[0]
+    lead = display.iloc[idx]
 
-    # Show as styled dataframe with selectable row
-    display = view_df.copy()
-    display = display.sort_values(["first_seen", "equity"], ascending=[False, False])
-    display["Address"] = display["full_address"]
-    display["Category"] = display["category"]
-    display["Owner"] = display["owner_name"]
-    display["Phone"] = display["owner_phone"]
-    display["Type"] = display["property_type"]
-    display["Equity"] = display["equity"]
-    display["Status"] = display["status"]
-    display["Days in pipeline"] = (today - display["first_seen"]).dt.days
+    st.divider()
+    st.markdown(f"## 📋 Detalle · `{lead['lead_id']}`")
 
-    st.markdown(
-        f"**{len(display)} leads** · ordenados por más nuevo + mayor equity"
-    )
+    # ── PROPIEDAD ──────────────────────────────────────────────────────
+    st.markdown("### 🏠 Propiedad")
+    p1, p2 = st.columns([2, 1])
+    with p1:
+        st.markdown(category_badge(lead["category"]), unsafe_allow_html=True)
+        st.write("")
+        st.write(f"**📍 {lead['Address']}**")
+        st.write(f"{lead['Type']} · {int(lead['bedrooms'])} bedrooms · {int(lead['units'])} unit(s)")
 
-    selection = st.dataframe(
-        display[
-            [
-                "lead_id",
-                "Address",
-                "Category",
-                "Owner",
-                "Phone",
-                "Type",
-                "Equity",
-                "Status",
-                "Days in pipeline",
-            ]
-        ],
-        column_config={
-            "lead_id": st.column_config.TextColumn("ID", width="small"),
-            "Address": st.column_config.TextColumn("Address", width="large"),
-            "Category": st.column_config.TextColumn("Category", width="medium"),
-            "Owner": st.column_config.TextColumn("Owner", width="medium"),
-            "Phone": st.column_config.TextColumn("Phone", width="small"),
-            "Type": st.column_config.TextColumn("Type", width="small"),
-            "Equity": st.column_config.NumberColumn(
-                "Equity", format="$%d", width="small"
-            ),
-            "Status": st.column_config.TextColumn("Status", width="small"),
-            "Days in pipeline": st.column_config.NumberColumn(
-                "Days", width="small"
-            ),
-        },
-        hide_index=True,
-        use_container_width=True,
-        on_select="rerun",
-        selection_mode="single-row",
-        key=f"table_{view_name}",
-    )
-
-    # Action bar
-    bcol1, bcol2, bcol3, _ = st.columns([1, 1, 1, 3])
-    with bcol1:
-        st.download_button(
-            label="📥 Export CSV",
-            data=display.to_csv(index=False).encode("utf-8"),
-            file_name=f"101advisors_leads_{view_name}_{today.strftime('%Y%m%d')}.csv",
-            mime="text/csv",
-            use_container_width=True,
+        full_addr_q = urllib.parse.quote_plus(str(lead.get("Address", "")))
+        st.markdown(
+            f"""
+            <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+                <a href="https://www.zillow.com/homes/{full_addr_q}_rb/" target="_blank"
+                   style="background:#006AFF;color:white;padding:6px 14px;
+                          border-radius:6px;text-decoration:none;font-size:0.88rem;">
+                    🏡 Ver en Zillow
+                </a>
+                <a href="https://www.google.com/maps/search/?api=1&query={full_addr_q}" target="_blank"
+                   style="background:#34A853;color:white;padding:6px 14px;
+                          border-radius:6px;text-decoration:none;font-size:0.88rem;">
+                    🗺️ Ver en Maps
+                </a>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
-    with bcol2:
-        if st.button("✅ Mark contacted", key=f"contact_{view_name}", use_container_width=True):
-            st.toast("(Demo) En producción esto actualiza el Sheet")
-    with bcol3:
-        if st.button("👤 Assign agent", key=f"assign_{view_name}", use_container_width=True):
-            st.toast("(Demo) En producción abre selector de agente")
 
-    # Detail panel
-    if selection.selection.rows:
-        idx = selection.selection.rows[0]
-        lead = display.iloc[idx]
-        st.divider()
-        st.markdown(f"### 📋 Detalle del lead `{lead['lead_id']}`")
+    with p2:
+        st.metric("List price", fmt_currency(lead.get("outstanding_debt", 0)))
 
-        d1, d2, d3 = st.columns(3)
-        with d1:
-            st.markdown("**Propiedad**")
-            st.markdown(category_badge(lead["category"]), unsafe_allow_html=True)
-            st.write("")
-            st.write(f"📍 {lead['Address']}")
-            st.write(f"🏠 {lead['Type']} · {lead['bedrooms']} bedrooms · {lead['units']} unit(s)")
-            st.metric("Equity estimado", fmt_currency(lead["equity"]))
+    st.divider()
 
-            # Quick links — Zillow, Google Maps, county appraiser
-            full_addr_q = urllib.parse.quote_plus(str(lead.get("Address", "")))
-            zillow_url = f"https://www.zillow.com/homes/{full_addr_q}_rb/"
-            maps_url = f"https://www.google.com/maps/search/?api=1&query={full_addr_q}"
-            redfin_url = f"https://www.redfin.com/stingray/do/location-autocomplete?location={full_addr_q}&v=2"
+    # ── OWNER ──────────────────────────────────────────────────────────
+    st.markdown("### 👤 Owner")
+    o1, o2 = st.columns([1, 1])
+    with o1:
+        owner_name = str(lead.get("Owner", "")).strip()
+        st.write(f"**Nombre**: {owner_name or '—'}")
+        st.write(f"**Phone**: {lead['Phone'] or '—'}")
+        st.write(f"**Email**: {lead['Email'] or '—'}")
+
+    with o2:
+        owner_city = str(lead.get("city", "")).strip()
+        is_llc = bool(re.search(r"\b(LLC|INC|CORP|TRUST|TRS|LTD|LP|LLP|PA)\b",
+                                 owner_name, re.IGNORECASE))
+        if owner_name and owner_name not in ("", "—", "nan"):
+            name_q = urllib.parse.quote_plus(owner_name)
+            city_q = urllib.parse.quote_plus(owner_city) if owner_city else ""
+
+            if is_llc:
+                sunbiz_url = f"https://search.sunbiz.org/Inquiry/CorporationSearch/ByName?searchTerm={name_q}"
+                st.markdown(
+                    f"""
+                    <div style="margin-top:8px;">
+                        <strong>Buscar contacto:</strong><br>
+                        <a href="{sunbiz_url}" target="_blank"
+                           style="background:#005A8B;color:white;padding:6px 14px;
+                                  border-radius:6px;text-decoration:none;font-size:0.88rem;
+                                  display:inline-block;margin-top:6px;">
+                            🏢 Sunbiz — ver officers + mailing
+                        </a>
+                    </div>
+                    <div style="font-size:0.78rem;color:#777;margin-top:6px;">
+                        LLC — Sunbiz te muestra quién está detrás (officer real + address)
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                tps_url = (f"https://www.truepeoplesearch.com/results?name={name_q}"
+                           + (f"&citystatezip={city_q}+FL" if city_q else ""))
+                fps_url = f"https://www.fastpeoplesearch.com/name/{owner_name.lower().replace(' ', '-')}"
+                st.markdown(
+                    f"""
+                    <div style="margin-top:8px;">
+                        <strong>Buscar phone:</strong><br>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
+                            <a href="{tps_url}" target="_blank"
+                               style="background:#0072CE;color:white;padding:6px 14px;
+                                      border-radius:6px;text-decoration:none;font-size:0.88rem;">
+                                🔎 TruePeopleSearch
+                            </a>
+                            <a href="{fps_url}" target="_blank"
+                               style="background:#E5404B;color:white;padding:6px 14px;
+                                      border-radius:6px;text-decoration:none;font-size:0.88rem;">
+                                🔎 FastPeopleSearch
+                            </a>
+                        </div>
+                    </div>
+                    <div style="font-size:0.78rem;color:#777;margin-top:6px;">
+                        Persona física — click para buscar phone gratis
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+    st.divider()
+
+    # ── BANK / LENDER ──────────────────────────────────────────────────
+    st.markdown("### 🏦 Banco / Lender")
+    if lead.get("lender_name"):
+        b1, b2 = st.columns([1, 1])
+        with b1:
+            st.write(f"**Banco**: {lead['lender_name']}")
+            st.write(f"**Phone**: {lead.get('lender_phone') or '—'}")
+            st.write(f"**Email**: {lead.get('lender_email') or '—'}")
+        with b2:
+            if lead.get('bank_address'):
+                st.write(f"**Dirección**: {lead['bank_address']}")
+    else:
+        # Si el lead es un REO, el owner ES el banco
+        owner = str(lead.get("Owner", "")).strip().upper()
+        if any(k in owner for k in ("BANK", "MORTGAGE", "WELLS FARGO", "JPMORGAN",
+                                     "CHASE", "US BANK", "FEDERAL NATIONAL", "FANNIE",
+                                     "FREDDIE", "WILMINGTON TRUST")):
+            st.info(f"🏦 Este lead es un REO. El owner actual es el banco: **{lead['Owner']}**")
+            st.caption("Para detalles del REO Asset Manager, contactá al banco vía su línea de REO.")
+        else:
+            st.caption("⏳ Info del banco no disponible. Se obtiene del Miami-Dade Clerk en el caso de Lis Pendens.")
+
+    st.divider()
+
+    # ── ATTORNEY + LIS PENDENS ─────────────────────────────────────────
+    st.markdown("### ⚖️ Attorney + Lis Pendens")
+    if lead["category"] in ("Lis Pendens", "Foreclosure", "Auction"):
+        st.caption(
+            "⏳ Info de attorney + case number pendiente — viene del Miami-Dade Clerk of Court."
+        )
+        # Quick link to manually search the Clerk
+        if owner_name:
+            clerk_search = (
+                "https://www2.miamidadeclerk.gov/ocs/Search.aspx?"
+                f"q={urllib.parse.quote_plus(owner_name)}"
+            )
             st.markdown(
                 f"""
-                <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
-                    <a href="{zillow_url}" target="_blank"
-                       style="background:#006AFF;color:white;padding:4px 10px;
-                              border-radius:6px;text-decoration:none;font-size:0.82rem;">
-                        🏡 Zillow
-                    </a>
-                    <a href="{maps_url}" target="_blank"
-                       style="background:#34A853;color:white;padding:4px 10px;
-                              border-radius:6px;text-decoration:none;font-size:0.82rem;">
-                        🗺️ Maps
-                    </a>
-                </div>
+                <a href="{clerk_search}" target="_blank"
+                   style="background:#5F5E5A;color:white;padding:6px 14px;
+                          border-radius:6px;text-decoration:none;font-size:0.88rem;
+                          display:inline-block;">
+                    ⚖️ Buscar caso en Miami-Dade Clerk
+                </a>
                 """,
                 unsafe_allow_html=True,
             )
-
-        with d2:
-            st.markdown("**Owner**")
-            st.write(f"👤 {lead['Owner']}")
-            st.write(f"📞 {lead['Phone']}")
-            st.write(f"✉️ {lead['owner_email']}")
-
-            # Manual lookup helpers — open free people-search sites in new tab
-            owner_name = str(lead.get("Owner", "")).strip()
-            owner_city = str(lead.get("city", "")).strip()
-            is_llc = bool(re.search(r"\b(LLC|INC|CORP|TRUST|TRS|LTD|LP|LLP|PA)\b",
-                                     owner_name, re.IGNORECASE))
-            if owner_name and owner_name not in ("", "—", "nan"):
-                name_q = urllib.parse.quote_plus(owner_name)
-                city_q = urllib.parse.quote_plus(owner_city) if owner_city else ""
-
-                if is_llc:
-                    # LLC — search Sunbiz (FL corp registry) for officers
-                    sunbiz_url = (
-                        f"https://search.sunbiz.org/Inquiry/CorporationSearch/"
-                        f"ByName?searchTerm={name_q}"
-                    )
-                    button_html = f"""
-                    <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
-                        <a href="{sunbiz_url}" target="_blank"
-                           style="background:#005A8B;color:white;padding:4px 10px;
-                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
-                            🏢 Sunbiz (officers)
-                        </a>
-                    </div>
-                    <div style="font-size:0.72rem;color:#777;margin-top:4px;">
-                        LLC — Sunbiz te muestra el officer + mailing address real
-                    </div>
-                    """
-                else:
-                    # Person — manual people-search lookups
-                    tps_url = (
-                        f"https://www.truepeoplesearch.com/results?"
-                        f"name={name_q}"
-                        + (f"&citystatezip={city_q}+FL" if city_q else "")
-                    )
-                    fps_url = (
-                        f"https://www.fastpeoplesearch.com/name/"
-                        f"{owner_name.lower().replace(' ', '-')}"
-                    )
-                    sunbiz_url = (
-                        f"https://search.sunbiz.org/Inquiry/CorporationSearch/"
-                        f"ByOfficerName?searchTerm={name_q}"
-                    )
-                    button_html = f"""
-                    <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
-                        <a href="{tps_url}" target="_blank"
-                           style="background:#0072CE;color:white;padding:4px 10px;
-                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
-                            🔎 TruePeople
-                        </a>
-                        <a href="{fps_url}" target="_blank"
-                           style="background:#E5404B;color:white;padding:4px 10px;
-                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
-                            🔎 FastPeople
-                        </a>
-                        <a href="{sunbiz_url}" target="_blank"
-                           style="background:#005A8B;color:white;padding:4px 10px;
-                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
-                            🏢 Sunbiz
-                        </a>
-                    </div>
-                    <div style="font-size:0.72rem;color:#777;margin-top:4px;">
-                        Persona — busca phone en estos 3 sitios (gratis)
-                    </div>
-                    """
-                st.markdown(button_html, unsafe_allow_html=True)
-
-        with d3:
-            st.markdown("**Lender / Bank**")
-            if lead["lender_name"]:
-                st.write(f"🏦 {lead['lender_name']}")
-                st.write(f"📞 {lead['lender_phone'] or '—'}")
-                st.write(f"✉️ {lead['lender_email'] or '—'}")
-                st.caption(lead["bank_address"] or "")
-            else:
-                st.caption("⏳ Pendiente — requiere integración con Miami-Dade Clerk API.")
-                st.caption("(Los listings de MLS no incluyen info del banco.)")
-
-        # Attorney section (currently always pending — comes from Clerk of Court)
-        st.divider()
-        a1, a2 = st.columns(2)
-        with a1:
-            st.markdown("**⚖️ Attorney / Legal**")
-            st.caption("⏳ Pendiente — requiere Miami-Dade Clerk API")
-            st.caption("Va a incluir: nombre del abogado, firma, contacto, case number")
-        with a2:
-            st.markdown("**📜 Lis Pendens / Foreclosure case**")
-            st.caption("⏳ Pendiente — requiere Miami-Dade Clerk API")
-            st.caption("Va a incluir: fecha filed, case status, court, próxima audiencia")
-
-        st.divider()
-        f1, f2, f3, f4 = st.columns(4)
-        f1.metric("Outstanding debt", fmt_currency(lead["outstanding_debt"]))
-        f2.metric("Unpaid taxes 2024", fmt_currency(lead["unpaid_taxes_2024"]))
-        f3.metric("Unpaid taxes 2025", fmt_currency(lead["unpaid_taxes_2025"]))
-        f4.metric("Status", lead["Status"])
-
-        if lead["notes"] and not pd.isna(lead["notes"]):
-            st.markdown(f"**Notas:** {lead['notes']}")
-        if lead["assigned_to"] and not pd.isna(lead["assigned_to"]):
-            st.caption(f"Asignado a: {lead['assigned_to']}")
-
-
-with t_today:
-    render_table(today_df, "today")
-
-with t_pipe:
-    render_table(pipeline_df, "pipeline")
-
-with t_hist:
-    render_table(history_df, "history")
-
-with t_stats:
-    if len(filtered) == 0:
-        st.info("No hay datos para mostrar con los filtros actuales.")
     else:
-        st.markdown("### Distribución por categoría")
-        cat_counts = filtered["category"].value_counts().reset_index()
-        cat_counts.columns = ["Categoría", "Leads"]
-        c1, c2 = st.columns(2)
-        with c1:
-            st.bar_chart(cat_counts, x="Categoría", y="Leads", height=280)
-        with c2:
-            county_counts = filtered["county"].value_counts().reset_index()
-            county_counts.columns = ["County", "Leads"]
-            st.markdown("### Distribución por County")
-            st.bar_chart(county_counts, x="County", y="Leads", height=280)
+        st.caption("No aplica para esta categoría.")
 
+    if lead.get("notes") and not pd.isna(lead["notes"]):
         st.divider()
-        st.markdown("### Status pipeline")
-        status_counts = filtered["status"].value_counts().reset_index()
-        status_counts.columns = ["Status", "Leads"]
-        st.bar_chart(status_counts, x="Status", y="Leads", height=240)
-
-        st.divider()
-        st.markdown("### Top 10 leads por equity")
-        top = (
-            filtered.nlargest(10, "equity")[
-                ["lead_id", "full_address", "category", "owner_name", "equity"]
-            ]
-            .rename(
-                columns={
-                    "lead_id": "ID",
-                    "full_address": "Address",
-                    "category": "Category",
-                    "owner_name": "Owner",
-                    "equity": "Equity",
-                }
-            )
-        )
-        st.dataframe(
-            top,
-            hide_index=True,
-            use_container_width=True,
-            column_config={
-                "Equity": st.column_config.NumberColumn("Equity", format="$%d")
-            },
-        )
-
-# =========================================================================
-# Footer
-# =========================================================================
-st.divider()
-fcol1, fcol2 = st.columns([3, 1])
-with fcol1:
-    st.caption(
-        "101 Advisors · Distressed Property Lead Generator · "
-        "Fuente: SEF MLS Matrix + Miami-Dade Property Appraiser + skip-tracing automatizado. "
-        "Sistema corre automáticamente cada mañana. Sin intervención manual."
-    )
-with fcol2:
-    st.caption(f"Total leads: **{len(df)}** · filtrados: **{len(filtered)}**")
+        st.caption(f"**Notas internas**: {lead['notes']}")
