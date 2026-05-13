@@ -25,7 +25,7 @@ st.markdown(
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-    .block-container {padding-top: 2rem; padding-bottom: 2rem; max-width: 1400px;}
+    .block-container {padding-top: 1.5rem; padding-bottom: 2rem; max-width: 100%;}
     .stButton button {border-radius: 8px;}
     </style>
     """,
@@ -66,6 +66,26 @@ def check_password() -> bool:
 
 if not check_password():
     st.stop()
+
+# =========================================================================
+# Constants
+# =========================================================================
+TRI_COUNTY = {"Miami-Dade", "Broward", "Palm Beach"}
+
+# County → Tax Collector search URL pattern. We pre-fill the address.
+TAX_URLS = {
+    "Miami-Dade": "https://www.miamidade.gov/Apps/PA/PropertySearch/#/?folio=",
+    "Broward":    "https://broward.county-taxes.com/public/real_estate/searches?search=",
+    "Palm Beach": "https://pbctax.gov/property-tax/",
+}
+
+# County → Clerk of Court search URL (for Lis Pendens, plaintiff/attorney)
+CLERK_URLS = {
+    "Miami-Dade": "https://www2.miamidadeclerk.gov/ocs/Search.aspx?q=",
+    "Broward":    "https://www.browardclerk.org/Web/case_search/?DataType=PartyName&SearchName=",
+    "Palm Beach": "https://applications.mypalmbeachclerk.com/CourtCaseSearch/?Name=",
+}
+
 
 # =========================================================================
 # Data loading
@@ -124,12 +144,27 @@ def load_data() -> tuple[pd.DataFrame, str]:
         else:
             df[c] = 0
 
+    # ── Clean up: leads OUTSIDE the tri-county area get hidden.
+    # The Census Geocoder occasionally returns wrong counties for malformed
+    # addresses (Duval, Santa Rosa, Gilchrist, etc). These are MLS data errors,
+    # not real Miami-area properties. We tag them and let the user opt-in.
+    df["in_target_area"] = (
+        df["county"].isin(TRI_COUNTY) | df["county"].isna() | (df["county"] == "")
+    )
+
     return df, source_label
 
 
 def is_llc(name: str) -> bool:
     return bool(re.search(r"\b(LLC|INC|CORP|TRUST|TRS|LTD|LP|LLP|PA|HOLDINGS|GROUP|ASSOC|ASSN)\b",
                           name or "", re.IGNORECASE))
+
+
+def is_bank_owned(name: str) -> bool:
+    return any(k in (name or "").upper() for k in (
+        "BANK", "MORTGAGE", "WELLS FARGO", "JPMORGAN", "CHASE",
+        "US BANK", "FEDERAL NATIONAL", "FANNIE", "FREDDIE", "WILMINGTON TRUST"
+    ))
 
 
 def build_zillow_url(address: str) -> str:
@@ -144,10 +179,28 @@ def build_owner_lookup_url(owner_name: str, city: str = "") -> str:
     name_q = urllib.parse.quote_plus(owner_name)
     if is_llc(owner_name):
         return f"https://search.sunbiz.org/Inquiry/CorporationSearch/ByName?searchTerm={name_q}"
-    else:
-        city_q = urllib.parse.quote_plus(city) if city else ""
-        suffix = f"&citystatezip={city_q}+FL" if city_q else ""
-        return f"https://www.truepeoplesearch.com/results?name={name_q}{suffix}"
+    city_q = urllib.parse.quote_plus(city) if city else ""
+    suffix = f"&citystatezip={city_q}+FL" if city_q else ""
+    return f"https://www.truepeoplesearch.com/results?name={name_q}{suffix}"
+
+
+def build_tax_url(county: str, address: str) -> str:
+    if not address:
+        return ""
+    base = TAX_URLS.get(county)
+    if not base:
+        # Default: Miami-Dade if we don't know the county
+        base = TAX_URLS["Miami-Dade"]
+    return base + urllib.parse.quote_plus(address)
+
+
+def build_clerk_url(county: str, owner_name: str) -> str:
+    if not owner_name:
+        return ""
+    base = CLERK_URLS.get(county)
+    if not base:
+        base = CLERK_URLS["Miami-Dade"]
+    return base + urllib.parse.quote_plus(owner_name)
 
 
 df, data_source = load_data()
@@ -207,7 +260,7 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # Filtro de Categoría
+    # ── Categoría
     available_cats = sorted(c for c in df["category"].dropna().unique() if c.strip())
     categories = st.multiselect(
         "Categoría",
@@ -215,52 +268,55 @@ with st.sidebar:
         default=available_cats,
     )
 
-    # Filtro de ZIP
+    # ── ZIP
     zip_input = st.text_input(
         "ZIP code",
         placeholder="33133, 33156, ...",
     )
     selected_zips = [z.strip() for z in zip_input.split(",") if z.strip()] if zip_input else []
 
-    available_zips = sorted(
-        z for z in df["zip"].dropna().astype(str).unique()
-        if z and z != "nan" and z.strip()
+    # ── County (limit to tri-county by default)
+    counties = st.multiselect(
+        "County",
+        options=["Miami-Dade", "Broward", "Palm Beach"],
+        default=["Miami-Dade", "Broward", "Palm Beach"],
     )
-    if available_zips:
-        with st.expander(f"{len(available_zips)} ZIPs disponibles"):
-            st.caption(", ".join(available_zips))
 
-    # Filtro de County
-    available_counties = sorted(c for c in df["county"].dropna().unique() if c.strip())
-    if available_counties:
-        counties = st.multiselect(
-            "County",
-            options=available_counties,
-            default=available_counties,
-        )
-    else:
-        counties = []
+    # ── Hide off-target leads by default
+    show_offtarget = st.checkbox(
+        "Mostrar leads fuera del área",
+        value=False,
+        help="Por defecto se ocultan los leads que el geocoder mandó a Duval/Santa Rosa/etc. (suelen ser errores de MLS data)",
+    )
 
 # =========================================================================
 # Apply filters
 # =========================================================================
-mask = df["category"].isin(categories) if categories else pd.Series([True] * len(df), index=df.index)
+mask = pd.Series([True] * len(df), index=df.index)
+
+if categories:
+    mask = mask & df["category"].isin(categories)
+
 if selected_zips:
     mask = mask & df["zip"].astype(str).isin(selected_zips)
+
 if counties:
     county_mask = df["county"].isin(counties) | df["county"].isna() | (df["county"] == "")
     mask = mask & county_mask
 
+if not show_offtarget:
+    mask = mask & df["in_target_area"]
+
 filtered = df[mask].copy()
 
 # =========================================================================
-# Top: single metric only
+# Top: single metric
 # =========================================================================
 st.metric("Leads", len(filtered))
 st.divider()
 
 # =========================================================================
-# Main table — links inline como columnas clickeables
+# Main table
 # =========================================================================
 if len(filtered) == 0:
     st.info("No hay leads con esos filtros.")
@@ -269,38 +325,52 @@ if len(filtered) == 0:
 display = filtered.copy()
 display = display.sort_values(["category", "zip"], ascending=[True, True])
 
-# Build link columns (LinkColumn renders these as clickable hyperlinks)
-display["Zillow"] = display["full_address"].apply(build_zillow_url)
-display["Buscar owner"] = display.apply(
+# Compute link URLs per row
+display["zillow_url"] = display["full_address"].apply(build_zillow_url)
+display["owner_lookup_url"] = display.apply(
     lambda r: build_owner_lookup_url(r["owner_name"], r["city"]), axis=1
 )
-display["maps_url"] = display["full_address"].apply(
-    lambda a: f"https://www.google.com/maps/search/?api=1&query={urllib.parse.quote_plus(a)}" if a else ""
+display["tax_url"] = display.apply(
+    lambda r: build_tax_url(r["county"], r["full_address"]), axis=1
 )
+display["clerk_url"] = display.apply(
+    lambda r: build_clerk_url(r["county"], r["owner_name"]), axis=1
+)
+
+st.caption("Click una fila para ver detalle · Click 🏡 / 🔎 / 🧾 / ⚖️ para abrir en nueva pestaña")
 
 selection = st.dataframe(
     display[[
-        "lead_id", "property_address", "zip", "city",
-        "category", "owner_name", "owner_phone", "Zillow", "Buscar owner",
+        "property_address", "zip", "category", "owner_name",
+        "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
     ]],
     column_config={
-        "lead_id": st.column_config.TextColumn("ID", width="small"),
         "property_address": st.column_config.TextColumn("Address", width="large"),
         "zip": st.column_config.TextColumn("ZIP", width="small"),
-        "city": st.column_config.TextColumn("City", width="small"),
         "category": st.column_config.TextColumn("Categoría", width="small"),
         "owner_name": st.column_config.TextColumn("Owner", width="medium"),
-        "owner_phone": st.column_config.TextColumn("Phone", width="small"),
-        "Zillow": st.column_config.LinkColumn(
-            "🏡 Zillow",
-            display_text="Ver",
+        "zillow_url": st.column_config.LinkColumn(
+            "🏡 Property",
+            display_text="Zillow",
             width="small",
         ),
-        "Buscar owner": st.column_config.LinkColumn(
-            "🔎 Buscar owner",
-            display_text="Lookup",
+        "owner_lookup_url": st.column_config.LinkColumn(
+            "🔎 Owner",
+            display_text="Buscar",
             width="small",
-            help="LLCs → Sunbiz · Personas → TruePeopleSearch",
+            help="LLC → Sunbiz · Persona → TruePeople",
+        ),
+        "tax_url": st.column_config.LinkColumn(
+            "🧾 Tax",
+            display_text="Tax",
+            width="small",
+            help="Buscar tax delinquency en el county tax collector",
+        ),
+        "clerk_url": st.column_config.LinkColumn(
+            "⚖️ Clerk",
+            display_text="Clerk",
+            width="small",
+            help="Buscar caso Lis Pendens + plaintiff + attorney en el Clerk",
         ),
     },
     hide_index=True,
@@ -310,7 +380,6 @@ selection = st.dataframe(
     key="main_table",
 )
 
-# Export
 st.download_button(
     "📥 Export CSV",
     data=display.to_csv(index=False).encode("utf-8"),
@@ -319,55 +388,57 @@ st.download_button(
 )
 
 # =========================================================================
-# Detail panel — minimalista
+# Detail panel
 # =========================================================================
 if selection.selection.rows:
     idx = selection.selection.rows[0]
     lead = display.iloc[idx]
 
     st.divider()
+    st.markdown(f"### {lead['property_address']}")
+    st.caption(f"{lead['city']} · ZIP {lead['zip']} · {lead['category']} · {lead['property_type']} · {lead['county']}")
 
-    # Encabezado del lead
-    c1, c2 = st.columns([3, 1])
-    with c1:
-        st.markdown(f"### {lead['property_address']}")
-        st.caption(f"{lead['city']} · ZIP {lead['zip']} · {lead['category']} · {lead['property_type']}")
-    with c2:
-        st.link_button("🏡 Zillow", lead["Zillow"], use_container_width=True)
-        st.link_button("🗺️ Maps", lead["maps_url"], use_container_width=True)
-
-    st.markdown("**Owner**")
+    # ── Owner block ─────────────────────────────────────────────────────
     o1, o2 = st.columns([2, 1])
     with o1:
-        st.write(f"👤 {lead['owner_name'] or '—'}")
-        st.write(f"📞 {lead['owner_phone'] or '—'}")
-        st.write(f"✉️ {lead['owner_email'] or '—'}")
+        st.markdown("**👤 Owner**")
+        st.write(f"Nombre: {lead['owner_name'] or '—'}")
+        st.write(f"Phone: {lead['owner_phone'] or '— (click 🔎 abajo)'}")
+        st.write(f"Email: {lead['owner_email'] or '—'}")
     with o2:
-        if lead["Buscar owner"]:
+        st.markdown("**Lookup directo**")
+        if lead["zillow_url"]:
+            st.link_button("🏡 Zillow", lead["zillow_url"], use_container_width=True)
+        if lead["owner_lookup_url"]:
             label = "🏢 Sunbiz" if is_llc(lead["owner_name"]) else "🔎 TruePeople"
-            st.link_button(label, lead["Buscar owner"], use_container_width=True)
-            if not is_llc(lead["owner_name"]) and lead["owner_name"]:
-                name_q = urllib.parse.quote_plus(lead["owner_name"])
-                fps_url = f"https://www.fastpeoplesearch.com/name/{lead['owner_name'].lower().replace(' ', '-')}"
-                st.link_button("🔎 FastPeople", fps_url, use_container_width=True)
+            st.link_button(label, lead["owner_lookup_url"], use_container_width=True)
 
-    # Bank info si es REO
-    owner_upper = (lead["owner_name"] or "").upper()
-    is_bank_owned = any(k in owner_upper for k in (
-        "BANK", "MORTGAGE", "WELLS FARGO", "JPMORGAN", "CHASE",
-        "US BANK", "FEDERAL NATIONAL", "FANNIE", "FREDDIE", "WILMINGTON TRUST"
-    ))
-    if is_bank_owned:
-        st.markdown("**🏦 REO — Owner es banco**")
-        st.write(f"Banco actual: **{lead['owner_name']}**")
+    # ── Bank / Lender ──────────────────────────────────────────────────
+    st.markdown("**🏦 Bank / Lender**")
+    if is_bank_owned(lead["owner_name"]):
+        st.info(f"REO — el owner actual ES el banco: **{lead['owner_name']}**")
     elif lead["category"] in ("Lis Pendens", "Foreclosure", "Auction"):
-        clerk_url = (
-            "https://www2.miamidadeclerk.gov/ocs/Search.aspx?"
-            f"q={urllib.parse.quote_plus(lead['owner_name'] or '')}"
-        )
-        st.markdown("**🏦 Banco + ⚖️ Attorney**")
-        st.caption("Info detallada del Clerk de Miami-Dade (case number, plaintiff, attorney)")
-        st.link_button("⚖️ Buscar caso en Miami-Dade Clerk", clerk_url, use_container_width=False)
+        st.caption("Banco demandante + número de caso → Clerk")
+        if lead["clerk_url"]:
+            st.link_button("⚖️ Ver caso en el Clerk", lead["clerk_url"])
+    else:
+        st.caption("Sin banco asociado")
+
+    # ── Tax Delinquency ────────────────────────────────────────────────
+    st.markdown("**🧾 Tax Delinquency**")
+    st.caption(
+        f"Click para verificar si la propiedad tiene impuestos vencidos en "
+        f"{lead['county'] or 'el county'}"
+    )
+    if lead["tax_url"]:
+        st.link_button("🧾 Verificar tax delinquency", lead["tax_url"])
+
+    # ── Attorney + Lis Pendens ─────────────────────────────────────────
+    if lead["category"] in ("Lis Pendens", "Foreclosure", "Auction"):
+        st.markdown("**⚖️ Attorney + Case Info**")
+        st.caption("El Clerk te muestra: número de caso, fecha filed, plaintiff (banco), attorney, próxima audiencia")
+        if lead["clerk_url"]:
+            st.link_button("⚖️ Buscar caso en el Clerk", lead["clerk_url"], key="clerk_attorney")
 
     if lead.get("notes") and not pd.isna(lead["notes"]):
         st.caption(f"💬 {lead['notes']}")
