@@ -335,7 +335,9 @@ def _row_to_lead(row: dict, today: date, default_category: str = "Foreclosure") 
         bedrooms=beds,
         outstanding_debt=list_price,
         equity=list_price,  # placeholder until Property Appraiser enriches
-        status=_find_column(row, *COLUMN_ALIASES["status"]) or "New",
+        # Always "New" for freshly-uploaded leads — pipeline state, not MLS state.
+        # MLS status ('Active', 'Coming Soon') is captured in notes.
+        status="New",
         notes=notes,
         source="mls_matrix_csv",
     )
