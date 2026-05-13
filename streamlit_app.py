@@ -10,6 +10,7 @@ Run locally: `streamlit run streamlit_app.py`
 
 import streamlit as st
 import pandas as pd
+import re
 import urllib.parse
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -565,6 +566,72 @@ def render_table(view_df: pd.DataFrame, view_name: str):
             st.write(f"👤 {lead['Owner']}")
             st.write(f"📞 {lead['Phone']}")
             st.write(f"✉️ {lead['owner_email']}")
+
+            # Manual lookup helpers — open free people-search sites in new tab
+            owner_name = str(lead.get("Owner", "")).strip()
+            owner_city = str(lead.get("city", "")).strip()
+            is_llc = bool(re.search(r"\b(LLC|INC|CORP|TRUST|TRS|LTD|LP|LLP|PA)\b",
+                                     owner_name, re.IGNORECASE))
+            if owner_name and owner_name not in ("", "—", "nan"):
+                name_q = urllib.parse.quote_plus(owner_name)
+                city_q = urllib.parse.quote_plus(owner_city) if owner_city else ""
+
+                if is_llc:
+                    # LLC — search Sunbiz (FL corp registry) for officers
+                    sunbiz_url = (
+                        f"https://search.sunbiz.org/Inquiry/CorporationSearch/"
+                        f"ByName?searchTerm={name_q}"
+                    )
+                    button_html = f"""
+                    <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+                        <a href="{sunbiz_url}" target="_blank"
+                           style="background:#005A8B;color:white;padding:4px 10px;
+                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
+                            🏢 Sunbiz (officers)
+                        </a>
+                    </div>
+                    <div style="font-size:0.72rem;color:#777;margin-top:4px;">
+                        LLC — Sunbiz te muestra el officer + mailing address real
+                    </div>
+                    """
+                else:
+                    # Person — manual people-search lookups
+                    tps_url = (
+                        f"https://www.truepeoplesearch.com/results?"
+                        f"name={name_q}"
+                        + (f"&citystatezip={city_q}+FL" if city_q else "")
+                    )
+                    fps_url = (
+                        f"https://www.fastpeoplesearch.com/name/"
+                        f"{owner_name.lower().replace(' ', '-')}"
+                    )
+                    sunbiz_url = (
+                        f"https://search.sunbiz.org/Inquiry/CorporationSearch/"
+                        f"ByOfficerName?searchTerm={name_q}"
+                    )
+                    button_html = f"""
+                    <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+                        <a href="{tps_url}" target="_blank"
+                           style="background:#0072CE;color:white;padding:4px 10px;
+                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
+                            🔎 TruePeople
+                        </a>
+                        <a href="{fps_url}" target="_blank"
+                           style="background:#E5404B;color:white;padding:4px 10px;
+                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
+                            🔎 FastPeople
+                        </a>
+                        <a href="{sunbiz_url}" target="_blank"
+                           style="background:#005A8B;color:white;padding:4px 10px;
+                                  border-radius:6px;text-decoration:none;font-size:0.82rem;">
+                            🏢 Sunbiz
+                        </a>
+                    </div>
+                    <div style="font-size:0.72rem;color:#777;margin-top:4px;">
+                        Persona — busca phone en estos 3 sitios (gratis)
+                    </div>
+                    """
+                st.markdown(button_html, unsafe_allow_html=True)
 
         with d3:
             st.markdown("**Lender / Bank**")
