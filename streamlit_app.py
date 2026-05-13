@@ -10,6 +10,7 @@ Run locally: `streamlit run streamlit_app.py`
 
 import streamlit as st
 import pandas as pd
+import urllib.parse
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -535,6 +536,29 @@ def render_table(view_df: pd.DataFrame, view_name: str):
             st.write(f"📍 {lead['Address']}")
             st.write(f"🏠 {lead['Type']} · {lead['bedrooms']} bedrooms · {lead['units']} unit(s)")
             st.metric("Equity estimado", fmt_currency(lead["equity"]))
+
+            # Quick links — Zillow, Google Maps, county appraiser
+            full_addr_q = urllib.parse.quote_plus(str(lead.get("Address", "")))
+            zillow_url = f"https://www.zillow.com/homes/{full_addr_q}_rb/"
+            maps_url = f"https://www.google.com/maps/search/?api=1&query={full_addr_q}"
+            redfin_url = f"https://www.redfin.com/stingray/do/location-autocomplete?location={full_addr_q}&v=2"
+            st.markdown(
+                f"""
+                <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+                    <a href="{zillow_url}" target="_blank"
+                       style="background:#006AFF;color:white;padding:4px 10px;
+                              border-radius:6px;text-decoration:none;font-size:0.82rem;">
+                        🏡 Zillow
+                    </a>
+                    <a href="{maps_url}" target="_blank"
+                       style="background:#34A853;color:white;padding:4px 10px;
+                              border-radius:6px;text-decoration:none;font-size:0.82rem;">
+                        🗺️ Maps
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
         with d2:
             st.markdown("**Owner**")
