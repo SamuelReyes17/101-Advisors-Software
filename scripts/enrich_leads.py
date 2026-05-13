@@ -66,7 +66,7 @@ def enrich_row(row: dict) -> tuple[str, str]:
         pa_error = ""
 
     if pa_info:
-        # Fill in fields that are empty (preserve MLS data when present)
+        # Basic identity
         if _is_empty(row.get("zip")):
             row["zip"] = pa_info.get("zip", "") or ""
         if _is_empty(row.get("city")):
@@ -88,13 +88,33 @@ def enrich_row(row: dict) -> tuple[str, str]:
         if _is_empty(row.get("bedrooms")) and pa_info.get("bedrooms"):
             row["bedrooms"] = str(pa_info["bedrooms"])
 
+        # ── NEW: extended fields from Property Appraiser ────────────────
+        if pa_info.get("bathrooms"):
+            row["bathrooms"] = str(pa_info["bathrooms"])
+        if pa_info.get("year_built"):
+            row["year_built"] = str(pa_info["year_built"])
+        if pa_info.get("mailing_address"):
+            row["owner_mailing_address"] = pa_info["mailing_address"]
+        if pa_info.get("is_absentee_owner") is not None:
+            row["is_absentee_owner"] = "yes" if pa_info["is_absentee_owner"] else "no"
+        if pa_info.get("total_value"):
+            row["assessed_value"] = str(pa_info["total_value"])
+        if pa_info.get("lot_size_sqft"):
+            row["lot_size_sqft"] = str(pa_info["lot_size_sqft"])
+        if pa_info.get("heated_area_sqft"):
+            row["heated_area_sqft"] = str(pa_info["heated_area_sqft"])
+
+        # Folio en notes para futuras búsquedas
         folio = pa_info.get("folio", "")
         if folio:
+            row["folio"] = folio  # ← also save as own column
             notes = row.get("notes", "") or ""
             if "folio=" not in notes.lower():
                 row["notes"] = f"{notes} · folio={folio}".strip(" ·")
 
         summary = f"ZIP={pa_info.get('zip','?')} · {pa_info.get('owner_name','?')} · {pa_ptype}"
+        if pa_info.get("is_absentee_owner"):
+            summary += " · ABSENTEE"
         return "pa", summary
 
     # --- Fallback: Census Geocoder (works for Broward / Palm Beach) ---
@@ -142,11 +162,20 @@ def main() -> int:
         print(f"  [{i:3d}/{len(rows)}] {icon} {addr:<42}  {summary}")
         time.sleep(REQUEST_DELAY_SEC)
 
-    # Write back
+    # Write back — extend fieldnames to include any new columns the enricher added
+    extra_keys: set[str] = set()
+    for row in rows:
+        for k in row.keys():
+            if k not in fieldnames:
+                extra_keys.add(k)
+    all_fields = list(fieldnames) + sorted(extra_keys)
+
     with CSV_PATH.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=all_fields, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
+    if extra_keys:
+        print(f"📊 Columnas nuevas agregadas al CSV: {sorted(extra_keys)}")
 
     total = len(rows)
     enriched = counts["pa"] + counts["census"]

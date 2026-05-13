@@ -157,17 +157,21 @@ def load_data() -> tuple[pd.DataFrame, str]:
 
     # Numeric fields
     for c in ["outstanding_debt", "equity", "units", "bedrooms",
-              "unpaid_taxes_2024", "unpaid_taxes_2025"]:
+              "unpaid_taxes_2024", "unpaid_taxes_2025",
+              "year_built", "assessed_value", "lot_size_sqft",
+              "heated_area_sqft", "bathrooms"]:
         if c in df.columns:
             df[c] = pd.to_numeric(df[c], errors="coerce").fillna(0)
         else:
             df[c] = 0
 
-    # ── Fields Leon's sheet has but we don't auto-populate yet ───────────
-    # These get filled by manual lookup or v2 integrations.
-    for col in ("purchase_date", "attorney_name", "attorney_phone", "attorney_email"):
+    # ── String fields ─────────────────────────────────────────────────
+    for col in ("purchase_date", "attorney_name", "attorney_phone", "attorney_email",
+                "owner_mailing_address", "is_absentee_owner", "folio"):
         if col not in df.columns:
             df[col] = ""
+        else:
+            df[col] = df[col].fillna("").astype(str)
 
     # ── Leon's category mapping ──────────────────────────────────────────
     df["leon_category"] = df["category"].map(MLS_TO_LEON_CATEGORY).fillna(df["category"])
@@ -482,6 +486,18 @@ if selection.selection.rows:
         f"{lead['property_type']} · {lead['county']}"
     )
 
+    # Property details (de Property Appraiser)
+    p1, p2, p3, p4 = st.columns(4)
+    yb = int(lead.get("year_built") or 0)
+    if yb:
+        p1.metric("Year built", yb)
+    if int(lead.get("assessed_value") or 0):
+        p2.metric("Assessed value", f"${int(lead['assessed_value']):,}")
+    if float(lead.get("heated_area_sqft") or 0):
+        p3.metric("Heated sqft", f"{int(lead['heated_area_sqft']):,}")
+    if float(lead.get("lot_size_sqft") or 0):
+        p4.metric("Lot sqft", f"{int(lead['lot_size_sqft']):,}")
+
     # Owner block + Lookup buttons
     o1, o2 = st.columns([2, 1])
     with o1:
@@ -489,6 +505,10 @@ if selection.selection.rows:
         st.write(f"Nombre: {lead['owner_name'] or '—'}")
         st.write(f"Phone: {lead['owner_phone'] or '— (click 🔎 abajo)'}")
         st.write(f"Email: {lead['owner_email'] or '—'}")
+        if lead.get("owner_mailing_address"):
+            st.write(f"📬 Mailing: {lead['owner_mailing_address']}")
+        if lead.get("is_absentee_owner") == "yes":
+            st.warning("🚨 **ABSENTEE OWNER** — el dueño no vive ahí (oro para cold call)")
     with o2:
         st.markdown("**Lookups directos**")
         if lead["zillow_url"]:
