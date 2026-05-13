@@ -281,6 +281,23 @@ def _row_to_lead(row: dict, today: date, default_category: str = "Foreclosure") 
 
     city = _find_column(row, *COLUMN_ALIASES["city"])
     zip_code = _find_column(row, *COLUMN_ALIASES["zip"])
+
+    # If no explicit ZIP column, try to extract a Florida ZIP from the address text.
+    # Florida ZIPs always start with 32, 33, or 34 (e.g. 33133 Miami, 33301 Fort Lauderdale).
+    # This guard avoids matching 5-digit house numbers like "13231 SW 220 ST".
+    FL_ZIP_RE = re.compile(r"\b(3[234]\d{3})\b")
+    if not zip_code and full_addr:
+        zip_match = FL_ZIP_RE.search(full_addr)
+        if zip_match:
+            zip_code = zip_match.group(1)
+
+    # If still no ZIP, try the Subdivision column (rare, but sometimes there)
+    if not zip_code:
+        subdivision = _find_column(row, *COLUMN_ALIASES["subdivision"])
+        zip_match = FL_ZIP_RE.search(subdivision)
+        if zip_match:
+            zip_code = zip_match.group(1)
+
     county = _find_column(row, *COLUMN_ALIASES["county"])
     if not county:
         county = _detect_county_from_city(city, zip_code)
