@@ -349,7 +349,6 @@ if len(filtered) == 0:
     st.stop()
 
 display = filtered.copy()
-display = display.sort_values(["leon_category", "zip"], ascending=[True, True])
 
 # Compute link URLs
 display["zillow_url"] = display["full_address"].apply(build_zillow_url)
@@ -361,6 +360,15 @@ display["tax_url"] = display.apply(
 )
 display["clerk_url"] = display.apply(
     lambda r: build_clerk_url(r["county"], r["owner_name"]), axis=1
+)
+
+# Sort: Miami-Dade leads first (most data), then by tax estimate descending
+# (high-value leads on top). Empty rows last.
+display["_sort_has_owner"] = (display["owner_name"].str.strip() != "").astype(int)
+display["_sort_tax"] = pd.to_numeric(display.get("unpaid_taxes_2025", 0), errors="coerce").fillna(0)
+display = display.sort_values(
+    ["_sort_has_owner", "_sort_tax"],
+    ascending=[False, False],
 )
 
 # Bank: para REOs, el owner es el banco
@@ -409,14 +417,18 @@ display_renamed = display.copy()
 display_renamed = display_renamed.rename(columns={"outstanding_debt": "purchase_price"})
 display_renamed["outstanding_debt_col"] = display["outstanding_debt"]
 
-# Final columns to show (with renames applied)
+# Final columns to show — botones de lookup PRIMERO para que sean visibles
+# sin necesidad de scrollar horizontalmente.
 final_cols = [
-    "property_address", "zip", "purchase_price", "purchase_date", "property_type",
+    "property_address",
+    # 🎯 Lookup buttons al principio
+    "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
+    # Datos
+    "zip", "purchase_price", "purchase_date", "property_type",
     "units", "bedrooms", "owner_first", "owner_last", "owner_phone", "owner_email",
     "bank_name_display", "lender_phone", "lender_email", "bank_address",
     "outstanding_debt_col", "attorney_name", "attorney_phone", "attorney_email",
     "unpaid_taxes_2024", "unpaid_taxes_2025",
-    "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
 ]
 
 selection = st.dataframe(
