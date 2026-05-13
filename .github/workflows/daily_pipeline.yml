@@ -32,6 +32,9 @@ jobs:
       - name: Run pipeline
         env:
           BATCH_SKIP_API_KEY: ${{ secrets.BATCH_SKIP_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GMAIL_LABEL: ${{ secrets.GMAIL_LABEL }}
         run: |
           python -m pipeline.run
 

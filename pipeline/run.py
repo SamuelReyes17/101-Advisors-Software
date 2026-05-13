@@ -34,6 +34,7 @@ from .collectors.miami_dade_clerk import (
     MiamiDadeProbateCollector,
 )
 from .collectors.miami_dade_tax import MiamiDadeTaxDelinquentCollector
+from .collectors.mls_matrix_email import MLSMatrixEmailCollector
 from .collectors.property_appraiser import enrich_by_address, is_target_property_type
 from .collectors.batch_skip import skip_trace
 from .utils.state import StateDB
@@ -54,19 +55,25 @@ def select_collectors(config: dict) -> list[Collector]:
     """Return the collectors enabled by config."""
     cats = config.get("categories", {})
     counties = set(config.get("counties", []))
+    sources = config.get("sources", {})
     out: list[Collector] = []
 
+    # PRIMARY: MLS Matrix email collector (covers REO, Short Sale, Auction
+    # across all tri-county Florida via SEF MLS Matrix saved searches).
+    if sources.get("mls_matrix_email", True):
+        out.append(MLSMatrixEmailCollector(config))
+
+    # SECONDARY: Clerk of Court collectors (Miami-Dade only, still stubs).
     if "Miami-Dade" in counties:
-        if cats.get("foreclosure"):
+        if cats.get("foreclosure") and sources.get("miami_dade_clerk", False):
             out.append(MiamiDadeForeclosureCollector(config))
-        if cats.get("lis_pendens"):
+        if cats.get("lis_pendens") and sources.get("miami_dade_clerk", False):
             out.append(MiamiDadeLisPendensCollector(config))
-        if cats.get("probate"):
+        if cats.get("probate") and sources.get("miami_dade_clerk", False):
             out.append(MiamiDadeProbateCollector(config))
-        if cats.get("tax_delinquent"):
+        if cats.get("tax_delinquent") and sources.get("miami_dade_tax", False):
             out.append(MiamiDadeTaxDelinquentCollector(config))
 
-    # TODO: Broward, Palm Beach when those collectors are built
     return out
 
 

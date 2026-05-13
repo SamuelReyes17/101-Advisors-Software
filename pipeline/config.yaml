@@ -36,6 +36,14 @@ exclude_property_types:
   - "Townhouse"
   - "Vacant Land"
 
+# ----- Data sources -------------------------------------------------------
+# Which collectors are active. MLS Matrix email is the primary source.
+# Clerk of Court collectors are stubs — activate when they're implemented.
+sources:
+  mls_matrix_email: true       # PRIMARY: SEF MLS Matrix saved search emails
+  miami_dade_clerk: false      # STUB: Foreclosure/Lis Pendens/Probate
+  miami_dade_tax: false        # STUB: Tax Delinquent
+
 # ----- Categories to scan -------------------------------------------------
 categories:
   foreclosure: true

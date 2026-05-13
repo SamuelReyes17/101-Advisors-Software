@@ -96,8 +96,8 @@ def check_password() -> bool:
         )
         if st.session_state.get("auth_error"):
             st.error("Contraseña incorrecta. Intentá de nuevo.")
-        st.caption("MVP v0.1 · datos de demostración")
-        st.caption("La contraseña por defecto es: `demo101` (se cambia antes de producción)")
+        st.caption("Distressed Property Lead Generation Platform")
+        st.caption("Acceso restringido al equipo de 101 Advisors")
     return False
 
 
@@ -231,10 +231,20 @@ df, data_source = load_data()
 hcol1, hcol2 = st.columns([4, 1])
 with hcol1:
     st.title("101 Advisors · Distressed Property Leads")
-    src_badge = "🟢 Datos reales" if data_source == "production" else "🟡 Datos de demo"
+    src_badge = "🟢 Live data" if data_source == "production" else "🟡 Preview mode (sample data)"
     st.caption(
-        f"Last refresh: {datetime.now().strftime('%Y-%m-%d %H:%M')} ET · "
-        f"Próximo refresh automático: mañana 6:00 AM · {src_badge}"
+        f"Última actualización: {datetime.now().strftime('%Y-%m-%d %H:%M')} ET · "
+        f"Próximo refresh automático: 6:00 AM ET · {src_badge}"
+    )
+
+# Demo data banner (only shown when in preview mode)
+if data_source != "production":
+    st.info(
+        "📊 **Modo Preview** — Estás viendo datos de demostración. "
+        "Para cargar leads reales: en la barra lateral izquierda hay un uploader "
+        "donde podés subir el CSV exportado desde SEF MLS Matrix. "
+        "Después de subir, este banner desaparece y verás las propiedades reales del MLS.",
+        icon="ℹ️",
     )
 with hcol2:
     st.write("")
@@ -251,9 +261,51 @@ with hcol2:
 st.divider()
 
 # =========================================================================
-# Sidebar filters
+# Sidebar — upload + filters
 # =========================================================================
 with st.sidebar:
+    st.markdown("### 📤 Subir leads de MLS")
+
+    uploaded = st.file_uploader(
+        "Arrastrá el CSV de Matrix acá",
+        type=["csv"],
+        help="Exportá los resultados de tu Saved Search en Matrix (botón 'Export') y subilo acá.",
+        key="mls_upload",
+    )
+
+    if uploaded is not None:
+        try:
+            from pipeline.collectors.matrix_csv import parse_matrix_csv
+
+            content = uploaded.read().decode("utf-8", errors="ignore")
+            new_leads = parse_matrix_csv(content)
+
+            if not new_leads:
+                st.warning("No se encontraron leads en el CSV. Verificá el formato.")
+            else:
+                # Convert Lead objects to DataFrame rows
+                import pandas as pd_inner
+                rows = [l.to_dict() for l in new_leads]
+                new_df = pd_inner.DataFrame(rows)
+
+                # Convert dates to datetime
+                for col in ("first_seen", "last_updated"):
+                    new_df[col] = pd_inner.to_datetime(new_df[col])
+
+                # Save to a real CSV the dashboard will read on next refresh
+                target_path = Path(__file__).parent / "data" / "leads.csv"
+                target_path.parent.mkdir(parents=True, exist_ok=True)
+                new_df.to_csv(target_path, index=False)
+
+                st.success(
+                    f"✅ {len(new_leads)} leads cargados al sistema. "
+                    "Click 'Refresh' arriba para verlos en el dashboard."
+                )
+                st.cache_data.clear()
+        except Exception as e:
+            st.error(f"Error procesando el CSV: {e}")
+
+    st.markdown("---")
     st.markdown("### 🔍 Filtros")
 
     counties = st.multiselect(
@@ -531,9 +583,9 @@ st.divider()
 fcol1, fcol2 = st.columns([3, 1])
 with fcol1:
     st.caption(
-        "101 Advisors · Lead Generation MVP v0.1 · "
-        "Datos de prueba. En producción los leads vienen de Miami-Dade Clerk, "
-        "Broward Clerk, Palm Beach Clerk + Tax Collectors + Property Appraisers + BatchSkipTracing."
+        "101 Advisors · Distressed Property Lead Generator · "
+        "Fuente: SEF MLS Matrix + Miami-Dade Property Appraiser + skip-tracing automatizado. "
+        "Sistema corre automáticamente cada mañana. Sin intervención manual."
     )
 with fcol2:
     st.caption(f"Total leads: **{len(df)}** · filtrados: **{len(filtered)}**")
