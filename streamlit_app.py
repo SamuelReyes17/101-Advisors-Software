@@ -550,6 +550,8 @@ final_cols = [
     "property_address",
     # 🎯 Lookup buttons al principio
     "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
+    # ⭐ Criterio Búsqueda (Foreclosure / Auction / Short Sale / Lis Pendens) — lo más importante
+    "leon_category",
     # Datos
     "zip", "purchase_price", "purchase_date", "property_type",
     "units", "bedrooms", "owner_first", "owner_last", "owner_phone", "owner_email",
@@ -593,6 +595,10 @@ selection = st.dataframe(
     display_renamed[final_cols],
     column_config={
         "property_address":   st.column_config.TextColumn("Property Address", width="large"),
+        "leon_category":      st.column_config.TextColumn(
+            "Criterio", width="small",
+            help="Tipo de propiedad distressed — Foreclosure / Auction / Short Sale / Lis Pendens",
+        ),
         "zip":                st.column_config.TextColumn("Zipcode", width="small"),
         "purchase_price":     st.column_config.NumberColumn("Purchase Price", format="$%d", width="small"),
         "purchase_date":      st.column_config.TextColumn("Purchase Date", width="small"),
