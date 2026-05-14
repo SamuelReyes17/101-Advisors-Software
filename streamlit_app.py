@@ -174,7 +174,10 @@ def load_data() -> tuple[pd.DataFrame, str]:
 
     # ── String fields ─────────────────────────────────────────────────
     for col in ("purchase_date", "attorney_name", "attorney_phone", "attorney_email",
-                "owner_mailing_address", "is_absentee_owner", "folio"):
+                "owner_mailing_address", "is_absentee_owner", "folio",
+                "clerk_case_number", "clerk_filing_date", "clerk_case_type",
+                "clerk_case_status", "clerk_section", "clerk_plaintiff",
+                "clerk_defendant", "clerk_match_confidence"):
         if col not in df.columns:
             df[col] = ""
         else:
@@ -337,6 +340,12 @@ with st.sidebar:
 
     show_offtarget = st.checkbox("Mostrar leads fuera del área", value=False)
 
+    only_with_clerk_case = st.checkbox(
+        "🎯 Solo con caso Clerk identificado",
+        value=False,
+        help="Filtra los ~40 leads donde detectamos un caso de foreclosure activo en el Clerk de Miami-Dade",
+    )
+
 # =========================================================================
 # Apply filters
 # =========================================================================
@@ -357,6 +366,9 @@ if counties:
 
 if not show_offtarget:
     mask = mask & df["in_target_area"]
+
+if only_with_clerk_case:
+    mask = mask & (df["clerk_case_number"].astype(str).str.strip() != "")
 
 filtered = df[mask].copy()
 
@@ -452,6 +464,8 @@ final_cols = [
     "bank_name_display", "lender_phone", "lender_email", "bank_address",
     "outstanding_debt_col", "attorney_name", "attorney_phone", "attorney_email",
     "unpaid_taxes_2024", "unpaid_taxes_2025",
+    # 🆕 Clerk data (Lis Pendens / Foreclosure case)
+    "clerk_case_number", "clerk_filing_date", "clerk_case_status", "clerk_case_type",
 ]
 
 selection = st.dataframe(
@@ -486,6 +500,12 @@ selection = st.dataframe(
             help="Estimado del tax bill anual (Taxable Value × 22 mills). "
                  "Para delinquency real click 🧾 Tax.",
         ),
+        # 🆕 Clerk data columns
+        "clerk_case_number":  st.column_config.TextColumn("Case Number", width="medium",
+            help="Caso de foreclosure/Lis Pendens en Miami-Dade Clerk OCS"),
+        "clerk_filing_date":  st.column_config.TextColumn("Case Filed", width="small"),
+        "clerk_case_status":  st.column_config.TextColumn("Case Status", width="small"),
+        "clerk_case_type":    st.column_config.TextColumn("Case Type", width="medium"),
         # Lookup buttons al final
         "zillow_url":         st.column_config.LinkColumn("🏡", display_text="Zillow", width="small"),
         "owner_lookup_url":   st.column_config.LinkColumn(
@@ -560,16 +580,31 @@ if selection.selection.rows:
             label = "🏢 Sunbiz" if is_llc(lead["owner_name"]) else "🔎 TruePeople"
             st.link_button(label, lead["owner_lookup_url"], use_container_width=True)
 
-    # Bank
-    st.markdown("**🏦 Bank**")
-    if is_bank_owned(lead["owner_name"]):
+    # Bank + Clerk case (auto-fetched from Miami-Dade Clerk OCS)
+    st.markdown("**🏦 Bank / Foreclosure Case**")
+    clerk_case = (lead.get("clerk_case_number") or "").strip()
+    if clerk_case:
+        # We have a Clerk case auto-detected
+        status = (lead.get("clerk_case_status") or "").strip()
+        status_icon = "🔴 OPEN" if status == "OPEN" else f"⚪ {status}"
+        c1, c2 = st.columns([2, 1])
+        with c1:
+            st.success(f"**🏦 Plaintiff**: {lead.get('clerk_plaintiff') or lead.get('lender_name', '—')}")
+            st.write(f"**📋 Case**: `{clerk_case}` · {status_icon}")
+            st.write(f"**📅 Filed**: {lead.get('clerk_filing_date', '—')}")
+            st.write(f"**⚖️ Type**: {lead.get('clerk_case_type', '—')}")
+            st.write(f"**👥 Defendant**: {lead.get('clerk_defendant', '—')}")
+        with c2:
+            if lead["clerk_url"]:
+                st.link_button("⚖️ Ver en Clerk", lead["clerk_url"], use_container_width=True)
+    elif is_bank_owned(lead["owner_name"]):
         st.info(f"REO — el owner ES el banco: **{lead['owner_name']}**")
     elif lead["leon_category"] in ("Lis Pendens", "Foreclosure"):
-        st.caption("Banco demandante + número de caso → click ⚖️ Clerk")
+        st.caption("No detectamos caso Clerk activo. Click ⚖️ para buscar manualmente.")
         if lead["clerk_url"]:
-            st.link_button("⚖️ Ver caso en el Clerk", lead["clerk_url"])
+            st.link_button("⚖️ Buscar en el Clerk", lead["clerk_url"])
     else:
-        st.caption("Sin banco asociado")
+        st.caption("Sin caso de foreclosure asociado")
 
     # Tax
     st.markdown("**🧾 Tax Delinquency**")
