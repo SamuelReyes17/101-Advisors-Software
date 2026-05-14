@@ -403,9 +403,10 @@ display["tax_url"] = display.apply(
 )
 display["clerk_url"] = display["county"].apply(build_clerk_url)
 
-# Filter out deprecated "z DO NOT USE - Legacy Mortgage" Clerk cases
-# (those are old records, not actionable)
-LEGACY_PATTERNS = ("Z DO NOT USE", "Z LEGACY", "Z OLD")
+# Filter out non-actionable Clerk cases:
+#   - "Z DO NOT USE" / Z LEGACY: deprecated records
+#   - "Replevin": personal property recovery (typically cars, not real estate)
+LEGACY_PATTERNS = ("Z DO NOT USE", "Z LEGACY", "Z OLD", "REPLEVIN")
 display["_legacy_case"] = display["clerk_case_type"].astype(str).str.upper().str.startswith(LEGACY_PATTERNS)
 # Clear the clerk fields for legacy cases (keep the lead, just hide the bad data)
 legacy_mask = display["_legacy_case"]

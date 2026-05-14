@@ -41,13 +41,14 @@ log = logging.getLogger(__name__)
 OCS_SEARCH_URL = "https://www2.miamidadeclerk.gov/ocs/#/Search"
 
 # Strict foreclosure keywords — must appear in caseType text.
-# We deliberately EXCLUDE "Consumer Debt" (credit card debt, not real property).
+# We deliberately EXCLUDE:
+#   - "Consumer Debt" (credit card debt, not real property)
+#   - "Replevin" (recovery of personal property — usually cars, not real estate)
 FORECLOSURE_KEYWORDS = (
     "FORECLOSURE",        # Mortgage Foreclosure, Foreclosure Residential, etc.
     "LIS PENDENS",        # Lis Pendens filings
     "REAL PROPERTY",      # Real property disputes
     "QUIET TITLE",        # Title disputes
-    "REPLEVIN",           # Recovery of property
 )
 
 # Case types to EXCLUDE even if a bank is plaintiff (these are NOT foreclosures)
