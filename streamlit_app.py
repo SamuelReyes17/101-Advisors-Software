@@ -211,23 +211,52 @@ def build_zillow_url(address: str) -> str:
     return f"https://www.zillow.com/homes/{urllib.parse.quote_plus(address)}_rb/"
 
 
-def build_owner_lookup_url(owner_name: str, city: str = "", zip_code: str = "") -> str:
-    """For LLCs → Sunbiz search. For persons → TruePeopleSearch with
-    City+State+ZIP for narrower results."""
+def build_owner_lookup_url(owner_name: str, city: str = "", zip_code: str = "",
+                            mailing_address: str = "") -> str:
+    """For LLCs → Sunbiz search. For persons → TruePeopleSearch with the
+    MAILING address (more specific than just city — finds the right person)."""
     if not owner_name:
         return ""
     name_q = urllib.parse.quote_plus(owner_name.strip())
     if is_llc(owner_name):
-        # LLC search on Sunbiz by entity name
         return f"https://search.sunbiz.org/Inquiry/CorporationSearch/ByName?searchTerm={name_q}"
 
-    # Person search on TruePeopleSearch — needs city+state to narrow it down
+    # Use mailing address (if available) — much more specific than just city
+    # Mailing address looks like "2735 SW 36 AVE, MIAMI, FL 33133"
+    if mailing_address and "," in mailing_address:
+        # Extract just city+state+zip from mailing address for TruePeopleSearch
+        parts = [p.strip() for p in mailing_address.split(",")]
+        if len(parts) >= 2:
+            # Last 2 parts are usually city + "STATE ZIP"
+            citystatezip = urllib.parse.quote_plus(", ".join(parts[-2:]))
+            return f"https://www.truepeoplesearch.com/results?name={name_q}&citystatezip={citystatezip}"
+
+    # Fallback: city + state + ZIP
     citystate = (city or "Miami").strip()
     if zip_code:
-        citystatezip = f"{citystate}%2C+FL+{zip_code}"  # "City, FL 33133"
+        citystatezip = urllib.parse.quote_plus(f"{citystate}, FL {zip_code}")
     else:
-        citystatezip = f"{citystate}%2C+FL"  # "City, FL"
+        citystatezip = urllib.parse.quote_plus(f"{citystate}, FL")
     return f"https://www.truepeoplesearch.com/results?name={name_q}&citystatezip={citystatezip}"
+
+
+def build_fastpeople_url(owner_name: str, city: str = "") -> str:
+    """FastPeopleSearch — alternative free people-search engine."""
+    if not owner_name or is_llc(owner_name):
+        return ""
+    name_slug = owner_name.strip().lower().replace(" ", "-")
+    city_slug = (city or "miami").strip().lower().replace(" ", "-")
+    return f"https://www.fastpeoplesearch.com/name/{name_slug}_{city_slug}-fl"
+
+
+def build_whitepages_url(owner_name: str, city: str = "") -> str:
+    """WhitePages — third option for cross-checking."""
+    if not owner_name or is_llc(owner_name):
+        return ""
+    name_slug = owner_name.strip().replace(" ", "-")
+    if city:
+        return f"https://www.whitepages.com/name/{urllib.parse.quote(name_slug)}/{urllib.parse.quote(city)}-FL"
+    return f"https://www.whitepages.com/name/{urllib.parse.quote(name_slug)}"
 
 
 def build_tax_url(county: str, address: str, folio: str = "") -> str:
@@ -393,10 +422,19 @@ if len(filtered) == 0:
 
 display = filtered.copy()
 
-# Compute link URLs (using folio + zip for better targeting)
+# Compute link URLs (using folio + zip + mailing address for better targeting)
 display["zillow_url"] = display["full_address"].apply(build_zillow_url)
 display["owner_lookup_url"] = display.apply(
-    lambda r: build_owner_lookup_url(r["owner_name"], r["city"], r["zip"]), axis=1
+    lambda r: build_owner_lookup_url(
+        r["owner_name"], r["city"], r["zip"], r.get("owner_mailing_address", "")
+    ),
+    axis=1,
+)
+display["fastpeople_url"] = display.apply(
+    lambda r: build_fastpeople_url(r["owner_name"], r["city"]), axis=1,
+)
+display["whitepages_url"] = display.apply(
+    lambda r: build_whitepages_url(r["owner_name"], r["city"]), axis=1,
 )
 display["tax_url"] = display.apply(
     lambda r: build_tax_url(r["county"], r["full_address"], r.get("folio", "")), axis=1
@@ -608,24 +646,78 @@ if selection.selection.rows:
     if float(lead.get("lot_size_sqft") or 0):
         p4.metric("Lot sqft", f"{int(lead['lot_size_sqft']):,}")
 
-    # Owner block + Lookup buttons
+    # Owner block + Skip-Trace Toolkit
     o1, o2 = st.columns([2, 1])
     with o1:
         st.markdown("**👤 Owner**")
         st.write(f"Nombre: {lead['owner_name'] or '—'}")
-        st.write(f"Phone: {lead['owner_phone'] or '— (click 🔎 abajo)'}")
-        st.write(f"Email: {lead['owner_email'] or '—'}")
+        st.write(f"Phone: {lead['owner_phone'] or '— (skip-trace)'}")
+        st.write(f"Email: {lead['owner_email'] or '— (skip-trace)'}")
         if lead.get("owner_mailing_address"):
             st.write(f"📬 Mailing: {lead['owner_mailing_address']}")
         if lead.get("is_absentee_owner") == "yes":
-            st.warning("🚨 **ABSENTEE OWNER** — el dueño no vive ahí (oro para cold call)")
+            st.warning("🚨 **ABSENTEE OWNER** — el dueño no vive ahí. Mejor lead para cold call.")
     with o2:
-        st.markdown("**Lookups directos**")
+        st.markdown("**Property**")
         if lead["zillow_url"]:
             st.link_button("🏡 Zillow", lead["zillow_url"], use_container_width=True)
-        if lead["owner_lookup_url"]:
-            label = "🏢 Sunbiz" if is_llc(lead["owner_name"]) else "🔎 TruePeople"
-            st.link_button(label, lead["owner_lookup_url"], use_container_width=True)
+
+    # ── Skip-Trace Toolkit — phones/emails buscando en sitios gratis ───
+    st.markdown("**📞 Skip-Trace Toolkit** — buscar phone + email del owner")
+    if is_llc(lead["owner_name"]):
+        # LLC owner — Sunbiz is the right place
+        if lead.get("owner_lookup_url"):
+            st.link_button(
+                "🏢 Sunbiz — ver officers + mailing address del LLC",
+                lead["owner_lookup_url"],
+            )
+        st.caption(
+            "Click para ver los oficiales reales detrás del LLC en el registro de FL. "
+            "Después podés buscar a esa persona física en TruePeople/FastPeople."
+        )
+    else:
+        # Person — show all 3 free sites side-by-side
+        st1, st2, st3 = st.columns(3)
+        with st1:
+            if lead.get("owner_lookup_url"):
+                st.link_button("🔎 TruePeople", lead["owner_lookup_url"],
+                               use_container_width=True)
+        with st2:
+            if lead.get("fastpeople_url"):
+                st.link_button("🔎 FastPeople", lead["fastpeople_url"],
+                               use_container_width=True)
+        with st3:
+            if lead.get("whitepages_url"):
+                st.link_button("🔎 WhitePages", lead["whitepages_url"],
+                               use_container_width=True)
+        st.caption(
+            "👆 3 sitios gratis. Si TruePeople no muestra phone, probá FastPeople o WhitePages. "
+            "Suelen tener data complementaria. ~30 segundos de búsqueda por lead."
+        )
+
+    # ── Honest disclosure: el upgrade pago ─────────────────────────────
+    with st.expander("ℹ️ Why is phone/email not auto-populated?"):
+        st.markdown("""
+**Reality of phone/email data in Florida:**
+
+Phone numbers and emails are **NOT public records**. They live in private databases
+that aggregate from utility companies, credit bureaus, social media, etc. These
+databases are licensed and cost money.
+
+**Free options** (manual, ~30 sec/lead):
+- TruePeopleSearch — best free, ~70% match rate
+- FastPeopleSearch — backup, sometimes has data TPS doesn't
+- WhitePages — third option
+
+**Paid options to automate** (for the 101 Advisors team):
+- **BatchSkipTracing** — $0.20/lookup pay-as-you-go. ~$20/mes para 100 leads.
+  Most popular among real estate wholesalers in FL.
+- **PropStream** — $99/mes flat, unlimited skip-trace + filters + lists.
+  Industry standard for big firms.
+- **REISkip** — $0.10/lookup, similar to BatchSkipTracing.
+
+We can wire any of these into the dashboard in 1 hour of code if you choose to subscribe.
+        """)
 
     # Bank + Clerk case (auto-fetched from Miami-Dade Clerk OCS)
     st.markdown("**🏦 Bank / Foreclosure Case**")
