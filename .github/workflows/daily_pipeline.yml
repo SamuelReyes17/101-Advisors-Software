@@ -1,10 +1,18 @@
 name: Daily Pipeline
 
-# Corre todos los días a las 6:00 AM ET (10:00 UTC en horario estándar / 11:00 UTC en daylight saving).
-# Para cambiar a cada 2 días, reemplazá '0 10 * * *' por '0 10 */2 * *'.
+# ⚠️  CRON DISABLED — 2026-05-14
+# El cron viejo corría `python -m pipeline.run` que usa los collectors
+# obsoletos (MiamiDadeForeclosureCollector vía RealAuction, etc) y
+# SOBREESCRIBÍA `data/leads.csv` con ~30 leads, borrando los 275 que
+# venimos enriqueciendo desde MLS Matrix + PA + Clerk.
+#
+# Hasta que armemos un cron nuevo basado en el flujo de Matrix CSV
+# (que respete los leads existentes y solo agregue los nuevos del día),
+# el cron está desactivado. Solo se puede correr a mano desde la
+# pestaña Actions con workflow_dispatch si fuera necesario.
 on:
-  schedule:
-    - cron: "0 10 * * *"
+  # schedule:
+  #   - cron: "0 10 * * *"   # ← DESACTIVADO, ver nota arriba
   workflow_dispatch: {}        # permite correrlo a mano desde la pestaña Actions
 
 permissions:

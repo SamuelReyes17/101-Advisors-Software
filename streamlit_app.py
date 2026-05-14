@@ -456,15 +456,29 @@ for col in ("clerk_case_number", "clerk_filing_date", "clerk_case_status",
     if col in display.columns:
         display.loc[legacy_mask, col] = ""
 
-# Sort: leads with active Clerk case first (OPEN status), then those with any case,
-# then those with owner data, then by tax descending.
+# Sort priority (most important first):
+#   1. Leads added TODAY first (so the daily new ones appear on top)
+#   2. Then leads with active Clerk case OPEN
+#   3. Then leads with any Clerk case
+#   4. Then leads with owner data
+#   5. Then by tax descending
+today_str = pd.Timestamp.today().strftime("%Y-%m-%d")
+display["_sort_is_new_today"] = display["first_seen"].astype(str).str.startswith(today_str).astype(int)
 display["_sort_clerk_open"] = (display["clerk_case_status"].str.upper() == "OPEN").astype(int)
 display["_sort_has_case"]   = (display["clerk_case_number"].astype(str).str.strip() != "").astype(int)
 display["_sort_has_owner"]  = (display["owner_name"].str.strip() != "").astype(int)
 display["_sort_tax"] = pd.to_numeric(display.get("unpaid_taxes_2025", 0), errors="coerce").fillna(0)
 display = display.sort_values(
-    ["_sort_clerk_open", "_sort_has_case", "_sort_has_owner", "_sort_tax"],
-    ascending=[False, False, False, False],
+    ["_sort_is_new_today", "_sort_clerk_open", "_sort_has_case", "_sort_has_owner", "_sort_tax"],
+    ascending=[False, False, False, False, False],
+)
+
+# Add 🆕 marker to address for today's new leads (visible at a glance)
+display.loc[display["_sort_is_new_today"] == 1, "full_address"] = (
+    "🆕 " + display.loc[display["_sort_is_new_today"] == 1, "full_address"]
+)
+display.loc[display["_sort_is_new_today"] == 1, "property_address"] = (
+    "🆕 " + display.loc[display["_sort_is_new_today"] == 1, "property_address"]
 )
 
 # Bank/Plaintiff: for REOs, the owner is the bank itself.
