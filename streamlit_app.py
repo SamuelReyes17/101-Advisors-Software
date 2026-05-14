@@ -1,6 +1,6 @@
 """
-101 Advisors — Distressed Property Leads
-Dashboard estructurado IDÉNTICO al Google Sheet de Leon (21 columnas Scrape).
+101 Advisors — Property Leads Platform
+Dashboard estructurado con la información clave de cada lead.
 """
 
 import streamlit as st
@@ -55,7 +55,7 @@ def check_password() -> bool:
     _, mid, _ = st.columns([1, 1.2, 1])
     with mid:
         st.markdown("# 🏠 101 Advisors")
-        st.markdown("### Distressed Property Leads")
+        st.markdown("### Property Leads Platform")
         st.text_input("Password", type="password", on_change=_password_entered,
                       key="password", label_visibility="collapsed",
                       placeholder="Contraseña")
@@ -76,18 +76,21 @@ TRI_COUNTY = {"Miami-Dade", "Broward", "Palm Beach"}
 # "Exclude Condominiums, Exclude Apartments, Exclude Townhomes"
 DEFAULT_EXCLUDE_TYPES = {"Condominium", "Apartment", "Townhouse"}
 
-# Leon's 5 Criterio Búsqueda categories
-LEON_CATEGORIES = ["Probate", "Lis Pendens", "Foreclosure", "Tax Delinquent", "Liens"]
+# Leon's Criterio Búsqueda categories (Auction + Short Sale are separate buckets)
+LEON_CATEGORIES = [
+    "Foreclosure", "Auction", "Short Sale", "Lis Pendens",
+    "Probate", "Tax Delinquent", "Liens",
+]
 
-# Our internal categories (from MLS) → Leon's bucket
+# Our internal categories (from MLS) → Leon's bucket (kept granular)
 MLS_TO_LEON_CATEGORY = {
-    "Foreclosure": "Foreclosure",
-    "Auction":     "Foreclosure",   # Auctions are a stage of foreclosure
-    "Short Sale":  "Foreclosure",   # Pre-foreclosure
-    "Lis Pendens": "Lis Pendens",
-    "Probate":     "Probate",
+    "Foreclosure":    "Foreclosure",   # REOs (bank-owned)
+    "Auction":        "Auction",       # Court auctions — own bucket
+    "Short Sale":     "Short Sale",    # Pre-foreclosure — own bucket
+    "Lis Pendens":    "Lis Pendens",
+    "Probate":        "Probate",
     "Tax Delinquent": "Tax Delinquent",
-    "Liens":       "Liens",
+    "Liens":          "Liens",
 }
 
 # Tax URLs — TESTED working URLs.
@@ -464,11 +467,42 @@ display = display.sort_values(
     ascending=[False, False, False, False],
 )
 
-# Bank: para REOs, el owner es el banco
+# Bank/Plaintiff: for REOs, the owner is the bank itself.
+# For active cases, the lender_name column holds the foreclosure plaintiff
+# (which can be a bank, HOA, contractor, or other lender).
 display["bank_name_display"] = display.apply(
     lambda r: r["owner_name"] if is_bank_owned(r["owner_name"]) else (r.get("lender_name") or ""),
     axis=1,
 )
+
+# Classify the plaintiff type so Leon's team knows what kind of foreclosure it is
+def _classify_plaintiff(name: str) -> str:
+    if not name or not name.strip():
+        return ""
+    upper = name.upper()
+    if any(k in upper for k in ("BANK", "MORTGAGE", "JPMORGAN", "CHASE",
+                                "WELLS FARGO", "US BANK", "CITIBANK",
+                                "FEDERAL NATIONAL", "FANNIE", "FREDDIE",
+                                "DEUTSCHE", "AURORA LOAN", "WACHOVIA",
+                                "SUNTRUST", "TRUIST", "HSBC", "WILMINGTON")):
+        return "🏦 Bank"
+    if any(k in upper for k in ("CONDO", "CONDOMINIUM", "ASSOCIATION",
+                                "HOMEOWNERS", "HOA", "TOWNHOMES", "VILLAS",
+                                "TOWERS", "MASTER MAINTENANCE")):
+        return "🏘️ HOA/Condo"
+    if any(k in upper for k in ("CREDIT UNION", "FCU", "CU")):
+        return "🏦 Credit Union"
+    if any(k in upper for k in ("MOTOR CREDIT", "AUTO", "LEASING", "LEASE")):
+        return "🚗 Auto Lender"
+    if any(k in upper for k in ("CONSTRUCTION", "CONTRACTOR", "REPAIR",
+                                "ELECTRICAL", "PLUMBING", "ROOFING",
+                                "WINDOWS", "DOORS")):
+        return "🔨 Contractor"
+    if "TRUST" in upper:
+        return "📋 Trust"
+    return "🏢 Other"
+
+display["plaintiff_type"] = display["bank_name_display"].apply(_classify_plaintiff)
 
 st.caption(
     f"📋 **{len(display)} leads** · estructura idéntica al Sheet de Leon · "
@@ -519,7 +553,9 @@ final_cols = [
     # Datos
     "zip", "purchase_price", "purchase_date", "property_type",
     "units", "bedrooms", "owner_first", "owner_last", "owner_phone", "owner_email",
-    "bank_name_display", "lender_phone", "lender_email", "bank_address",
+    # Plaintiff / Bank info (with classification)
+    "bank_name_display", "plaintiff_type",
+    "lender_phone", "lender_email", "bank_address",
     "outstanding_debt_col", "attorney_name", "attorney_phone", "attorney_email",
     "unpaid_taxes_2024", "unpaid_taxes_2025",
     # 🆕 Clerk data (Lis Pendens / Foreclosure case)
@@ -567,7 +603,12 @@ selection = st.dataframe(
         "owner_last":         st.column_config.TextColumn("Owner Last Name", width="medium"),
         "owner_phone":        st.column_config.TextColumn("Owner Phone", width="small"),
         "owner_email":        st.column_config.TextColumn("Owner Email", width="medium"),
-        "bank_name_display":  st.column_config.TextColumn("Bank / Lender Name", width="medium"),
+        "bank_name_display":  st.column_config.TextColumn(
+            "Plaintiff (Bank/HOA/Lien)", width="medium",
+            help="El demandante del caso de foreclosure. Puede ser un banco, "
+                 "una asociación de condo/HOA, un contractor con lien, o un auto lender.",
+        ),
+        "plaintiff_type":     st.column_config.TextColumn("Type", width="small"),
         "lender_phone":       st.column_config.TextColumn("Bank Phone", width="small"),
         "lender_email":       st.column_config.TextColumn("Bank Email", width="medium"),
         "bank_address":       st.column_config.TextColumn("Bank Address", width="medium"),
