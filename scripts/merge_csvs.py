@@ -40,12 +40,13 @@ SOURCES = [
 
 
 def main(argv: list[str]) -> int:
-    # If user passed paths, override defaults
+    # If user passed paths, override defaults.
+    # Order: argv[1]=REO/Foreclosure, argv[2]=Short Sale, argv[3]=Auction
     if len(argv) >= 4:
         sources = [
             (Path(argv[1]), "Foreclosure"),
             (Path(argv[2]), "Short Sale"),
-            (Path(argv[3]), "Foreclosure"),
+            (Path(argv[3]), "Auction"),
         ]
     else:
         sources = SOURCES
