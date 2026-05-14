@@ -1,0 +1,21 @@
+{
+  "Completed": true,
+  "Message": "",
+  "MinimumPropertyInfos": [
+    {
+      "Municipality": "Miami",
+      "NeighborhoodDescription": "Miami CBD",
+      "Owner1": "MIAMI-DADE COUNTY",
+      "Owner2": "GSA R/E MGMT-DGC",
+      "Owner3": "",
+      "SiteAddress": "111 NW 1 ST",
+      "SiteUnit": "",
+      "Status": "AC Active",
+      "Strap": "01-4137-023-0020",
+      "SubdivisionDescription": "DOWNTOWN GOVERNMENT CENTER"
+    }
+  ],
+  "PrintMessageFooter": null,
+  "PrintMessageHeader": null,
+  "Total": 1
+}

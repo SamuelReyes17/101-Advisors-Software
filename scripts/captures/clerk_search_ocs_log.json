@@ -1,0 +1,126 @@
+[
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/",
+    "method": "GET",
+    "resource_type": "document",
+    "status": 200,
+    "ct": "text/html"
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtag/js?id=G-RYBB2RRWJF&l=dataLayer&cx=c",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "application/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtm.js?id=UA-2461186-13",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "application/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/assets/index-DUEPVCK8.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "text/javascript"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/assets/index-B_oEse6A.css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "ct": "text/css"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/api/home/UserLogin",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "{\"firstName\":null,\"lastName\":null,\"phoneNumber\":null,\"emailAddress\":null,\"roleId\":0,\"flBarNumber\":null,\"isLoggedIn\":false,\"allowedBM\":false}"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/api/home/PageStatus",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "{\"developmentStatus\":\"inter\",\"downTime\":{\"isScheduled\":true,\"start\":\"2026-04-14T11:00:00\",\"end\":\"2026-04-16T06:10:00\",\"downTimeMessage\":\"Due to scheduled maintenance, our payment services will be unavailable from 8:55PM Tuesday April 15, 2026 to 6:10AM April 16, 2026.  We apologize for any inconvenience caused.\",\"isDownTime\":false,\"downTimeMessageHtml\":\"\"}}"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/api/home/OCSTypes",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "{\"listOfOCSTypes\":{\"caseTypes\":[{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"ADMINISTRATION  WITH LOST OR DESTROYED WILL\",\"value\":\"26098\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"ADMINISTRATION FOREIGN WILL\",\"value\":\"25092\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"ADMINISTRATIVE SUPPORT PROC\",\"value\":\"24023\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"ADVERSARY ESTATE PROCEEDINGS\",\"value\":\"25091\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"ADVERSARY PROCEEDINGS FOR GUARDIANSHIP\",\"value\":\"27247\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"ADVERSARY PROCEEDINGS FOR TRUST\",\"value\":\"27246\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"AF-06 MEDICAL MALPRACTICE PETITION FOR STAY\",\"value\":\"32287\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"AF-11 FLORIDA BAR PETITION OF INVENTORY\",\"value\":\"32288\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"AF-13 PETITION FOR ORDER APPROVING ATTORNEY FEE CONTRACT\",\"value\":\"32289\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"AF-16 UNLICENSED PRACTICE OF LAW SUBPOENAS\",\"value\":\"32290\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"AF-25 UNIFORM INTERSTATE DEPOSITION AND DISCOVERY ACT\",\"value\":\"32291\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"AF-36 NOTICE OF VIOLATION\",\"value\":\"28606\"},{\"disabled\":false,\"group\":null,\"selected\":false,\"text\":\"ANCILLARY FORMAL ADMINISTRATION\",\"value\":\"25104\"},{\"disabled"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/assets/seal-gold-BKrf8Qfr.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "ct": "image/png"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/api/settings/basketcounter",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "text/plain; charset=utf-8"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/api/settings/loggedin?requestUserInfo=true",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "false"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/api/settings/loggedin",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "false"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/assets/Oswald-Regular-CJfeyJmY.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/assets/BebasNeue-Bold-DqarbXCh.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/assets/Roboto-Bold-BKtbn9Wi.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/assets/Roboto-Regular-BHeBnKzs.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://www2.miamidadeclerk.gov/ocs/api/settings/basketcounter",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "text/plain; charset=utf-8"
+  }
+]

@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+  
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+  
+  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>BCPA Web Map</title>
+
+        <link rel="stylesheet" href="https://js.arcgis.com/3.34/dijit/themes/claro/claro.css">
+        <link rel="stylesheet" href="https://js.arcgis.com/3.34/esri/css/esri.css">
+        <link rel="stylesheet"  type="text/css" href="Style/BcpaMapStyle.css">
+        <script type="text/jscript"     src="https://js.arcgis.com/3.34/"></script>
+        <script  type="text/jscript"    src="Script/main.js"></script>
+        <script  type="text/jscript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+       
+         
+     <style>
+     #rightOfWay
+     {
+     	 margin-top:10px;
+     	 font-size: 22px;
+     	 text-align:center;
+     	 display: none;
+     }
+      </style>
+        
+  </head>
+
+  <body class="tundra"> 
+     <header>
+        <div class="header-wrapper">
+             <div  class="header-menu">
+                <nav>
+	                <ul>
+		                <li class="bcpa-menu-btn" id="btn-search-by-folio" title="Search by parcel id"><a  href="#search-by-folio">Search By Parcel Id</a></li>
+		                <li class="bcpa-menu-btn"><a id="btn-search-by-owner-name"  href="#search-by-name" title="Search by owner name">Search By Name</a></li>
+		                <li class="bcpa-menu-btn"><a   id="btn-search-by-address" href="#search-by-address" title="Search by situs address">Search By Address</a></li>
+                        <li class="bcpa-menu-btn" id="btn-collect-parcels" title="Collect parcels"><a  href="#collect-parcels">Collect Parcels</a></li>
+                        <li class="bcpa-menu-btn" id="btn-unselect-parcels" title="Unselect parcels"><a  href="#unselect-parcel">Unselect Parcel</a></li>
+                        <li class="bcpa-menu-btn" id="btn-online-pictometry" title="Online Pictometry"><a  href="#online-pictometry">CONNECT Explorer</a></li>
+                        <li class="bcpa-menu-btn"  id="btn-help"  title="BCPA interactive map help"><a  href="#help">Help</a></li>
+                        <li class="bcpa-menu-btn"  id="btn-about"  title="About"><a  href="#about">About</a></li>
+                       
+	                </ul>
+                </nav>
+            </div> <!-- End of header-menu -->
+            <div  class="header-description">
+            <span id="representative" class="shadow-letter-representative">Marty Kiar</span>   <span id="institution"  class="shadow-letter-representative">Broward County Property Appraiser  Florida</span>
+            </div> <!-- End of header-description -->
+           
+           <div  class="header-icons">
+                 <div class="header-icons-btn">
+                     <button id="btn-zoom-in" class= "btn-icons" title="Zoom In"><img src="images/ZoomIn.png"   /></button>
+                     <button id="btn-zoom-out" class= "btn-icons"  title="Zoom Out"><img src="images/ZoomOut.png"   /></button>
+                     <button id="btn-zoom-full" class= "btn-icons"  title="Full Extent"><img src="images/ZoomFullExtent.png"   /></button>
+                     <button id="btn-pan" class= "btn-icons"  title="Pan"><img src="images/Pan.png"   /></button>
+                
+                     <button id="btn-identify" class= "btn-icons"  title="Identify Parcel"><img src="images/Identify.png"   /></button>           
+                 
+                     <button id="btn-measure" class= "btn-icons" title="Measurements"><img src="images/Measure.png"     alt="Measure a parcel"/></button>
+                     <button id="btn-open-layers-template" class= "btn-icons" title="Layers Open/Close"><img src="images/layers-map-icon-2.png"  /> </button>
+                     <button id="btn-legend" class= "btn-icons" > <img src="images/legend-icon.png" /> </button>
+                     <button id="btn-full-screen" class= "btn-icons" title="Full Screen"> <img src="images/mnuFullScreen.png" /> </button>
+                     <button id="btn-backward" class= "btn-icons" title="Previous"> <img src="images/Backward.png" /> </button>
+                     <button id="btn-forward" class= "btn-icons"  title="Next"> <img src="images/Forward.png" /> </button>
+                     <button id="btn-eraser" class= "btn-icons" title="Reset Map"> <img src="images/Eraser-icon.png" /> </button>
+                     <button id="btn-printer" class= "btn-icons" title="Print Map"> <img src="images/Printer.png" /> </button>
+                      <button id="btn-basemap-toggle" class= "btn-icons" title="Basemap On/Off"> <img src="images/map_delete.png" /> </button>
+                </div>
+                  <div id="menuStatus" >Status: Zoom In</div>
+
+                  <!-- Start Pictometry
+                  
+                  <div id="ddb-pictometry">
+                    <select id="ddbPictometry">
+                    </select> 
+                </div><!-- End of Pictometry -->
+
+                 <div id="header-icons-utils">
+                      <button id="btn-sketch" class= "btn-icons" title="Display Sketch"><img src="images/CursorMeasure.png" /></button>
+                      <button id="btn-camera" class= "btn-icons" title="Display Pictures"><img src="images/camera_transparent.png" /></button>
+                      <button id="btn-google-oblique" class= "btn-icons" title="Google Aerial"><img src="images/google-map-icon.png" /></button>
+                      <button id="btn-google-map" class= "btn-icons" title="Google Street View"><img src="images/google_oblique_view.png" /></button>
+                     <button id="btn-pictometry" class= "btn-icons" title="Display Pictometry"><img src="images/Pictometry.png"  /></button>
+                      
+                      
+                </div><!-- End of header-icons-utils -->
+                
+
+            </div><!-- End of header-icons -->
+           
+
+        </div><!-- End of header-wrapper -->
+          
+     </header><!-- End of header -->
+    
+
+     <section class="main" id="main-section">
+     
+      <div class="pollSlider-Layers" dir=rtl>
+       <div id="layer-list-template"  dir=ltr><!-- Start Layers -->
+            <div id="bg-layer-list">
+                <span id="layer-list-title" >Layer List</span>
+                <div id="layer-list-items">
+                    <span id="layer_list"></span>
+                </div>
+               
+
+                <select id="ddbBaseMaps">
+                </select> 
+
+                <select id="ddbSales">
+                </select> 
+
+                <select  id="ddbLayerDescription">   
+                </select>
+
+                <div id="btn-map-disclaimer">Important Disclaimer</div>
+               
+ 
+            </div>
+          
+        </div> <!-- End of Layers -->
+     
+      
+      </div>
+      <div id="pollSlider-button-Layers"> <img src = "images/right-panel.png" title = "Open / Close Left Panel" /></div>
+       
+
+       <!-- Start Legend    <div id="legend-list-template"  class="shadow-box">
+            <div id="legend-list-items">
+                <span id="legend-list"></span>
+            </div>
+          </div><!-- End Legend -->
+
+        
+        <div id="measureWindow"  class="shadow-box roundedCorners">
+            <div class="measureDiv roundedCorners">
+                <div id="measurementDiv"></div>
+            </div>
+            <div id="closeMeasurment"> <button id="btn-close-measurment"  class="bcpa-menu-btn">X</button></div>
+        </div> 
+
+        <div   id="print-popup-template"  class="shadow-box roundedCorners">
+                <div id="print-popup" >
+                    <select i

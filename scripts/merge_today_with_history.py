@@ -89,16 +89,20 @@ def main() -> int:
         if lid:
             merged[lid] = row
 
-    # Add today's leads ONLY if they're not already in historical
+    # Process today's leads:
+    #   - If duplicate (already in historical): keep the enriched version,
+    #     BUT update first_seen to TODAY so it bubbles up with 🆕 marker
+    #   - If brand new: add it with first_seen=TODAY
     new_added = 0
-    duplicates = 0
+    re_appeared = 0
     for row in today_leads:
         lid = (row.get("lead_id") or "").strip()
         if not lid:
             continue
         if lid in merged:
-            duplicates += 1
-            # Keep the historical (more enriched) but update last_updated
+            re_appeared += 1
+            # The enriched historical version stays, but mark it as "seen today"
+            merged[lid]["first_seen"] = TODAY
             merged[lid]["last_updated"] = TODAY
         else:
             merged[lid] = row

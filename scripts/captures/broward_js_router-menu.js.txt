@@ -1,0 +1,695 @@
+var myApp = angular.module("myApp", ["ui.router"]);
+
+myApp.config([
+    "$stateProvider",
+    "$urlRouterProvider",
+    "$locationProvider",
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        
+
+    let url = '';
+    let params = '';
+    let param = '';
+
+    $locationProvider.html5Mode(false);
+    $locationProvider.hashPrefix("");
+
+    $urlRouterProvider.otherwise("/Home");
+    $stateProvider
+      .state("myApp", {})
+      .state("/", {
+        url: "/",
+        templateUrl: "home2.aspx",
+      })
+      .state("Home", {
+        url: "/Home",
+        templateUrl: "home2.aspx",
+      })
+
+      .state("Contact-Us", {
+        url: "/Contact-Us",
+        templateUrl: "ContactUs.aspx",
+      })
+
+      .state("legal", {
+        url: "/legal",
+        templateUrl: "disclaimer.html",
+      })
+      .state("UseTypeTable", {
+        url: "/UseTypeTable",
+        templateUrl: "UseTypeTable.html",
+      })
+      .state("HomesteadExemption", {
+        url: "/HomesteadExemption",
+        templateUrl: "HomesteadExemption.html",
+      })
+      .state("PortabilityExemption", {
+        url: "/PortabilityExemption",
+        templateUrl: "PortabilityExemption.html",
+      })
+      .state("SeniorExemption", {
+        url: "/SeniorExemption",
+        templateUrl: "SeniorExemption.html",
+      })
+      .state("SeniorsAdditionalExemption", {
+        url: "/SeniorsAdditionalExemption",
+        templateUrl: "SeniorsAdditionalExemption.html",
+      })
+      // .state("SeniorsAppForm", {
+      //   url: "/SeniorsAppForm",
+      //   templateUrl: "SeniorsAppForm.aspx",
+      // })
+      //.state('SeniorsRenewalForm',
+      //{
+      //   url: '/SeniorsRenewalForm',
+      //   templateUrl: 'SeniorsRenewalForm.aspx'
+      //}
+      //)
+      .state("VeteransExemption", {
+        url: "/VeteransExemption",
+        templateUrl: "VeteransExemption.html",
+      })
+      //.state("VeteransExemptionApp", {
+      //  url: "/VeteransExemptionApp",
+      //  templateUrl: "VeteransExemptionApp.aspx",
+      //})
+      .state("VeteransFullExemption", {
+        url: "/VeteransFullExemption",
+        templateUrl: "VeteransFullExemption.html",
+      })
+      //.state("VeteransFullExemptionApp", {
+      //  url: "/VeteransFullExemptionApp",
+      //  templateUrl: "VeteransFullExemptionApp.aspx",
+      //})
+      .state("VeteransDeployed", {
+        url: "/VeteransDeployed",
+        templateUrl: "VeteransDeployed.html",
+      })
+      //.state("VeteransDeployedApp", {
+      //  url: "/VeteransDeployedApp",
+      //  templateUrl: "VeteransDeployedApp.aspx",
+      //})
+      .state("VeteransCombat", {
+        url: "/VeteransCombat",
+        templateUrl: "VeteransCombat.html",
+      })
+      //.state("VeteransCombatApp", {
+      //  url: "/VeteransCombatApp",
+      //  templateUrl: "VeteransCombatApp.aspx",
+      //})
+      .state("VeteransSurviving", {
+        url: "/VeteransSurviving",
+        templateUrl: "VeteransSurviving.html",
+      })
+      .state("WidowedExemption", {
+        url: "/WidowedExemption",
+        templateUrl: "WidowedExemption.html",
+      })
+      .state("DisabilityExemption", {
+        url: "/DisabilityExemption",
+        templateUrl: "DisabilityExemption.html",
+      })
+      .state("DisabilityBlind", {
+        url: "/DisabilityBlind",
+        templateUrl: "DisabilityBlind.html",
+      })
+      .state("DisabilityMedical", {
+        url: "/DisabilityMedical",
+        templateUrl: "DisabilityMedical.html",
+      })
+      .state("DisabilityApp", {
+        url: "/DisabilityApp",
+        templateUrl: "DisabilityApp.html",
+      })
+      //.state("DisabilityForm500", {
+      //  url: "/DisabilityForm500",
+      //  templateUrl: "DisabilityForm500.aspx",
+      //})
+      //.state("DisabilityFormFullEx", {
+      //  url: "/DisabilityFormFullEx",
+      //  templateUrl: "DisabilityFormFullEx.aspx",
+      //})
+      .state("FirstResponderExemption", {
+        url: "/FirstResponderExemption",
+        templateUrl: "FirstResponderExemption.html",
+      })
+      .state("FirstResponderFullExemption", {
+        url: "/FirstResponderFullExemption",
+        templateUrl: "FirstResponderFullExemption.html",
+      })
+      .state("InstitutionalExemption", {
+        url: "/InstitutionalExemption",
+        templateUrl: "InstitutionalExemption.html",
+      })
+      .state("EducationalExemption", {
+        url: "/EducationalExemption",
+        templateUrl: "EducationalExemption.html",
+      })
+      .state("CharterSchoolsExemption", {
+        url: "/CharterSchoolsExemption",
+        templateUrl: "CharterSchoolsExemption.html",
+      })
+      .state("AffordableHousing", {
+        url: "/AffordableHousing",
+        templateUrl: "AffordableHousing.html",
+      })
+      .state("AffordableHousingLand", {
+        url: "/AffordableHousingLand",
+        templateUrl: "AffordableHousingLand.html",
+      })
+      .state("AffordableHousingMulti", {
+        url: "/AffordableHousingMulti",
+        templateUrl: "AffordableHousingMulti.html",
+      })
+      .state("AffordableHousingNewly", {
+        url: "/AffordableHousingNewly",
+        templateUrl: "AffordableHousingNewly.html",
+      })
+      .state("AffordableHousingCategory", {
+        url: "/AffordableHousingCategory",
+        templateUrl: "AffordableHousingCategory.html",
+      })
+      .state("HomesforTheAged", {
+        url: "/HomesforTheAged",
+        templateUrl: "HomesforTheAged.html",
+      })
+      .state("HistoricProperties", {
+        url: "/HistoricProperties",
+        templateUrl: "HistoricProperties.html",
+      })
+      .state("GrannyFlat", {
+        url: "/GrannyFlat",
+        templateUrl: "GrannyFlat.html",
+      })
+      .state("ExemptionTypeDescription", {
+        url: "/ExemptionTypeDescription",
+        templateUrl: "ExemptionTypeDescription.html",
+      })
+      //Exemption Pages ends
+      .state("Record-Search", {
+        url: "/Record-Search",
+        templateUrl: function () {
+          var fNumberUrl = window.location.href;
+          fNumberUrl = fNumberUrl.substr(fNumberUrl.length - 12);
+          if (isFolio(fNumberUrl)) {
+            return "search.aspx?Folio=" + fNumberUrl;
+          } else {
+            return "search.aspx#/propertysearch";
+          }
+        },
+      })
+      .state("Tpp-Search", {
+        url: "/Tpp-Search",
+        templateUrl: "searchtpp.aspx#/propertysearch",
+      })
+      .state("Sub-Search", {
+        url: "/Sub-Search",
+        templateUrl: "searchsub.aspx#/propertysearch",
+      })
+      .state("Sales-Search", {
+        url: "/Sales-Search",
+        templateUrl: "searchallsales.aspx#/propertysearch",
+      })
+      .state("Time-Share-Search", {
+        url: "/Time-Share-Search",
+        templateUrl: "searchtimeshare.aspx#/timeshareresults",
+      })
+      .state("Commercial-Search", {
+        url: "/Commercial-Search",
+        templateUrl: "searchcommercial.aspx#/propertysearch",
+      })
+      .state("Land-Search", {
+        url: "/Land-Search",
+        templateUrl: "searchland.aspx#/propertysearch",
+      })
+      .state("Jobs", {
+        url: "/Jobs",
+        templateUrl: "jobs.aspx",
+      })
+      //.state("JobsForm", {
+      // url: "/Jobs/:id",
+      // component: "jobsForm",
+      //})
+      //.state('Ask-Questions',
+      //{
+      //    url: '/Ask-Questions',
+      //    templateUrl: 'AskQuestions.html'
+      //}
+      //)
+        .state("NoticeADA", {
+            url: "/NoticeADA",
+            templateUrl: "NoticeADA.html",
+        })
+        .state("GrievanceProcedure", {
+            url: "/GrievanceProcedure",
+            templateUrl: "GrievanceProcedure.html",
+        })
+      .state("Ask-Questions-db", {
+        url: "/Ask-Questions",
+        templateUrl: "AskQuestions.aspx",
+      })
+      .state("Report-Exemption-Fraud", {
+        url: "/Report-Exemption-Fraud",
+        templateUrl: "ReportExemptionFraud.html",
+      })
+      .state("Lobbying", {
+        url: "/Lobbying",
+        templateUrl: "Lobbying.html",
+      })
+      .state("Related-Links", {
+        url: "/Related-Links",
+        templateUrl: "RelatedLinks.html",
+      })
+      .state("Site-Index", {
+        url: "/Site-Index",
+        templateUrl: "SiteIndex.html",
+      })
+
+      .state("Tangible-Search", {
+        url: "/Tangible-Search",
+        templateUrl: "TangibleSearch.html",
+      })
+      .state("Download-Forms", {
+        url: "/Download-Forms",
+        templateUrl: "DownloadForms.html",
+      })
+      //.state('Catastrophic-Structural',
+      //{
+      //    url: '/Catastrophic-Structural',
+      //    templateUrl: 'CatastrophicStructuralDamageForm.aspx'
+      //}
+      //)
+      //.state('Events',
+      //{
+      //    url: '/Events',
+      //    templateUrl: 'communityoutreachcalendar.html'
+      //}
+      //)
+      .state("News-letter-db", {
+        url: "/News-letter",
+        templateUrl: "SmartNewsLetter.aspx",
+      })
+      .state("Homestead", {
+        url: "/Homestead",
+        templateUrl: "homestead.html",
+      })
+      .state("Legislation", {
+        url: "/Legislation",
+        templateUrl: "Legislation.html",
+      })
+
+      .state("Government-Links", {
+        url: "/Government-Links",
+        templateUrl: "GovernmentLinks.html",
+      })
+      .state("ImportantDates", {
+        url: "/ImportantDates",
+        templateUrl: "ImportantDates.html",
+      })
+
+      .state("TaxRoll", {
+        url: "/TaxRoll",
+        templateUrl: "TaxRollinfo.aspx",
+      })
+      .state("SOH", {
+        url: "/SOH",
+        templateUrl: "SOH.html",
+      })
+
+      .state("MeetMarty", {
+        url: "/MeetMarty",
+        templateUrl: "Marty.html",
+      })
+      .state("Business", {
+        url: "/Business",
+        templateUrl: "Business.html",
+      })
+      .state("Phone", {
+        url: "/Phone",
+        templateUrl: "Phone.html",
+      })
+      //.state('Non-Profit',
+      //{
+      //    url: '/Non-Profit',
+      //    templateUrl: 'nonprofit.html'
+      //}
+      //)
+      .state("Trim", {
+        url: "/Trim",
+        templateUrl: "Trim.html",
+      })
+      .state("Agricultural", {
+        url: "/Agricultural",
+        templateUrl: "Agricultural.html",
+      })
+      .state('AgriculturalFAQ',{
+        url: '/AgriculturalFAQ',
+        templateUrl: 'AgriculturalFAQ.html'
+      })
+        .state('CommercialApiculture', {
+            url: '/CommercialApiculture',
+            templateUrl: 'CommercialApiculture.html'
+        })
+        .state('CommercialCitrusGroves', {
+            url: '/CommercialCitrusGroves',
+            templateUrl: 'CommercialCitrusGroves.html'
+        })
+        .state('CommercialGoatSheep', {
+            url: '/CommercialGoatSheep',
+            templateUrl: 'CommercialGoatSheep.html'
+        })
+        .state('CommercialHorseBoarding', {
+            url: '/CommercialHorseBoarding',
+            templateUrl: 'CommercialHorseBoarding.html'
+        })
+        .state('CommercialLivestock', {
+            url: '/CommercialLivestock',
+            templateUrl: 'CommercialLivestock.html'
+        })
+        .state('CommercialPlantNursery', {
+            url: '/CommercialPlantNursery',
+            templateUrl: 'CommercialPlantNursery.html'
+        })
+        .state('CommercialRowCrop', {
+            url: '/CommercialRowCrop',
+            templateUrl: 'CommercialRowCrop.html'
+        })
+        .state('CommercialMiscellaneous', {
+            url: '/CommercialMiscellaneous',
+            templateUrl: 'CommercialMiscellaneous.html'
+        })
+
+      //.state("AgriculturalClassification", {
+      //  url: "/AgriculturalClassification",
+      //  templateUrl: "AgriculturalClassification.html",
+      //})
+
+      // .state("AgriculturalClassificationApp", {
+      //   url: "/AgriculturalClassificationApp",
+      //   templateUrl: "AgriculturalClassificationApp.aspx",
+      // })
+      // .state("AgriculturalClassificationRenewalApp", {
+      //   url: "/AgriculturalClassificationRenewalApp",
+      //   templateUrl: "AgriculturalClassificationRenewalApp.aspx",
+      // })
+
+      .state("Deeds", {
+        url: "/Deeds",
+        templateUrl: "Deeds.html",
+      })
+      //.state('Fundraising',
+      //{
+      //    url: '/Fundraising',
+      //    templateUrl: 'Fundraising.html'
+      //}
+      //)
+      .state("VAB", {
+        url: "/VAB",
+        templateUrl: "Value.html",
+      })
+      //.state('Vendor',
+      //{
+      //    url: '/Vendor',
+      //    templateUrl: 'vendorregistrationform.aspx'
+      //}
+      //)
+      .state("Tax-Estimator", {
+        url: "/Tax-Estimator",
+        templateUrl: function() {
+          url = new URL(window.location.href.replace("#", ""));
+          params = new URLSearchParams(url.search);
+          param = params.get("Mill");
+       
+          return (!param || isNaN(param)) ?
+            "TaxEst.aspx" :
+            "TaxEst.aspx?Mill=" + param;
+        }
+      })
+      .state("Portability-Estimator", {
+        url: "/Portability-Estimator",
+        templateUrl: function() {
+          url = new URL(window.location.href.replace("#", ""));
+          params = new URLSearchParams(url.search);
+          param = params.get("Folio");
+       
+          return (!param || isNaN(param)) ?
+            "PortabilityEstimator.aspx" :
+            "PortabilityEstimator.aspx?Folio=" + param;
+        }
+      })
+
+      .state("TaxRollbyYear", {
+        url: "/TaxRollbyYear",
+        templateUrl: function () {
+          url = new URL(window.location.href.replace("#", ""));
+          params = new URLSearchParams(url.search);
+          param = params.get("taxRoll");
+       
+          return (!param || isNaN(param)) ?
+            "TaxRollinfo.aspx" :
+            "TaxRollbyYear.aspx?taxRoll=" + param;
+        },
+      })
+
+      //--------
+
+      .state("Video", {
+        url: "/Video",
+        templateUrl: "Video.html",
+      })
+      .state("AdditionalTaxSaving", {
+        url: "/AdditionalTaxSaving",
+        templateUrl: "AdditionalTaxSaving.html",
+      })
+      .state("Estimate-Status", {
+        url: "/Estimate-Status",
+        templateUrl: function () {
+          url = new URL(window.location.href.replace("#", ""));
+          params = new URLSearchParams(url.search);
+          param = params.get("fnumber");
+       
+          return (!param || isNaN(param)) ?
+            "EstimateStatus.aspx" :
+            "EstimateStatus.aspx?fnumber=" + param;
+        },
+      })
+
+      .state("Land-Type", {
+        url: "/Land-Type",
+        templateUrl: "landcalculationtype.html",
+      })
+      /////////****QR Page******//////////////
+      .state("ProtectYourProperty", {
+        url: "/ProtectYourProperty",
+        templateUrl: "protectyourproperty.html",
+      })
+      .state("Millage-Code", {
+        url: "/Millage-Code",
+        templateUrl: "millagecode.html",
+      })
+      .state("Report-Market-Sales", {
+        url: "/Report-Market-Sales",
+        templateUrl: "ParcelSummary.html",
+      })
+      .state("MarketReport", {
+        url: "/MarketReport",
+        templateUrl: "MarketReport.aspx",
+      })
+      .state("Data-Request", {
+        url: "/Data-Request",
+        templateUrl: "DataRequest.html",
+      })
+      .state("PublicPropertyPictures", {
+        url: "/PublicPropertyPictures",
+        templateUrl: "PublicPropertyPictures.aspx",
+      })
+      .state("CountyLandUseCodes", {
+        url: "/CountyLandUseCodes",
+        templateUrl: "CountyLandUseCodes.html",
+      })
+      .state("ZoningDefinitions", {
+        url: "/ZoningDefinitions",
+        templateUrl: "ZoningDefinitions.aspx",
+      })
+      .state("sucess-page", {
+        url: "/sucess-page",
+        templateUrl: "VendorAndFroudFromSuccess.html",
+      })
+      .state("TPP", {
+        url: "/TPP",
+        templateUrl: "Tpp.aspx",
+      })
+      .state('maintenance', {
+          url: '/maintenance',
+          templateUrl: 'app_offline.htm'
+      });
+
+    function isFolio(FolioUrl) {
+      var regExp = RegExp(/^[0-9]{6}([0-9]|[aA-zZ]){2}[0-9]{4}$/);
+      var exRe = regExp.test(FolioUrl);
+      return exRe;
+    }
+  },
+]);
+
+myApp.run([
+  "$rootScope",
+  "$transitions",
+  function ($rootScope, $transitions) {
+      $rootScope.navigateSlide = "";
+      const isOctober = new Date().getMonth() === 9;
+      // to disable maintenance set var to false and rename app_offline.html
+      const isMaintenanceMode = false;
+      $rootScope.bannerDesktop = isOctober ? "BannerImage_1000418_OctoberBCA_newsiteBCA2.png" : "LG_PNG_Banner_Images-02.png";
+      $rootScope.bannerMobile = isOctober ? "BannerImage_100918_OctoberBCA_mobile_version.png" : "LG_PNG_Banner_Images-01.png";
+
+      $transitions.onStart({}, function (trans) {
+          if (isMaintenanceMode && trans.to().name !== 'maintenance') {
+              return trans.router.stateService.target('maintenance');
+          }
+      });
+
+    $transitions.onBefore({}, function () {
+      $rootScope.navigateSlide = $rootScope.navigateSlide || "navigate-slide";
+      window.scrollTo(0, 0);
+    });
+
+    $transitions.onSuccess({}, function () {
+        removeModalBackdrop();
+    })
+
+    // Function to remove the modal backdrop
+    function removeModalBackdrop() {
+        var backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+    }
+  },
+]);
+
+myApp.filter('rangeToCurrentYear', function() {
+  return function(result, start, shouldReverse) {
+      const startParsed = parseInt(start) || 2005;
+      const currentYear = new Date().getFullYear()
+      for (let i = startParsed; i <= currentYear; i++) {
+          result.push(i);
+      }
+      return shouldReverse ? result.reverse() : result;
+  };
+});
+
+myApp.directive('phoneMask', function () {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function (scope, element, attrs, ngModelCtrl) {
+      ngModelCtrl.$parsers.push(function (value) {
+        if (!value) return '';
+
+        const digits = value.replace(/\D/g, '').substring(0, 10); // limit to 10 digits
+        let formatted = '';
+
+        if (digits.length > 6) {
+          formatted = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+        } else if (digits.length > 3) {
+          formatted = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+        } else if (digits.length > 0) {
+          formatted = `(${digits}`;
+        }
+
+        ngModelCtrl.$setViewValue(formatted);
+        ngModelCtrl.$render();
+        return formatted;
+      });
+    }
+  };
+});
+
+myApp.directive('dateRangeValidator', function() {
+  return {
+    require: 'ngModel',
+    scope: {
+      companionDate: '=',   // The other date to compare with
+      comparison: '@'       // 'beforeOrEqual' or 'afterOrEqual'
+    },
+    link: function(scope, element, attrs, ngModel) {
+      function validate(currentDate, companionDate) {
+        if (!currentDate || !companionDate) return true;
+
+        const current = new Date(currentDate);
+        const companion = new Date(companionDate);
+
+        if (scope.comparison === 'beforeOrEqual') {
+          return current <= companion;
+        } else if (scope.comparison === 'afterOrEqual') {
+          return current >= companion;
+        }
+        return true;
+      }
+
+      ngModel.$validators.dateRange = function(modelValue) {
+        return validate(modelValue, scope.companionDate);
+      };
+
+      scope.$watch('companionDate', function() {
+        ngModel.$validate();
+      });
+    }
+  };
+});
+
+myApp.directive('currencyInput', ['$filter', function($filter) {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModelCtrl) {
+      const currencySymbol = attrs.currencySymbol || '$';
+
+      function formatView(value) {
+        if (!value || isNaN(value)) {
+          return '';
+        }
+        return $filter('currency')(value, currencySymbol, 2);
+      }
+
+      function parseView(value) {
+        if (!value) { 
+          ngModelCtrl.$setValidity('currencyValid', false);
+          return null;
+        }
+
+        const numeric = parseFloat(value.toString().replace(/[^0-9.-]+/g, ''));
+        const isValid = !isNaN(numeric);
+        ngModelCtrl.$setValidity('currencyValid', isValid);
+
+        return isValid ? numeric : null;
+      }
+
+      ngModelCtrl.$formatters.push(formatView);
+      ngModelCtrl.$parsers.push(parseView);
+
+      // Format on blur (when user leaves the input)
+      element.on('blur', function () {
+        const value = ngModelCtrl.$modelValue;
+        element.val(formatView(value));
+      });
+
+      // Show raw value on focus
+      element.on('focus', function () {
+        const value = ngModelCtrl.$modelValue;
+        element.val(value != null ? value.toString() : '');
+      });
+
+      // Format view initially
+      scope.$watch(() => ngModelCtrl.$modelValue, function (newVal) {
+        const isValid = typeof newVal === 'number' && !isNaN(newVal);
+        ngModelCtrl.$setValidity('currencyValid', isValid);
+
+        if (document.activeElement !== element[0]) {
+          element.val(formatView(newVal));
+        }
+      });
+    }
+  };
+}]);

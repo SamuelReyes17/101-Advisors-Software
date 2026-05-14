@@ -62,11 +62,58 @@ def main(argv: list[str]) -> int:
         print(f"   ✅ {len(leads)} leads detectados")
         all_leads.extend(leads)
 
+    # ── Load EXISTING leads from data/leads.csv first so we MERGE instead of REPLACE.
+    # Daily Matrix emails only contain INCREMENTAL new listings (~5-30/day),
+    # so we must preserve the historical leads or we lose them.
+    target = PROJECT / "data" / "leads.csv"
+    existing_count = 0
+    if target.exists():
+        try:
+            import csv as _csv
+            from datetime import date as _date
+            with target.open(newline="") as _f:
+                reader = _csv.DictReader(_f)
+                for row in reader:
+                    try:
+                        # Reconstruct Lead from CSV row (only critical fields)
+                        l = Lead(
+                            lead_id=row.get("lead_id", ""),
+                            first_seen=_date.fromisoformat(row.get("first_seen", "")) if row.get("first_seen") else _date.today(),
+                            last_updated=_date.fromisoformat(row.get("last_updated", "")) if row.get("last_updated") else _date.today(),
+                            county=row.get("county", ""),
+                            category=row.get("category", ""),
+                            property_address=row.get("property_address", ""),
+                            city=row.get("city", ""),
+                            zip=row.get("zip", ""),
+                            property_type=row.get("property_type", ""),
+                            units=int(row.get("units") or 0),
+                            bedrooms=int(row.get("bedrooms") or 0),
+                            owner_first=row.get("owner_first", ""),
+                            owner_last=row.get("owner_last", ""),
+                            owner_phone=row.get("owner_phone", ""),
+                            owner_email=row.get("owner_email", ""),
+                            lender_name=row.get("lender_name", ""),
+                            lender_phone=row.get("lender_phone", ""),
+                            lender_email=row.get("lender_email", ""),
+                            bank_address=row.get("bank_address", ""),
+                            outstanding_debt=float(row.get("outstanding_debt") or 0),
+                            unpaid_taxes_2024=float(row.get("unpaid_taxes_2024") or 0),
+                            unpaid_taxes_2025=float(row.get("unpaid_taxes_2025") or 0),
+                            equity=float(row.get("equity") or 0),
+                            status=row.get("status", "New"),
+                            assigned_to=row.get("assigned_to", ""),
+                            notes=row.get("notes", ""),
+                        )
+                        all_leads.append(l)
+                        existing_count += 1
+                    except Exception as e:
+                        print(f"   ⚠️  Skipped existing row {row.get('lead_id')}: {e}")
+            print(f"\n📚 {existing_count} leads existentes preservados de data/leads.csv")
+        except Exception as e:
+            print(f"⚠️  No pude leer leads existentes: {e}")
+
     # Deduplicate by lead_id (same MLS# may appear in multiple Saved Searches)
     # Priority for cold calling: Short Sale > Auction > Foreclosure (REO)
-    #   - Short Sale: owner is motivated to sell (best lead)
-    #   - Auction: imminent action, scheduled sale date
-    #   - Foreclosure (REO): bank-owned, less time-sensitive
     PRIORITY = {"Short Sale": 3, "Auction": 2, "Foreclosure": 1}
     seen: dict[str, Lead] = {}
     for lead in all_leads:
@@ -74,16 +121,18 @@ def main(argv: list[str]) -> int:
             seen[lead.lead_id] = lead
         else:
             existing = seen[lead.lead_id]
+            # Prefer category with higher priority; if same priority, keep the newer one
             if PRIORITY.get(lead.category, 0) > PRIORITY.get(existing.category, 0):
                 seen[lead.lead_id] = lead
 
     deduped = list(seen.values())
-    target = PROJECT / "data" / "leads.csv"
     write_csv(deduped, target)
 
     print("\n" + "=" * 50)
+    new_count = len(deduped) - existing_count
     print(f"💾 Wrote {len(deduped)} leads to {target.relative_to(PROJECT)}")
-    print(f"   (de {len(all_leads)} raw, {len(all_leads) - len(deduped)} duplicados removidos)")
+    print(f"   📚 {existing_count} existentes preservados")
+    print(f"   🆕 {new_count} leads nuevos agregados hoy")
     print()
     print("Distribución por categoría:")
     from collections import Counter

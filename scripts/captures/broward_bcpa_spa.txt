@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-control" content="public">
+    <title>Broward County Property Appraiser</title>
+    <meta charset="utf-8" />
+    <!--<base href="/">-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="alternate" type="application/rss+xml" href="./sitemap.xml">
+
+    <link href="css/plugins/w3.css" rel="stylesheet" />
+    <link href="css/plugins/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="css/plugins/jquery-ui.min.css" rel="stylesheet" />
+    <link href="css/plugins/bootstrap-B2AaHFPv.css" rel="stylesheet" />
+    <!-- Font Awesome fa-fa icons-->
+    <link rel="stylesheet" href="css/plugins/font-awesome.min.css" />
+    <!-- Animation effects -->
+    <link rel="stylesheet" href="css/plugins/animate.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="css/plugins/Alegreya.min.css" rel="stylesheet" />
+    <!-- Global CSS -->
+    <link href="css/customstyles/globaloverride.css" rel="stylesheet" />
+
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/plugins/jquery-ui.min.js"></script>
+    <script src="js/plugins/bootstrap-LR4z8uzn.js"></script>
+    <script src="js/plugins/autoNumeric-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/plugins/angular-ui-router.min.js"></script>
+
+    <script>
+        (function (d) {
+            var s = d.createElement("script");
+            /* uncomment the following line to override default position*/
+            /* s.setAttribute("data-position", 1);*/
+            /* uncomment the following line to override default size (values: small, large)*/
+            /* s.setAttribute("data-size", "large");*/
+            /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
+            /* s.setAttribute("data-language", "null");*/
+            /* uncomment the following line to override color set via widget (e.g., #053f67)*/
+            /* s.setAttribute("data-color", "#2d68ff");*/
+            /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
+            /* s.setAttribute("data-type", "1");*/
+            /* s.setAttribute("data-statement_text:", "Our Accessibility Statement");*/
+            /* s.setAttribute("data-statement_url", "http://www.example.com/accessibility";*/
+            /* uncomment the following line to override support on mobile devices*/
+            /* s.setAttribute("data-mobile", true);*/
+            /* uncomment the following line to set custom trigger action for accessibility menu*/
+            /* s.setAttribute("data-trigger", "triggerId")*/
+            s.setAttribute("data-account", "5OXADrR0Hx");
+            s.setAttribute("src", "https://cdn.userway.org/widget.js");
+            (d.body || d.head).appendChild(s);
+        })(document)
+    </script>
+    <noscript>
+        Please ensure Javascript is enabled for purposes of
+        <a href="https://userway.org">website accessibility</a>
+    </noscript>
+
+</head>
+<body>
+    <!--Start of Header-->
+    <header role="banner">
+        <div class="header-banner">
+            <a href="#home">
+                <!--Not october-->
+                <img id="logo-main" ng-src="images/{{ bannerDesktop }}" class="img-fluid d-none d-md-block" alt="Marty Kiar Broward County Property Appraiser">
+                <img ng-src="images/{{ bannerMobile }}" class="img-fluid d-md-none" alt="Marty Kiar Broward County Property Asppraiser">
+            </a>
+        </div>
+
+        <nav class="navbar navbar-expand-md bcpa-navbar">
+            <div class="container-fluid">
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <!-- <span class="navbar-toggler-icon"></span> -->
+                    <span class="bar1"></span>
+                    <span class="bar2"></span>
+                    <span class="bar3"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <hr class="d-block d-none-md border-white my-1 opacity-100">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 flex-wrap justify-content-center text-center">
+                        <li class="nav-item">
+                            <a id="nav-bar-tour" class="nav-link fa fa-home icon" style="font-size:22px;" aria-current="page" title="Home" data-ui-sref="Home" data-ui-sref-active="active" data-ui-sref-opts="{reload:true}"></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                About BCPA
+                            </a>
+                            <ul class="dropdown-menu text-center text-md-start">
+                                <li>
+                                    <a href="#MeetMarty" ui-sref-active="active" ui-sref="MeetMarty" ui-sref-opts="{reload:true}">About Marty Kiar</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Contact-Us">Contact Us</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#TaxRoll">Tax Roll Information</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a title="RFPs & Bids" href="#Business">Business</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Jobs">Careers</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="javascript:feedbackwithoutfolionumber();">Ask Marty</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Record Search
+                            </a>
+                            <ul class="dropdown-menu text-center text-md-start">
+                                <li id="Record-Search-Real-Id">
+                                    <a ui-sref="Record-Search" ui-sref-opts="{reload: true}">Property Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a ui-sref="Tpp-Search" ui-sref-opts="{reload: true}">Tangible Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li id="Record-Search-Sales-Id">
+                                    <a ui-sref="Sales-Search" ui-sref-opts="{reload: true}">Sales Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li id="Record-Search-Subdivision-Id">
+                                    <a ui-sref="Sub-Search" ui-sref-opts=

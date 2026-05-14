@@ -1,0 +1,3270 @@
+[
+  {
+    "url": "https://www.miamidade.gov/Apps/PA/PropertySearch/",
+    "method": "GET",
+    "resource_type": "document",
+    "status": 301,
+    "content_type": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/",
+    "method": "GET",
+    "resource_type": "document",
+    "status": 200,
+    "content_type": "text/html"
+  },
+  {
+    "url": "https://www.miamidade.gov/resources/js/components/paTemplate/css/local.css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css"
+  },
+  {
+    "url": "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css; charset=utf-8"
+  },
+  {
+    "url": "https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css; charset=utf-8"
+  },
+  {
+    "url": "https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css; charset=utf-8"
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KP6LZQ3W",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/src/styles/print.css",
+    "method": "GET",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript; charset=utf-8"
+  },
+  {
+    "url": "https://maps.googleapis.com/maps/api/js?key=AIzaSyAMioD-5rvsMfXArR7zYEnXhXuqmfqtwtA",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript; charset=utf-8"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 301,
+    "content_type": ""
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtag/js?id=G-S336V3M935&cx=c&gtm=4e65b1",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/init.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true",
+    "method": "GET",
+    "resource_type": "xhr",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/themes/light/main.css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/styles.cbeb91b77f5506ef.css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css"
+  },
+  {
+    "url": "https://www.miamidade.gov/resources/js/components/paTemplate/js/main.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "content_type": "font/woff2"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/runtime.72d9541a6e3be8dc.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/polyfills.5c0f4e747a57b675.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/main.b29be37fb946b6ef.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-S336V3M935&gtm=45je65b1v9137432507z89137430419za20gzb9137430419zd9137430419&_p=1778712885531&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAAC&are=1&cid=329069795.1778712886&frm=0&pscdl=noapi&rcb=11&sr=1280x720&uaa=x86&uab=64&uafvl=HeadlessChrome%3B147.0.7727.15%7CNot.A%252FBrand%3B8.0.0.0%7CChromium%3B147.0.7727.15&uam=&uamb=0&uap=macOS&uapv=10.15.7&uaw=0&ul=en-us&_s=1&tag_exp=0~115938466~115938469&sid=1778712886&sct=1&seg=0&dl=https%3A%2F%2Fapps.miamidadepa.gov%2FPropertySearch%2F&dt=Property%20Search&en=page_view&_fv=1&_nsi=1&_ss=1&tfd=970",
+    "method": "POST",
+    "resource_type": "fetch",
+    "status": 204,
+    "content_type": "text/plain"
+  },
+  {
+    "url": "blob:https://apps.miamidadepa.gov/38b484c1-82a1-43d4-ad54-6e8ec3855832",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "blob:https://apps.miamidadepa.gov/38b484c1-82a1-43d4-ad54-6e8ec3855832",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "blob:https://apps.miamidadepa.gov/38b484c1-82a1-43d4-ad54-6e8ec3855832",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "blob:https://apps.miamidadepa.gov/38b484c1-82a1-43d4-ad54-6e8ec3855832",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "blob:https://apps.miamidadepa.gov/38b484c1-82a1-43d4-ad54-6e8ec3855832",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "blob:https://apps.miamidadepa.gov/38b484c1-82a1-43d4-ad54-6e8ec3855832",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "blob:https://apps.miamidadepa.gov/38b484c1-82a1-43d4-ad54-6e8ec3855832",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/assets/json/constants.json",
+    "method": "GET",
+    "resource_type": "xhr",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PApublicServiceProxy/PaServicesProxy.ashx?Operation=GetImportantMessage&clientAppName=PropertySearch",
+    "method": "GET",
+    "resource_type": "xhr",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PApublicServiceProxy/PaServicesProxy.ashx?Operation=GetPropertySearchByFolio&clientAppName=PropertySearch&folioNumber=0141160040250",
+    "method": "GET",
+    "resource_type": "xhr",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/5086.85ab83ce4d1043ec.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/5314.24fd98ac10f7e853.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/5506.2a6cebe29e64008f.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/common.fa8434bfeefa23ca.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3541.742f8a2643cf9de5.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3755.20700f05884ab753.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/205.c39a61db007482a8.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/4589.8def47bccb18ea4f.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3751.464509b844df21de.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/5909.71a2298815bad3d5.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/4175.f6c2d2872e1c6572.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3300.4abd270853c68f44.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/4522.dc3ab88d162ea613.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/1619.0183d6d72b180109.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/4029.0a13487f31d5a576.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/4056.b5c083c4c4eacbf1.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/2322.25ffe7845e8302bc.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/7381.095ce3106a405321.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/719.0c05dbbc48230ecd.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/8373.1783015bb062b7e6.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/6794.a386524688626fd6.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/1362.08bebf7ca66646d0.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/164.3dc067a52cbfa8df.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/6664.7edb726e0a6d28af.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/9749.562187c3ba268e54.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/9132.604942faec4cec11.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/8687.2b699cb5bbdaee4b.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/6901.b38081f2ae80b0d6.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/5442.849c6ce96e0d1f50.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/8585.229de7506ea3e78c.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3248.5e55b84d20f2fe0f.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/9488.4e7d1984a2bbe953.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/4854.b3505a0f59a69506.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/4140.238ad6542fdee1f0.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/9064.d25512e72273abb4.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/Attribution/t9n/Attribution_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/Zoom/t9n/Zoom_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/Popup/t9n/Popup_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/t9n/common_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/Sketch/t9n/Sketch_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/support/SelectionToolbar/t9n/SelectionToolbar_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/support/SnappingControls/t9n/SnappingControls_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/Legend/t9n/Legend_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/Expand/t9n/Expand_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/notoserif/v33/ga6daw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTYf6D33WsNFH.woff2",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "content_type": "font/woff2"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/bebasneue-webfont.5faef54c302a31f6.woff",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "content_type": "font/x-woff"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/widgets/ScaleBar/t9n/ScaleBar_en.json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/CDN/Icons/icon-help.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/CDN/Icons/north.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "https://api2.miamidade.gov/secureLscs/v1/document/$?format=json&includeDCRContent=true&q=TeamSite/LiveSite/Id:=m060q72v&project=//s0146562/BETA/main/Property%20Appraiser&format=json&includeDCRContent=true",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json;charset=UTF-8"
+  },
+  {
+    "url": "https://api2.miamidade.gov/secureLscs/v1/document/$?format=json&includeDCRContent=true&q=TeamSite/LiveSite/Id:=m060q72i&project=//s0146562/BETA/main/Property%20Appraiser&format=json&includeDCRContent=true",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json;charset=UTF-8"
+  },
+  {
+    "url": "https://www.miamidadepa.gov/resources-pa/images/social/white/social-instagram.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://www.miamidadepa.gov/resources-pa/images/social/white/social-facebook.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://www.miamidadepa.gov/resources-pa/images/social/white/social-x.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://www.miamidadepa.gov/resources-pa/images/social/white/social-youtube.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://www.miamidadepa.gov/resources-pa/images/social/white/social-linkedin.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/114.28857659a78b1980.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/CDN/Icons/icon-print.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/CDN/Icons/sketches.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/9516.67abf2a46dea4c95.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/5391.64f28f223b25b8e0.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3375.fdd5dfd071eccbb6.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/1607.5ebee5c3fbe5c288.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/themes/base/fonts/fonts/77caabd3-1877-4634-85c8-8e398a093b99.woff2",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "content_type": "binary/octet-stream"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/7?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/2?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/3?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/11?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/18?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/HARBAirAccidentZoneA_gdb/FeatureServer/0?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8"
+  },
+  {
+    "url": "https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/HARBNoiseContourZones_gdb/FeatureServer/0?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/9?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/10?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/9507.6f945445d306f00f.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/themes/base/fonts/fonts/e78b17bb-11fb-4860-8d66-4ee0d0c1e117.woff2",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "content_type": "binary/octet-stream"
+  },
+  {
+    "url": "https://www.miamidadepa.gov/resources-pa/images/main-pa-logo.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://www.miamidadepa.gov/resources-pa/images/icons/info.svg",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/svg+xml"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/550/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/550/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/551/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/549/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/551/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/550/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/549/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/551/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/549/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/550/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/550/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/550/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/551/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/549/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/551/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/550/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/549/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/551/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/549/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/550/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/RemoteClient.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/RemoteClient.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/RemoteClient.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/RemoteClient.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/RemoteClient.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/RemoteClient.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/RemoteClient.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/6/query?f=pbf&spatialRel=esriSpatialRelIntersects&where=FOLIO%3D%270141160040250%27",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bf5e210e7c099aac1c14.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bf5e210e7c099aac1c14.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bf5e210e7c099aac1c14.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bf5e210e7c099aac1c14.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bf5e210e7c099aac1c14.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bf5e210e7c099aac1c14.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bf5e210e7c099aac1c14.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/552/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/551/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/549/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/552/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/548/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/548/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/550/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 404,
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/552/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/548/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/551/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 404,
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/552/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/551/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/549/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/552/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/548/438?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/548/437?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/550/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/552/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/548/439?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/ae13b6b641a9cbd1b4e5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/ae13b6b641a9cbd1b4e5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/ae13b6b641a9cbd1b4e5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/ae13b6b641a9cbd1b4e5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/ae13b6b641a9cbd1b4e5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/ae13b6b641a9cbd1b4e5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/ae13b6b641a9cbd1b4e5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/75317134246a62ec6287.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/75317134246a62ec6287.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/75317134246a62ec6287.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/75317134246a62ec6287.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/75317134246a62ec6287.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/75317134246a62ec6287.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/75317134246a62ec6287.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/549/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 404,
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/552/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/548/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/550/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/551/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/552/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 404,
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/549/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/548/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 404,
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/552/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/1/548/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/551/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/549/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/552/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/548/436?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/550/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a17a1db24440100955b4.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a17a1db24440100955b4.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a17a1db24440100955b4.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a17a1db24440100955b4.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a17a1db24440100955b4.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a17a1db24440100955b4.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a17a1db24440100955b4.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3714.57e2fc30391a7432.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/12?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/551/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/552/440?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/549/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8476a6a4a0d0e72f448b.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8476a6a4a0d0e72f448b.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8476a6a4a0d0e72f448b.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8476a6a4a0d0e72f448b.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8476a6a4a0d0e72f448b.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8476a6a4a0d0e72f448b.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8476a6a4a0d0e72f448b.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/1/548/435?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/0/210/168?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/0/211/167?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/0/211/168?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/0/210/168?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/0/211/168?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/0/211/167?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/13?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/2af77e85477b8051c339.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/2af77e85477b8051c339.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/2af77e85477b8051c339.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/2af77e85477b8051c339.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/2af77e85477b8051c339.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/2af77e85477b8051c339.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/2af77e85477b8051c339.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1100/876?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1100/875?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1101/876?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1101/875?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1099/876?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1100/877?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1099/875?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1101/877?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1099/877?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/2/1100/874?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1100/876?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1100/875?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1101/876?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1101/875?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1099/876?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1100/877?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1099/875?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1101/877?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1099/877?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/0/210/167?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/0/210/167?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/geometry/support/pe-wasm.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/f99e0adb104e9c20e5c3.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/f99e0adb104e9c20e5c3.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/f99e0adb104e9c20e5c3.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/f99e0adb104e9c20e5c3.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/f99e0adb104e9c20e5c3.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/f99e0adb104e9c20e5c3.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/f99e0adb104e9c20e5c3.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/2/1100/874?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/12/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=NAME&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/14?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/7313c4a11fb6dad0abc9.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/7313c4a11fb6dad0abc9.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/7313c4a11fb6dad0abc9.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/3/2200/1752?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/3/2200/1752?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/7313c4a11fb6dad0abc9.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/3/2201/1752?blankTile=false",
+    "method": "GET",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/7313c4a11fb6dad0abc9.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/7313c4a11fb6dad0abc9.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/13/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=LOCATION&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/7313c4a11fb6dad0abc9.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/1254f33a2959578d272c.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/1254f33a2959578d272c.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/1254f33a2959578d272c.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/1254f33a2959578d272c.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/1254f33a2959578d272c.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/1254f33a2959578d272c.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/1254f33a2959578d272c.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/4/4400/3505?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/4/4401/3505?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/4/4400/3504?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/4/4401/3504?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/4/4400/3506?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/4/4400/3505?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/4/4401/3505?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/4/4400/3504?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/4/4401/3504?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/4/4400/3506?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/4/4399/3505?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/15?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8ef050c33724cecd4044.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8ef050c33724cecd4044.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8ef050c33724cecd4044.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8ef050c33724cecd4044.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8ef050c33724cecd4044.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8ef050c33724cecd4044.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/8ef050c33724cecd4044.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/5/8801/7010?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/5/8801/7009?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/5/8801/7010?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/5/8801/7009?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b33f6f24074cf486bf19.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b33f6f24074cf486bf19.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b33f6f24074cf486bf19.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b33f6f24074cf486bf19.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b33f6f24074cf486bf19.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b33f6f24074cf486bf19.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b33f6f24074cf486bf19.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c8d47b10067f1459628a.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c8d47b10067f1459628a.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c8d47b10067f1459628a.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c8d47b10067f1459628a.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c8d47b10067f1459628a.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c8d47b10067f1459628a.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c8d47b10067f1459628a.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/14/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=NAME&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a233071f066869f62bc5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a233071f066869f62bc5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a233071f066869f62bc5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a233071f066869f62bc5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a233071f066869f62bc5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a233071f066869f62bc5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/a233071f066869f62bc5.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140813/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140813/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140812/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140812/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140814/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140814/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140813/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140812/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140813/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140813/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140812/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140812/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140814/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140814/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140813/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140812/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/3/2199/1752?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/3/2200/1753?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/3/2200/1753?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140813/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/17?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140813/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140814/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140814/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/15/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=NAME&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/4?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://apps.miamidadepa.gov/PropertySearch/3036.177b74d4822f5094.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140812/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140811/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140814/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140811/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140811/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140813/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140812/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140811/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140812/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/16?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140811/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140814/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140811/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140811/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140813/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140812/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140811/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140814/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140814/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/HARBAirAccidentZoneA_gdb/FeatureServer/0?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140810/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140810/112163?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/17/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=UDB&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/4/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=ZONE%2CZONE_DESC&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bdee6ca9998445ea3e2d.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bdee6ca9998445ea3e2d.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bdee6ca9998445ea3e2d.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bdee6ca9998445ea3e2d.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bdee6ca9998445ea3e2d.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bdee6ca9998445ea3e2d.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/bdee6ca9998445ea3e2d.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/28deb80aecc348e0a556.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/28deb80aecc348e0a556.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/28deb80aecc348e0a556.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/28deb80aecc348e0a556.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/28deb80aecc348e0a556.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/28deb80aecc348e0a556.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/28deb80aecc348e0a556.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.zZZZhVqDDCw.L.W.O/am=BBDg/d=0/rs=AN8SPfobRl8UQM01cRTktRUhaChx5xxdlg/m=el_main_css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css; charset=UTF-8"
+  },
+  {
+    "url": "https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.en_US.TRsLV_wcQ3Q.O/am=AAAACA/d=1/exm=el_conf/ed=1/rs=AN8SPfrSNkyifFfrD3d6ejKqemjb955kgg/m=el_main",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140810/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/HARBAirAccidentZoneA_gdb/FeatureServer/0/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=sdsFeatureDescription&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140811/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140810/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140813/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140810/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140812/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140814/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140810/112164?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140811/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140810/112162?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140810/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140813/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/16/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=LU%2CDESCR&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c80bc18b4601345f3741.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c80bc18b4601345f3741.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c80bc18b4601345f3741.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c80bc18b4601345f3741.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c80bc18b4601345f3741.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c80bc18b4601345f3741.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/c80bc18b4601345f3741.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b1cd55972339af29d906.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b1cd55972339af29d906.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b1cd55972339af29d906.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b1cd55972339af29d906.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b1cd55972339af29d906.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b1cd55972339af29d906.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140810/112165?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140812/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140814/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140811/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140810/112161?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140811/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/8/140810/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/8/140810/112160?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/b1cd55972339af29d906.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/libs/libtess/libtess.wasm",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/wasm"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/BaseMap/MapServer/tile/5/8800/7010?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://imageserverintra.miamidade.gov/ArcGIS/rest/services/MapCache/MDCImagery/MapServer/tile/5/8800/7010?blankTile=false",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/5?f=json",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/json; charset=UTF-8"
+  },
+  {
+    "url": "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/core/workers/chunks/775c80b9bf09b8c34c31.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "content_type": "application/javascript"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902296.1867753835%2C%22ymin%22%3A512337.7180606194%2C%22xmax%22%3A902546.9639256825%2C%22ymax%22%3A512588.49521091825%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902296.1867753835%2C%22ymin%22%3A512337.7180606194%2C%22xmax%22%3A902546.9639256825%2C%22ymax%22%3A512588.49521091825%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902546.9639256825%2C%22ymin%22%3A512337.7180606194%2C%22xmax%22%3A902797.7410759813%2C%22ymax%22%3A512588.49521091825%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902546.9639256825%2C%22ymin%22%3A512337.7180606194%2C%22xmax%22%3A902797.7410759813%2C%22ymax%22%3A512588.49521091825%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902797.7410759813%2C%22ymin%22%3A512337.7180606194%2C%22xmax%22%3A903048.5182262802%2C%22ymax%22%3A512588.49521091825%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902797.7410759813%2C%22ymin%22%3A512337.7180606194%2C%22xmax%22%3A903048.5182262802%2C%22ymax%22%3A512588.49521091825%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902296.1867753835%2C%22ymin%22%3A512086.9409103205%2C%22xmax%22%3A902546.9639256825%2C%22ymax%22%3A512337.7180606194%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902296.1867753835%2C%22ymin%22%3A512086.9409103205%2C%22xmax%22%3A902546.9639256825%2C%22ymax%22%3A512337.7180606194%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902546.9639256825%2C%22ymin%22%3A512086.9409103205%2C%22xmax%22%3A902797.7410759813%2C%22ymax%22%3A512337.7180606194%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902546.9639256825%2C%22ymin%22%3A512086.9409103205%2C%22xmax%22%3A902797.7410759813%2C%22ymax%22%3A512337.7180606194%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902797.7410759813%2C%22ymin%22%3A512086.9409103205%2C%22xmax%22%3A903048.5182262802%2C%22ymax%22%3A512337.7180606194%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902797.7410759813%2C%22ymin%22%3A512086.9409103205%2C%22xmax%22%3A903048.5182262802%2C%22ymax%22%3A512337.7180606194%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902296.1867753835%2C%22ymin%22%3A511836.1637600216%2C%22xmax%22%3A902546.9639256825%2C%22ymax%22%3A512086.9409103205%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902296.1867753835%2C%22ymin%22%3A511836.1637600216%2C%22xmax%22%3A902546.9639256825%2C%22ymax%22%3A512086.9409103205%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902546.9639256825%2C%22ymin%22%3A511836.1637600216%2C%22xmax%22%3A902797.7410759813%2C%22ymax%22%3A512086.9409103205%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902546.9639256825%2C%22ymin%22%3A511836.1637600216%2C%22xmax%22%3A902797.7410759813%2C%22ymax%22%3A512086.9409103205%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/5/query?f=pbf&geometry=%7B%22x%22%3A902587.975502288%2C%22y%22%3A512284.06274407357%7D&outFields=*&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryPoint&inSR=102658&outSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.zZZZhVqDDCw.L.W.O/am=BBDg/d=0/rs=AN8SPfobRl8UQM01cRTktRUhaChx5xxdlg/m=el_main_css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "content_type": "text/css; charset=UTF-8"
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/i/productlogos/translate/v14/24px.svg",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/svg+xml"
+  },
+  {
+    "url": "https://www.google.com/images/cleardot.gif",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/gif"
+  },
+  {
+    "url": "https://www.gstatic.com/images/branding/product/2x/translate_24dp.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://translate-pa.googleapis.com/v1/supportedLanguages?client=te&display_language=en-US&key=AIzaSyBWDj0QJvVIx8XOhRegXX5_SrRWxhT5Hs4&callback=callback",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://gisfs.miamidade.gov/mdarcgis/rest/services/MD_PA_PropertySearch/MapServer/8/query?f=pbf&geometry=%7B%22xmin%22%3A902797.7410759813%2C%22ymin%22%3A511836.1637600216%2C%22xmax%22%3A903048.5182262802%2C%22ymax%22%3A512086.9409103205%7D&orderByFields=OBJECTID&outFields=*&outSR=102658&quantizationParameters=%7B%22extent%22%3A%7B%22spatialReference%22%3A%7B%22latestWkid%22%3A2236%2C%22wkid%22%3A102658%7D%2C%22xmin%22%3A902797.7410759813%2C%22ymin%22%3A511836.1637600216%2C%22xmax%22%3A903048.5182262802%2C%22ymax%22%3A512086.9409103205%7D%2C%22mode%22%3A%22view%22%2C%22originPosition%22%3A%22upperLeft%22%2C%22tolerance%22%3A0.4897991216775072%7D&resultType=tile&returnExceededLimitFeatures=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&geometryType=esriGeometryEnvelope&inSR=102658",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "content_type": "application/x-protobuf"
+  },
+  {
+    "url": "https://maps.googleapis.com/maps-api-v3/api/js/64/12d/common.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "https://maps.googleapis.com/maps-api-v3/api/js/64/12d/util.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "content_type": "text/javascript"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-S336V3M935&gtm=45je65b1v9137432507za20gzb9137430419zd9137430419&_p=1778712885531&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQC&ae=a&are=1&cid=329069795.1778712886&frm=0&pscdl=noapi&rcb=11&sr=1280x720&uaa=x86&uab=64&uafvl=HeadlessChrome%3B147.0.7727.15%7CNot.A%252FBrand%3B8.0.0.0%7CChromium%3B147.0.7727.15&uam=&uamb=0&uap=macOS&uapv=10.15.7&uaw=0&ul=en-us&_s=2&tag_exp=0~115938466~115938469&sid=1778712886&sct=1&seg=0&dl=https%3A%2F%2Fapps.miamidadepa.gov%2FPropertySearch%2F&dt=Property%20Search&en=scroll&epn.percent_scrolled=90&_et=11&tfd=6031",
+    "method": "POST",
+    "resource_type": "fetch",
+    "status": 204,
+    "content_type": "text/plain"
+  }
+]

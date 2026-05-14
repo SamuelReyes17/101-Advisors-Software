@@ -285,20 +285,53 @@ def enrich_by_address(address: str, city: str = "") -> dict[str, Any] | None:
     return enrich_by_folio(folio)
 
 
+_ORG_PATTERN = re.compile(
+    r"\b(LLC|INC|CORP|CORPORATION|TRUST|TRS|LTD|LP|LLP|HOLDINGS|GROUP|"
+    r"ASSOC|ASSN|BANK|MORTGAGE|NA|NATIONAL|FEDERAL|FANNIE|FREDDIE|"
+    r"DEVELOPMENT|INVESTMENTS|PROPERTIES|REAL ESTATE|CAPITAL|FINANCE|"
+    r"FINANCIAL|FUND|EQUITY|REALTY)\b",
+    re.IGNORECASE,
+)
+
+
 def _split_owner_name(full: str) -> tuple[str, str]:
-    """PA records use 'LASTNAME FIRSTNAME [SUFFIX]'. Strip legal suffix."""
+    """Split Miami-Dade PA owner name into (first_name, last_name).
+
+    The PA stores person names in NORMAL ORDER ('FIRST [MIDDLE] LAST').
+    For organizations (LLC, INC, CORP, etc.), the whole name goes into
+    last_name and first_name stays empty — these aren't real human names
+    so splitting them would be wrong.
+
+    Examples:
+        'EDUARDO BAEZ'                  → ('EDUARDO', 'BAEZ')
+        'MARIA C VILLEGAS'              → ('MARIA', 'C VILLEGAS')
+        'ROY ANTHONY HERNANDEZ TRS'     → ('ROY', 'ANTHONY HERNANDEZ')  [TRS stripped]
+        'EVERGLADES PAINTERS LLC'       → ('', 'EVERGLADES PAINTERS LLC')
+        'US BANK NATIONAL ASSOCIATION'  → ('', 'US BANK NATIONAL ASSOCIATION')
+    """
     if not full:
         return "", ""
-    for suffix in [" LE", " TR", " ETAL", " JR", " SR", " III", " II"]:
-        if full.upper().endswith(suffix):
+    full = full.strip()
+
+    # Detect organizations — don't split these into first/last.
+    if _ORG_PATTERN.search(full):
+        return "", full
+
+    # Strip legal suffix from people names ('JOHN SMITH JR' → 'JOHN SMITH')
+    upper = full.upper()
+    for suffix in (" LE", " TR", " ETAL", " JR", " SR", " III", " II", " SR.", " JR."):
+        if upper.endswith(suffix):
             full = full[: -len(suffix)].strip()
+            upper = full.upper()
+
     parts = full.split()
     if not parts:
         return "", ""
     if len(parts) == 1:
         return parts[0], ""
-    # Heuristic: first word = last name (PA convention)
-    return parts[1] if len(parts) > 1 else "", parts[0]
+
+    # Normal order: first word = first name, rest = last name (+ middle)
+    return parts[0], " ".join(parts[1:])
 
 
 def is_target_property_type(info: dict[str, Any], include: list[str], exclude: list[str]) -> bool:

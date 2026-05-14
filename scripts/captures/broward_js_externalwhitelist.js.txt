@@ -1,0 +1,72 @@
+var webSiteList = [];
+var isHomesteadOnlineAvailable = "N";
+
+$(document).ready(function () {
+  getWebSitesList();
+});
+
+/**************************************************************************************************************************************************************************/
+/**                                                        File Homestead                                                                                                   **/
+/**************************************************************************************************************************************************************************/
+
+function getWebSitesList() {
+  $.ajax({
+    type: "POST",
+    cache: false,
+    async: false,
+    url: "search.aspx/getWebSitesList",
+    data: '{server: "' + currentServer + '"}',
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function (response) {
+      responseData = response.d;
+
+      webSiteList = [];
+
+      if (responseData.length > 0) {
+        webSiteList = response.d;
+        WebPageAvailability();
+
+        // debugger;
+      }
+    },
+    failure: function (response) {
+      alert(response.d);
+    }
+  });
+}
+
+function WebPageAvailability() {
+  for (var i = 0; i < webSiteList.length; i++) {
+    if (webSiteList[i].pageName == "onlinehomestead") {
+      isHomesteadOnlineAvailable = webSiteList[i].html;
+    }
+    else if (webSiteList[i].pageName == "infobroward") {
+      isInfoBrowardAvailable = webSiteList[i].html;
+    }
+    else if (webSiteList[i].pageName == "aerials") {
+      isInfoBrowardAvailable = webSiteList[i].html;
+    }
+    else if (webSiteList[i].pageName == "recinfo") {
+      isInfoBrowardAvailable = webSiteList[i].html;
+    }
+  }
+
+  //debugger;
+}
+
+/***********************************************************/
+/*              Homestead Online                           */
+/***********************************************************/
+function getHomesteadOnline() {
+  // if (isHomesteadOnlineAvailable !== "Y") {
+  var winval = 'location=no,scrollbars=yes,menubars=yes,toolbars=yes,resizable=yes,left=30,top=100,width=700,height=650';
+    myWindow = window.open('https://exemptions.bcpa.net/account/register', 'newwin', winval);
+  myWindow.focus();
+  //}
+  //else {
+  //    var winval = 'location=no,scrollbars=yes,menubars=yes,toolbars=yes,resizable=yes,left=350,top=100,width=700,height=650';
+  //    myWindow = window.open('errorhomesteadonline.html', 'newwin', winval);
+  //    myWindow.focus();
+  //}
+}

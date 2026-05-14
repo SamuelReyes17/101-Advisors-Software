@@ -1,0 +1,58 @@
+{
+  "displayFieldName": "FOLIO",
+  "fieldAliases": {
+    "FOLIO": "FOLIO",
+    "OBJECTID": "OBJECTID",
+    "PARCEL_TYPE": "Parcel_type",
+    "GLOBALID": "GLOBALID",
+    "SHAPE.STArea()": "SHAPE.STArea()",
+    "SHAPE.STLength()": "SHAPE.STLength()"
+  },
+  "fields": [
+    {
+      "name": "FOLIO",
+      "type": "esriFieldTypeString",
+      "alias": "FOLIO",
+      "length": 14
+    },
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "PARCEL_TYPE",
+      "type": "esriFieldTypeSmallInteger",
+      "alias": "Parcel_type"
+    },
+    {
+      "name": "GLOBALID",
+      "type": "esriFieldTypeGlobalID",
+      "alias": "GLOBALID",
+      "length": 38
+    },
+    {
+      "name": "SHAPE.STArea()",
+      "type": "esriFieldTypeDouble",
+      "alias": "SHAPE.STArea()"
+    },
+    {
+      "name": "SHAPE.STLength()",
+      "type": "esriFieldTypeDouble",
+      "alias": "SHAPE.STLength()"
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "FOLIO": "474135010090",
+        "OBJECTID": 2,
+        "PARCEL_TYPE": null,
+        "GLOBALID": "{6A0C1ECB-16D4-49F3-973A-6C2777C63CF9}",
+        "SHAPE.STArea()": 268846.82556152344,
+        "SHAPE.STLength()": 2135.0445154914637
+      }
+    }
+  ],
+  "exceededTransferLimit": true
+}

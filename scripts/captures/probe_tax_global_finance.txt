@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<title>Finance Home</title>
+<!--grid-layout-->
+<!--ls:begin[stylesheet]-->
+<style type="text/css">
+          
+          .iw_container
+          {
+            max-width:800px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+          }
+          .iw_stretch
+          {
+            min-width: 100% !important;
+          }
+        </style>
+<link href="/iwov-resources/grid/bootstrap/4.6.0/bootstrap-grid.min.css" type="text/css" rel="stylesheet">
+<link href="/iwov-resources/ui-frameworks/bootstrap/4.6.0/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<!--ls:end[stylesheet]-->
+<!--ls:begin[canonical]-->
+<!--ls:end[canonical]-->
+<!--ls:begin[script]-->
+<script src="/iwov-resources/scripts/jQuery/jquery.min.js" type="text/javascript"></script><script src="/iwov-resources/ui-frameworks/bootstrap/4.6.0/js/bootstrap.min.js" type="text/javascript"></script>
+<!--ls:end[script]-->
+<!--ls:begin[meta-keywords]-->
+<meta name="keywords" content="annual comprehensive reports, single audit, cash management, cost allocation, year end closing package, policies">
+<!--ls:end[meta-keywords]-->
+<!--ls:begin[meta-description]-->
+<meta name="description" content="COCC delivers accurate financial services for sound management decision-making and are responsible for financial compliance and guidance, centralized accounting, cash management, business systems solutions, financial and debt management, and the collection of delinquent accounts for various county departments.">
+<!--ls:end[meta-description]-->
+<!--ls:begin[custom-meta-data]-->
+<meta name="og:type" content="website">
+<meta name="Organization" content="org1477062352016837">
+<meta name="ContentType" content="None">
+<meta name="Audience" content="all-residents">
+<meta name="og:title" content="Finance Home">
+<meta name="og:url" content="https://www.miamidade.gov/clerk/finance-home.page">
+<meta name="og:description" content="COCC delivers accurate financial services for sound management decision-making and are responsible for financial compliance and guidance, centralized accounting, cash management, business systems solutions, financial and debt management, and the collection of delinquent accounts for various county departments.">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!--ls:end[custom-meta-data]-->
+<!--ls:begin[meta-vpath]-->
+<meta name="vpath" content="">
+<!--ls:end[meta-vpath]-->
+<!--ls:begin[meta-page-locale-name]-->
+<meta name="page-locale-name" content="">
+<!--ls:end[meta-page-locale-name]-->
+<!--ls:begin[stylesheet]-->
+<link type="text/css" href="/resources-clerk/css/global-styles.css" rel="stylesheet" data-ocde-desktop_or_tablet_or_phone="show">
+<!--ls:end[stylesheet]-->
+<!--ls:begin[script]-->
+<script type="text/javascript" src="/resources-clerk/js/popper.min.js" data-ocde-desktop_or_tablet_or_phone="show"></script>
+<!--ls:end[script]-->
+<!--ls:begin[script]--><script type="text/javascript" src="/resources-clerk/js/global-styles.js" data-ocde-desktop_or_tablet_or_phone="show"></script>
+<!--ls:end[script]-->
+<!--ls:begin[head-injection]--><!-- appendToHead -->
+<!-- Clerk of Courts script injection -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T8JL5TG');</script>
+<!-- End Google Tag Manager -->
+
+<!-- End of injection -->
+<!--ls:end[head-injection]--><!--ls:begin[tracker-injection]--><!--ls:end[tracker-injection]--><!--ls:begin[script]--><!--ls:end[script]--><!--ls:begin[script]--><!--ls:end[script]--></head>
+<body>
+<!--ls:begin[body]--><div class="iw_viewport-wrapper"><div class="iw_component" id="iw_comp1627524449890">
+  <!--ls:begin[component-1627524449890]--><style>#iw_comp1627524449890{}</style><!DOCTYPE HTML><style>
+
+				.alert {
+					text-align:center;
+				}
+
+				.alert-custom  {
+					background-color: #d1ecf1 B60010;
+
+					
+						color: #000000 ffffff;
+					
+				}
+
+				
+					.alert-custom  a {
+						color: #000000 ffffff; 
+					}
+				</style><style>
+			@media screen and (min-width:0\0) {
+				.mdc-custom__ie.alert {
+					display: block !important;
+				}
+			}
+		</style><script>
+    $(document).ready(function(){
+      //the action needs to be added with JavaScript, if not, LiveSite will replace it
+      $(".mdc-custom__search form").attr("action", location.protocol + "//" + location.host + "/clerk/search.page");
+    });
+  	</script><header class="mdc-custom__header"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a><div class="alert alert-danger" role="alert">
+      <div class="container warning"><p><strong>SCAM ALERT:</strong> Please be aware of potential scams related to Jury Duty.&nbsp; Please <strong><a href="https://www.miamidadeclerk.gov/clerk/jurors.page" target="_blank" rel="noopener">click here</a></strong> for more information.&nbsp;</p></div>
+   </div>
+   <div class="mdc-custom__global-header">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg mdc-custom__logo-heading">
+               <div class="mdc-custom__logo"><a href="/clerk/home.page"><img src="/resources-clerk/images/coc-gold-logo.png" class="img-fluid mdc-custom__global-header__mdc-custom__logo" alt="Clerk of the Courts - Miami-Dade County, Florida"></a></div>
+               <div class="mdc-custom__header-box">
+                  <div class="mdc-custom__header-line01">Juan Fernandez-Barquin, ESQ.</div>
+                  <div class="mdc-custom__header-line02">Clerk of the Court and Comptroller</div>
+                  <div class="mdc-custom__header-line03">of Miami-Dade County</div>
+               </div>
+            </div>
+            <div class="col-lg-4 d-flex justify-content-center flex-column">
+               <div class="mdc-custom__links align-self-lg-end"><a href="/clerk/about-us.page"><strong>ABOUT US </strong></a><a href="/clerk/contact.page"><strong>CONTACT US </strong></a><div class="dropdown"><button class="btn btn-link dropdown-toggle" data-toggle="collapse" type="button" data-target="#dropdownMenuTranslate" aria-expanded="false">
+                        								    Translate
+                        								  </button><div class="dropdown-menu" id="dropdownMenuTranslate"><span class="lang-en lang-select dropdown-item" data-href="#googtrans(en|en)" data-lang="en" tabindex="0">English</span><span class="lang-en lang-select dropdown-item" data-href="#googtrans(en|es)" data-lang="es" tabindex="0">Spanish</span><span class="lang-en lang-select dropdown-item" data-href="#googtrans(en|ht)" data-lang="ht" tabindex="0">Haitian Creole</span></div>
+                  </div><a href="https://www2.miamidadeclerk.gov/usermanagementservices">My Account</a></div>
+               <div class="mdc-custom__search align-self-lg-end">
+                  <form action="/clerk/finance-home.page?submit=true&amp;componentID=1627524449890" method="GET" onsubmit="return q.value!=''">
+                     <div class="input-group mt-3"><input type="text" class="form-control" placeholder="Search" aria-label="Global Search" aria-describedby="globalSearch" name="q"><div class="input-group-append"><button class="btn btn-secondary" type="submit" id="globalSearch"><span class="sr-only">Global Search</span><img src="/resources-clerk/images/icons/search--white.svg" class="mdc-custom__search__icon img-fluid" role="presentation" alt=""></button></div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="mdc-custom__global-nav">
+      <div class="container">
+         <nav class="navbar-expand-xl navbar-light" id="mainMenu" aria-label="Clerk of Courts main navigation"><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarMainMenu">
+               <ul class="mdc-custom__global-nav__list">
+                  <li><a href="/clerk/home.page" class="mdc-custom__global-nav__home-icon-link"><img src="/resources-clerk/images/icons/home--white.svg" alt="Home icon. Navigates back to homepage." class="mdc-custom__global-nav__home-icon"></a></li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#TrafficParkingNav" aria-expanded="false" aria-controls="TrafficParkingNav">Traffic &amp; Parking</button><ul class="row collapse" id="TrafficParkingNav">
+                        <li class="mdc-custom__mega-container__child col-lg-6 "><a href="/clerk/traffic-parking.page">
+                              <h2 class="mdc-custom__mega-container__title">Traffic &amp; Parking</h2></a><ul class="mdc-custom__mega-container__list d-flex flex-wrap justify-content-between mdc-custom__mega-container__item--half">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/civil-traffic-infractions.page">Civil Traffic Infractions</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/criminal-traffic-violations.page">Criminal Traffic Violations</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/parking-citations.page">Parking Citations</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/late-payments.page">Late Payments</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/registration-stop-tow-order.page">Registration Stops or Tow Orders</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/suspended-license.page">Driver License Suspension Information</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/traffic-school.page">Traffic School</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/civil-infractions.page">Civil Infractions (including Boating, Wildlife, Parks and Others)</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/certified-copies.page">Request Certified Copies - Traffic Cases Online</a></li>
+                           </ul>
+                        </li>
+                        <li class="mdc-custom__mega-container__child col-lg mdc-custom__mega-container__child--feature">
+                           <h2 class="mdc-custom__mega-container__title">Traffic &amp; Parking Citations</h2>
+                           <div class="mdc-custom__mega-container__description">If you received a citation, you either received a parking or a traffic citation. Learn
+                              which citation you were given and find out your options to pay.</div><a class="btn btn-light mdc-custom__mega-container__button" href="/clerk/traffic-parking.page">Learn More</a></li>
+                     </ul>
+                  </li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#CivilFamilyCourtMarriageNav" aria-expanded="false" aria-controls="CivilFamilyCourtMarriageNav">Civil, Family Court &amp; Marriage</button><ul class="row collapse" id="CivilFamilyCourtMarriageNav">
+                        <li class="mdc-custom__mega-container__child col-lg-6 ">
+                           <ul class="mdc-custom__mega-container__list d-flex flex-wrap justify-content-between mdc-custom__mega-container__item--half">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/civil-court.page">Civil Court</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/family-court.page">Family Court</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/small-claims.page">Small Claims</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/child-support-alimony.page">Central Depository Child Support &amp; Alimony</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/restraining-orders.page">Restraining Orders</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/domestic-violence.page">Domestic Violence</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/juvenile-court.page">Juvenile Court</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/landlord-tenant-disputes.page">Landlord &amp; Tenant Disputes</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/marriage-licenses.page">Marriage Licenses</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/probate-court.page">Probate Court</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/mental-health-court.page">Mental Health Court</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/simplified-divorces.page">Simplified Divorces</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/judgments.page">Judgments</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/e-filing.page">eFiling</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/appellate-division.page">Appellate Division</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/certified-copies.page">Request Certified Copies – Civil, Family or Probate Cases Online</a></li>
+                           </ul>
+                        </li>
+                        <li class="mdc-custom__mega-container__child col-lg mdc-custom__mega-container__child--feature">
+                           <h2 class="mdc-custom__mega-container__title">Civil, Family and Probate Case Search</h2>
+                           <div class="mdc-custom__mega-container__description">Search for information on civil, family and probate cases, or request certified copies.</div><a class="btn btn-light mdc-custom__mega-container__button" href="https://www2.miamidadeclerk.gov/ocs/" target="_blank">Search for Cases / Order Certified Copies</a></li>
+                     </ul>
+                  </li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#CriminalCourtNav" aria-expanded="false" aria-controls="CriminalCourtNav">Criminal Court</button><ul class="row collapse" id="CriminalCourtNav">
+                        <li class="mdc-custom__mega-container__child col-lg-6 "><a href="/clerk/criminal-court.page">
+                              <h2 class="mdc-custom__mega-container__title">Criminal Court</h2></a><ul class="mdc-custom__mega-container__list d-flex flex-wrap justify-content-between mdc-custom__mega-container__item--half">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/bond-refunds.page">Bond Refunds</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/collections.page">Collections</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/criminal-suspended-driver-license.page">Suspended Driver Licenses</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/criminal-payments.page">Payments on Criminal Cases</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/identity-issues.page">Identity Issues</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/criminal-records.page">Criminal Records</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/criminal-certified-copies.page">Request Certified Copies - Criminal Cases Online</a></li>
+                           </ul>
+                        </li>
+                        <li class="mdc-custom__mega-container__child col-lg mdc-custom__mega-container__child--feature">
+                           <h2 class="mdc-custom__mega-container__title">Criminal Justice Online Case Search</h2>
+                           <div class="mdc-custom__mega-container__description">Search for information on criminal felony and misdemeanor cases, or request certified
+                              copies.</div><a class="btn btn-light mdc-custom__mega-container__button" href="https://www2.miamidadeclerk.gov/cjis/" target="_blank">Search Criminal Cases / Order Certified Copies</a></li>
+                     </ul>
+                  </li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#JurorsNav" aria-expanded="false" aria-controls="JurorsNav">Jurors</button><ul class="row collapse" id="JurorsNav">
+                        <li class="mdc-custom__mega-container__child col-lg-6 "><a href="/clerk/jurors.page">
+                              <h2 class="mdc-custom__mega-container__title">Jurors</h2></a><ul class="mdc-custom__mega-container__list d-flex flex-wrap justify-content-between mdc-custom__mega-container__item--half">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/jury-guidelines.page">Jury Duty Guidelines</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/jurors-parking.page">Where to Park</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/postponement-excusal.page">Postponement or Excusal Request</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/juror-payment.page">Payment &amp; Compensation</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="https://cjp.miamidadeclerk.gov/jury/">Received a Jury Summons?</a></li>
+                           </ul>
+                        </li>
+                        <li class="mdc-custom__mega-container__child col-lg mdc-custom__mega-container__child--feature">
+                           <h2 class="mdc-custom__mega-container__title">Clearview Juror Portal</h2>
+                           <div class="mdc-custom__mega-container__description">This online tool is to register for your jury service, ask for excuse/disqualification,
+                              postponements, and proof of service.</div><a class="btn btn-light mdc-custom__mega-container__button" href="https://cjp.miamidadeclerk.gov/jury/" target="_blank">Clearview Juror Portal</a></li>
+                     </ul>
+                  </li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#HomePropertyNav" aria-expanded="false" aria-controls="HomePropertyNav">Home &amp; Property</button><ul class="row collapse" id="HomePropertyNav">
+                        <li class="mdc-custom__mega-container__child col-lg-6 "><a href="/clerk/home-property.page">
+                              <h2 class="mdc-custom__mega-container__title">Home &amp; Property</h2></a><ul class="mdc-custom__mega-container__list d-flex flex-wrap justify-content-between mdc-custom__mega-container__item--half">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/declaration-domicile.page">Declaration of Domicile</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/deed-fraud.page">Deed Fraud</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/landlord-tenant-disputes.page">Landlord &amp; Tenant Disputes</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/property-fraud.page">Property Fraud Alert</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="https://www2.miamidadeclerk.gov/Courtfinder" target="_blank">Eviction Filing Court Location Finder</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/code-enforcement.page">Code Enforcement</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/records-library.page">Records Library</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/property-tax-deeds.page">Property Tax Deeds</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/mortgage-foreclosures.page">Mortgage Foreclosures</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/value-adjustment-board.page">Value Adjustment Board</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/vab-axia.page">Value Adjustment Board AXIA Upload Instructions</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/value-adjustment-board-procedures.page">Value Adjustment Board Procedures</a></li>
+                           </ul>
+                        </li>
+                        <li class="mdc-custom__mega-container__child col-lg mdc-custom__mega-container__child--feature">
+                           <h2 class="mdc-custom__mega-container__title">Home &amp; Property</h2>
+                           <div class="mdc-custom__mega-container__description">The Miami-Dade Clerk of the Courts handles several topics regarding home and property
+                              issues.</div><a class="btn btn-light mdc-custom__mega-container__button" href="/clerk/home-property.page">View all Home &amp; Property Topics</a></li>
+                     </ul>
+                  </li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#RecordsNav" aria-expanded="false" aria-controls="RecordsNav">Records</button><ul class="row collapse" id="RecordsNav">
+                        <li class="mdc-custom__mega-container__child col-lg-6 "><a href="/clerk/records.page">
+                              <h2 class="mdc-custom__mega-container__title">Records</h2></a><ul class="mdc-custom__mega-container__list d-flex flex-wrap justify-content-between mdc-custom__mega-container__item--half">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/official-records.page">Official Records</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/certified-copies.page">Certified Copies</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/records-management.page">Records Management</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/public-records-requests.page">Public Records Requests</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/commercial-data-services.page">Commercial Data Services</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/property-fraud.page">Property Fraud Alert Information</a></li>
+                           </ul>
+                        </li>
+                        <li class="mdc-custom__mega-container__child col-lg mdc-custom__mega-container__child--feature">
+                           <h2 class="mdc-custom__mega-container__title">Records Services</h2>
+                           <div class="mdc-custom__mega-container__description">The Miami-Dade Clerk of the Court and Comptroller maintains records online in several
+                              areas of interest.</div><a class="btn btn-light mdc-custom__mega-container__button" href="/clerk/records.page">Search Records</a></li>
+                     </ul>
+                  </li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#ClerkoftheBoardNav" aria-expanded="false" aria-controls="ClerkoftheBoardNav">Clerk of the Board </button><ul class="row collapse" id="ClerkoftheBoardNav">
+                        <li class="mdc-custom__mega-container__child col-lg-6 "><a href="/clerk/cob-home.page">
+                              <h2 class="mdc-custom__mega-container__title">Clerk of the Board </h2></a><ul class="mdc-custom__mega-container__list d-flex flex-wrap justify-content-between mdc-custom__mega-container__item--half">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/cob-agendas-minutes.page">Meeting Agendas &amp; Minutes</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="https://www.miamidade.gov/global/calendar/clerk-of-the-board.page" target="_blank">Calendars and Schedules</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/cob-ordinances-resolutions.page">Ordinances &amp; Resolutions</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/cob-vacancies.page">Advisory Boards &amp; Vacancies</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="https://www.miamidadeclerk.gov/clerk/cob-hearing-examiner.page">Hearing Examiner Pool Vacancies</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/cob-lobbyist-registration.page">Lobbyist Registration and Information</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/cob-about.page">About Clerk of the Board</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/cob-contact.page">Contact Clerk of the Board</a></li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </li>
+                  <li class="mdc-custom__mega-container"><button class="mdc-custom__mega-container__link btn btn-link" data-toggle="collapse" type="button" data-target="#ComptrollerNav" aria-expanded="false" aria-controls="ComptrollerNav">Comptroller</button><ul class="row collapse" id="ComptrollerNav">
+                        <li class="mdc-custom__mega-container__child col-lg "><a href="/clerk/comptroller-operations.page">
+                              <h2 class="mdc-custom__mega-container__title">Comptroller Operations</h2></a><ul class="mdc-custom__mega-container__list d-flex flex-column">
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/finance-home.page">Comptroller Finance Operations</a></li>
+                              <li class="mdc-custom__mega-container__item"><a href="/clerk/comptroller-audit-operations-main.page">Comptroller Audit Operations</a></li>
+                           </ul>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+      </div>
+   </div>
+</header><!--ls:end[component-1627524449890]--> 
+</div> 
+<div class="iw_component" id="iw_comp1569932454765">
+  <!--ls:begin[component-1569932454765]--><style>#iw_comp1569932454765{}</style><nav aria-label="Breadcrumb" class="container mdc-custom__breadcrumbs">
+<span class="iw-breadcrumb-node"><a href="/clerk/home.page">Home</a></span><span class="iw-breadcrumb-separator">&nbsp;>&nbsp;</span><span class="iw-breadcrumb-node"><a href="/clerk/comptroller-operations.page">Comptroller Operations</a></span><span class="iw-breadcrumb-separator">&nbsp;>&nbsp;</span><span class="iw-breadcrumb-node">Comptroller Finance Operations</span>
+</nav>
+<!--ls:end[component-1569932454765]--> 
+</div> 
+<main class="mdc-custom__main-content" id="content"> 
+ <div class="container"> 
+  <div class="row"> 
+   <div class="col-md-3"> 
+    <div class="iw_placeholder" id="iw_placeholder1568745828933"> 
+     <div class="iw_component" id="iw_comp1727928950372">
+       <!--ls:begin[component-1727928950372]--><style>#iw_comp1727928950372{}</style><!DOCTYPE HTML><div class="container">
+   <aside class="mdc-custom__side-nav"><a href="/clerk/finance-home.page">
+         <h2>Comptroller Finance Operations</h2></a><ul class="list-group list-group-flush">
+         <li class="list-group-item"><a href="/clerk/finance-annual-comprehensive-reports.page">Annual Comprehensive Financial Report</a></li>
+         <li class="list-group-item"><a href="/clerk/finance-cash-management.page">Cash Management</a></li>
+         <li class="list-group-item"><a href="/clerk/finance-cost-allocation.page">Cost Allocation</a></li>
+         <li class="list-group-item"><a href="/clerk/fina

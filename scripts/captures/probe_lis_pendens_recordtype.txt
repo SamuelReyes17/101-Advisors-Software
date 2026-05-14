@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/officialrecords/images/coc-gold-logo.png" />
+    <!-- Google tag (gtag.js) - Consent Mode v2: analytics denied until user opts in -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN2C2G6LC" crossorigin="anonymous"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('consent', 'default', { analytics_storage: 'denied' });
+      gtag('js', new Date());
+      gtag('config', 'G-FYN2C2G6LC', { cookie_flags: 'Secure;SameSite=Strict' });
+    </script>
+    <title>Official Records</title>
+  <script type="module" crossorigin src="/officialrecords/assets/index-J4XjyG00.js"></script>
+  <link rel="stylesheet" crossorigin href="/officialrecords/assets/index-Bm5edTMA.css">
+</head>  
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

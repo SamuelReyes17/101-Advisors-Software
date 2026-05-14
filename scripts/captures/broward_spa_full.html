@@ -1,0 +1,608 @@
+ï»¿<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-control" content="public">
+    <title>Broward County Property Appraiser</title>
+    <meta charset="utf-8" />
+    <!--<base href="/">-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="alternate" type="application/rss+xml" href="./sitemap.xml">
+
+    <link href="css/plugins/w3.css" rel="stylesheet" />
+    <link href="css/plugins/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="css/plugins/jquery-ui.min.css" rel="stylesheet" />
+    <link href="css/plugins/bootstrap-B2AaHFPv.css" rel="stylesheet" />
+    <!-- Font Awesome fa-fa icons-->
+    <link rel="stylesheet" href="css/plugins/font-awesome.min.css" />
+    <!-- Animation effects -->
+    <link rel="stylesheet" href="css/plugins/animate.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="css/plugins/Alegreya.min.css" rel="stylesheet" />
+    <!-- Global CSS -->
+    <link href="css/customstyles/globaloverride.css" rel="stylesheet" />
+
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/plugins/jquery-ui.min.js"></script>
+    <script src="js/plugins/bootstrap-LR4z8uzn.js"></script>
+    <script src="js/plugins/autoNumeric-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/plugins/angular-ui-router.min.js"></script>
+
+    <script>
+        (function (d) {
+            var s = d.createElement("script");
+            /* uncomment the following line to override default position*/
+            /* s.setAttribute("data-position", 1);*/
+            /* uncomment the following line to override default size (values: small, large)*/
+            /* s.setAttribute("data-size", "large");*/
+            /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
+            /* s.setAttribute("data-language", "null");*/
+            /* uncomment the following line to override color set via widget (e.g., #053f67)*/
+            /* s.setAttribute("data-color", "#2d68ff");*/
+            /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
+            /* s.setAttribute("data-type", "1");*/
+            /* s.setAttribute("data-statement_text:", "Our Accessibility Statement");*/
+            /* s.setAttribute("data-statement_url", "http://www.example.com/accessibility";*/
+            /* uncomment the following line to override support on mobile devices*/
+            /* s.setAttribute("data-mobile", true);*/
+            /* uncomment the following line to set custom trigger action for accessibility menu*/
+            /* s.setAttribute("data-trigger", "triggerId")*/
+            s.setAttribute("data-account", "5OXADrR0Hx");
+            s.setAttribute("src", "https://cdn.userway.org/widget.js");
+            (d.body || d.head).appendChild(s);
+        })(document)
+    </script>
+    <noscript>
+        Please ensure Javascript is enabled for purposes of
+        <a href="https://userway.org">website accessibility</a>
+    </noscript>
+
+</head>
+<body>
+    <!--Start of Header-->
+    <header role="banner">
+        <div class="header-banner">
+            <a href="#home">
+                <!--Not october-->
+                <img id="logo-main" ng-src="images/{{ bannerDesktop }}" class="img-fluid d-none d-md-block" alt="Marty Kiar Broward County Property Appraiser">
+                <img ng-src="images/{{ bannerMobile }}" class="img-fluid d-md-none" alt="Marty Kiar Broward County Property Asppraiser">
+            </a>
+        </div>
+
+        <nav class="navbar navbar-expand-md bcpa-navbar">
+            <div class="container-fluid">
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <!-- <span class="navbar-toggler-icon"></span> -->
+                    <span class="bar1"></span>
+                    <span class="bar2"></span>
+                    <span class="bar3"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <hr class="d-block d-none-md border-white my-1 opacity-100">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 flex-wrap justify-content-center text-center">
+                        <li class="nav-item">
+                            <a id="nav-bar-tour" class="nav-link fa fa-home icon" style="font-size:22px;" aria-current="page" title="Home" data-ui-sref="Home" data-ui-sref-active="active" data-ui-sref-opts="{reload:true}"></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                About BCPA
+                            </a>
+                            <ul class="dropdown-menu text-center text-md-start">
+                                <li>
+                                    <a href="#MeetMarty" ui-sref-active="active" ui-sref="MeetMarty" ui-sref-opts="{reload:true}">About Marty Kiar</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Contact-Us">Contact Us</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#TaxRoll">Tax Roll Information</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a title="RFPs & Bids" href="#Business">Business</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Jobs">Careers</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="javascript:feedbackwithoutfolionumber();">Ask Marty</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Record Search
+                            </a>
+                            <ul class="dropdown-menu text-center text-md-start">
+                                <li id="Record-Search-Real-Id">
+                                    <a ui-sref="Record-Search" ui-sref-opts="{reload: true}">Property Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a ui-sref="Tpp-Search" ui-sref-opts="{reload: true}">Tangible Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li id="Record-Search-Sales-Id">
+                                    <a ui-sref="Sales-Search" ui-sref-opts="{reload: true}">Sales Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li id="Record-Search-Subdivision-Id">
+                                    <a ui-sref="Sub-Search" ui-sref-opts="{reload: true}">Subdivision Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li id="Record-Search-Timeshare-Id">
+                                    <a ui-sref="Time-Share-Search" ui-sref-opts="{reload: true}">Time Share Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li id="Record-Search-Commercial-Id">
+                                    <a ui-sref="Commercial-Search" ui-sref-opts="{reload: true}">Commercial Search</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li id="Record-Search-Land-Id">
+                                    <a ui-sref="Land-Search" ui-sref-opts="{reload: true}">Land Search</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Resources
+                            </a>
+                            <ul class="dropdown-menu text-center text-md-start">
+                                <li>
+                                    <a href="#Ask-Questions">FAQ</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li><a href="#TPP">Tangible Personal Property</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Download-Forms">Download Forms</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Related-Links">Related Links</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Report-Market-Sales">Market Reports</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Video">Video Gallery</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#News-letter">Newsletters </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Online Tools
+                            </a>
+                            <ul class="dropdown-menu text-center text-md-start">
+                                <li>
+                                    <a href="https://gisweb-adapters.bcpa.net/bcpawebmap_ex_new_web/bcpawebmap.aspx" target="_blank" rel="noreferrer">Maps &amp; Aerials</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Estimate-Status">Exemption Status</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Data-Request">Data Request</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Tax-Estimator">Tax Estimator</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Portability-Estimator">Portability Estimator</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="https://web.bcpa.net/owneralert">Owner Alert</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Exemptions &amp; Classifications
+                            </a>
+                            <ul class="dropdown-menu text-center text-md-start">
+                                <li>
+                                    <a href="" onclick="getHomesteadOnline();" class="highlight-color">File for Homestead</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Homestead">All Exemptions</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Agricultural">Agricultural Classification</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#VAB">Appeals & Petitions</a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a href="#Report-Exemption-Fraud">Report Exemption Fraud</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item d-flex flex-wrap justify-content-center align-items-center gap-4 mx-4 mt-3 mt-md-0">
+                            <a href="mailto:feedback@bcpa.net" title="Mail" class="fa fa-envelope icon text-white fs-6"><div style="display:none">Mail</div></a>
+                            <a href="https://www.facebook.com/MartyKiarBCPA" title="Facebook" target="_blank" rel="noreferrer" class="fa fa-facebook icon text-white fs-4"><div style="display:none">Facebook</div></a>
+                            <a href="https://twitter.com/MartyKiarBCPA" title="Twitter" target="_blank" rel="noreferrer" class="icon lh-1 social-icon" style="width: 20px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" ><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg><div style="display:none">Twitter</div></a>
+                            <a href="https://www.youtube.com/channel/UCt-Xol7-PZwShEisQHZ9KjA" title="YouTube" target="_blank" rel="noreferrer" class="fa fa-youtube icon text-white fs-4"><div style="display:none">YouTube</div></a>
+                            <a href="https://instagram.com/MartyKiarBCPA/" title="Instagram" target="_blank" rel="noreferrer" class="fa fa-instagram icon text-white fs-4"><div style="display:none">Instagram</div></a>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <i id="globe" class="fa fa-globe icon text-white fs-4 d-flex align-items-center gap-1" title="Select Language" onClick="googleTranslateElementInit(event)"><span class="fw-bold fs-6 ff-source-sans-pro">Translate</span></i>
+                                <i id="remove" title="Close" class="fa fa-remove icon text-white fs-4" style="display:none;" onClick="closeGoogleTranslateElementInit(event)"></i>
+                                <i style="display:none; padding: unset;" id="google_translate_element"></i>
+                            </div>
+                            <a href="#NoticeADA" class="icon text-white fs-6" title="ADA"><span class="fw-bold ff-source-sans-pro">ADA</span></a>
+                            <!--<a href="https://web.bcpa.net/onlineforms/AccessibilityOnlineForm" class="icon text-white fs-6" title="ADA"><span class="fw-bold ff-source-sans-pro">ADA</span></a>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header><!-- header role="banner" -->
+    <!--End of Header-->
+    <!--Body-->
+    <div ui-view ng-class="navigateSlide" class="flex-grow-1"></div>
+    <!-- End of Body-->
+    <!-- Start FeedBack Container-->
+
+    <div id="feedBackContainer" class="d-none d-sm-block">
+
+        <div id="questionFeedback" class="messageContainer containerWin">
+            <div class="cutterDiv"></div>
+            <span class="closeCross"> X </span>
+            <h4 style="font-size: 18px;">Having technical issues?</h4>
+            <button id="yesFeedBackbutton" type="button" class="btn btn-primary btnstyle">Yes</button>
+            <button id="noFeedBackbutton" type="button" class="btn btn-primary btnclear">No</button>
+        </div>
+
+        <div id="thankWinFeedback" class="messageContainer hideWindows containerWin">
+            <div class="cutterDiv"></div>
+            <span class="closeCross"> X </span>
+            <h4 style="font-size: 18px;">Thank you for your message.</h4>
+        </div>
+
+        <form id="feedback_form" class="feedback_form hideWindows containerWin">
+            <div class="feedBackFormCointainer">
+                <div class="cutterDiv"></div>
+                <span class="closeCross"> X </span>
+                <label>&nbsp;Name</label>
+                <input type="text" class="form-control" id="IdName" aria-describedby="basic-addon1" style="border-radius:0px">
+                <label style="padding-top:3%">&nbsp;Email address</label>
+                <input type="email" class="form-control" id="IdEmail" aria-describedby="emailHelp" style="border-radius:0px">
+                <label style="padding-top:3%">&nbsp;Send us a message.</label>
+                <div style="width:100%; height:33%; margin-bottom:10px;" class="input-group">
+                    <textarea maxlength="300" id="feedBackTA" class="form-control" aria-label="We look forward to hearing your feedback."></textarea>
+                </div>
+                <button id="submitFeedBack" type="button" class="btn btn-primary btnstyle disableButton">Submit</button>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Start Footer-->
+
+    <footer style="background-color: #004484" class="clearfix">
+        <div class="centered clearfix" id="index-footer">
+            <div class="footer-logo">
+                <img class="logo" src="images/white-logo.png" onclick="backTop()" alt="Marty Kiar Broward County Property Appraiser">
+                <div class="social">
+                    <a href="#News-letter" target="_blank">
+                        <svg class="icon-hover" viewBox="0 0 65.03 10.19" width="95%" height="30px">
+                            <defs>
+                                <style type="text/css">
+                                    .cls-13 {
+                                        fill: white;
+                                    }
+                                </style>
+                            </defs>
+                            <title>Electronic Newsletters</title>
+                            <path class="cls-13" d="M7.31.45h0l7.25,6.37L21.81.45H7.31Zm14.47,10h0l-5-4.35-2.27,2-2.27-2-5,4.36h14.5Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M6.52,1,7.84,2.15,9.57,3.68l1.65,1.46.41.35-.19.18L8.71,8.06,6.52,10Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M22.56,10,20.86,8.5,18.71,6.61l-1.2-1.05-.06-.07.63-.56L20.26,3l1.68-1.42.6-.54Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M7.31.45H21.77L14.52,6.82,7.29.52Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M21.77,10.51H7.29l5-4.39,2.27,2,2.27-2,5,4.41Z" transform="translate(-0.85 -0.39)" />
+                            <rect class="cls-13" y="0.07" width="4.81" height="1.04" rx="0.36" ry="0.36" />
+                            <rect class="cls-13" x="0.87" y="2.02" width="3.94" height="1.04" rx="0.36" ry="0.36" />
+                            <rect class="cls-13" x="1.96" y="3.96" width="2.84" height="1.04" rx="0.36" ry="0.36" />
+                            <path class="cls-13" d="M33.28.4h2l1.62,5.21.54,2.19h.05c.11-1,.18-2.46.41-3.62L38.71.39h2l-2,10h-2L35.06,5.2l-.51-2.27h-.06a34.14,34.14,0,0,1-.44,3.59l-.77,3.83h-2Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M45.37,2.59c1.81,0,2.49,1.27,2.49,2.85a4.56,4.56,0,0,1-.4,1.74H43.14A1.55,1.55,0,0,0,44.39,9a1.28,1.28,0,0,0,.39,0,2.77,2.77,0,0,0,1.41-.53l.74,1.32a4.8,4.8,0,0,1-2.72.79,3,3,0,0,1-3.12-2.84,1.77,1.77,0,0,1,0-.4A4.54,4.54,0,0,1,45.37,2.59Zm.7,3.29a2.1,2.1,0,0,0,.08-.56c0-.62-.27-1.14-1-1.14a2.06,2.06,0,0,0-1.8,1.69Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M49.13,2.79h2.06V6.46c0,.74,0,1.49-.09,2.27h.06c.27-.75.53-1.52.86-2.27l1.57-3.67h1.83l.12,3.67V8.73h.06c.27-.75.51-1.5.79-2.27l1.44-3.67h2l-3.24,7.6H54.07L54,7.2V4.93h0c-.29.8-.52,1.52-.79,2.27l-1.3,3.19H49.49Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M60.58,8.1a2.18,2.18,0,0,0,1.64,1c.58,0,1.08-.31,1.08-.72S62.84,7.69,62,7.2a2.5,2.5,0,0,1-1.55-2.11,2.7,2.7,0,0,1,2.89-2.5h.05a3.41,3.41,0,0,1,2.5,1.14L64.74,4.86a1.9,1.9,0,0,0-1.35-.69c-.58,0-1,.32-1,.72s.64.7,1.26,1.05a2.44,2.44,0,0,1,1.53,2.13c0,1.49-1.32,2.5-3.16,2.5A3.41,3.41,0,0,1,59.33,9.1Z" transform="translate(-0.85 -0.39)" />
+                            <path class="cls-13" d="M28.23,2.2c1.8,0,2.48,1.27,2.48,2.85a4.46,4.46,0,0,1-.39,1.73H26a1.55,1.55,0,0,0,1.28,1.79,1.48,1.48,0,0,0,.42,0,2.78,2.78,0,0,0,1.41-.54l.74,1.32a4.8,4.8,0,0,1-2.72.79A3,3,0,0,1,24,7.32a1.79,1.79,0,0,1,0-.4A4.53,4.53,0,0,1,28.23,2.2Zm.69,3.29A2.24,2.24,0,0,0,29,4.92c0-.61-.26-1.13-1-1.13a2,2,0,0,0-1.81,1.69Z" transform="translate(-0.85 -0.39)" />
+                        </svg>
+                    </a>
+
+                    <a id="" href="#Site-Index">
+
+                        <svg class="icon-hover" viewBox="0 0 58.16 11.69" width="100%" height="30px">
+                            <defs>
+                                <style type="text/css">
+                                    .cls-14 {
+                                        fill: white;
+                                    }
+                                </style>
+                            </defs>
+                            <title>Site Map</title>
+                            <path class="cls-14" d="M14.46,10.42a2.36,2.36,0,0,0,1.88,1.06c.73,0,1.22-.36,1.22-1,0-.45-.39-.67-1-1L15.77,9a2.32,2.32,0,0,1-1.26-2.11,2.8,2.8,0,0,1,3-2.62A3.38,3.38,0,0,1,20,5.52L18.92,6.57a2.07,2.07,0,0,0-1.52-.79,1,1,0,0,0-1.08.91c0,.43.4.64,1.06,1.05l.83.51a2.09,2.09,0,0,1,1.18,2c0,1.54-1.26,2.75-3.19,2.75a3.64,3.64,0,0,1-3-1.58Z" transform="translate(-0.91 -3.55)" />
+                            <path class="cls-14" d="M21.46,6.42h1.76l-1.28,6.43H20.16Zm.26-1.82a1.08,1.08,0,0,1,1.1-1.05.88.88,0,0,1,1,.86,1.05,1.05,0,0,1-1.1,1.05A.88.88,0,0,1,21.72,4.6Z" transform="translate(-0.91 -3.55)" />
+                            <path class="cls-14" d="M24.88,7.81H24l.26-1.31.95-.08.54-1.69h1.49l-.32,1.69h1.46l-.27,1.39h-1.5l-.56,2.76a2.42,2.42,0,0,0,0,.43c0,.42.21.62.66.62a1.25,1.25,0,0,0,.53-.14l.31,1.25a4.11,4.11,0,0,1-1.5.29,1.59,1.59,0,0,1-1.83-1.7,4.5,4.5,0,0,1,.1-.82Z" transform="translate(-0.91 -3.55)" />
+                            <path class="cls-14" d="M32,6.26c1.53,0,2.1,1.08,2.1,2.41a3.78,3.78,0,0,1-.34,1.47H30.07a1.32,1.32,0,0,0,1.44,1.53,2.37,2.37,0,0,0,1.19-.45l.62,1.12A4,4,0,0,1,31,13a2.52,2.52,0,0,1-2.63-2.75A3.86,3.86,0,0,1,32,6.26Zm.58,2.79a1.72,1.72,0,0,0,.06-.48c0-.52-.22-.95-.87-.95a1.74,1.74,0,0,0-1.53,1.43Z" transform="translate(-0.91 -3.55)" />
+                            <path class="cls-14" d="M35.9,6.42h1.44l0,.86h.05a3.41,3.41,0,0,1,2.08-1,1.33,1.33,0,0,1,1.49,1.13,3.46,3.46,0,0,1,2.18-1.13c1.06,0,1.52.58,1.52,1.65a4.69,4.69,0,0,1-.1.92l-.8,4H41.94l.76-3.8a3.52,3.52,0,0,0,.1-.61.59.59,0,0,0-.65-.66c-.29,0-.71.26-1.26.83L40,12.85H38.27L39,9.05a3.52,3.52,0,0,0,.1-.61.58.58,0,0,0-.62-.66c-.31,0-.74.26-1.28.83l-.83,4.24H34.62Z" transform="translate(-0.91 -3.55)" />
+                            <path class="cls-14" d="M49,6.26a1.56,1.56,0,0,1,1.4.84h0l.29-.69h1.41l-1.28,6.43H49.41l0-.84h0a3,3,0,0,1-2,1c-1.13,0-1.82-.84-1.82-2.36C45.57,8.19,47.23,6.26,49,6.26Zm.53,4.35L50,8.32a1,1,0,0,0-.86-.61c-.89,0-1.72,1.17-1.72,2.71,0,.78.29,1.13.75,1.13A1.61,1.61,0,0,0,49.54,10.61Z" transform="translate(-0.91 -3.55)" />
+                            <path class="cls-14" d="M54.13,13.5l-.32,1.74H52l1.78-8.82h1.44v.74h0a3.08,3.08,0,0,1,2-.9c1.14,0,1.82.84,1.82,2.36,0,2.45-1.66,4.38-3.42,4.38a1.51,1.51,0,0,1-1.31-.76h0Zm1-5L54.68,11a.93.93,0,0,0,.84.6c.9,0,1.73-1.17,1.73-2.71,0-.78-.3-1.13-.75-1.13A1.6,1.6,0,0,0,55.17,8.52Z" transform="translate(-0.91 -3.55)" />
+                            <path class="cls-14" d="M10.46,9.68H9.93c0-.12,0-.23,0-.35s0-.4,0-.59a.74.74,0,0,0-.21-.55A.79.79,0,0,0,9.18,8H6.4c0-.22,0-.44,0-.67h.51a.68.68,0,0,0,.72-.72V4.82a.66.66,0,0,0-.71-.71H5.16a.65.65,0,0,0-.7.7v.57c0,.4,0,.81,0,1.21a.69.69,0,0,0,.2.51.65.65,0,0,0,.51.21h.5c0,.15,0,.3,0,
+                        .45V8H2.85a.66.66,0,0,0-.71.71v.13c0,.28,0,.57,0,.86H1.69a.72.72,0,0,0-.76.48v2.18l0,.08a.72.72,0,0,0,.72.46H3.39a.67.67,0,0,0,.69-.69q0-.9,0-1.79a.68.68,0,0,0-.71-.71H2.86c0-.18,0-.36,0-.54V8.72s0,0,0,0H5.67c0,.32,0,.65,0,1H5.14a.67.67,0,0,0-.69.69q0,.91,0,1.81a.65.65,0,0,0,
+                        .69.69H6.94a.67.67,0,0,0,.69-.69q0-.9,0-1.79a.68.68,0,0,0-.71-.71H6.4V9.39c0-.23,0-.46,0-.7H9.2v.39c0,.19,0,.39,0,.59H8.68a.68.68,0,0,0-.7.7q0,.9,0,1.79a.66.66,0,0,0,.69.69h1.79a.66.66,0,0,0,.69-.69q0-.9,0-1.79A.68.68,0,0,0,10.46,9.68ZM8.72,12.13a3.9,3.9,0,0,1,0-.42V11.5c0-.28,
+                        0-.56,0-.84v-.14s0-.07,0-.11h1.73v0q0,.85,0,1.7H8.72Zm-1.82,0H5.18c0-.57,0-1.14,0-1.72H6.9Zm0-7.29V6.57H5.18q0-.86,0-1.72H6.9ZM3.36,12.13H1.63c0-.56,0-1.12,0-1.73H3.36C3.37,11,3.37,11.54,3.36,12.13Z" transform="translate(-0.91 -3.55)" />
+                        </svg>
+                    </a>
+                    <div id="siteMap"><!--for the tour--> </div>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <!--<h4>Contact Us</h4>-->
+                <p class="footer_blue">Broward County Property Appraiser</p>
+                <p><a class="footer_blue" href="https://maps.google.com/?q=115 South Andrews Avenue, Room 111 Fort Lauderdale, Florida 33301" rel="noreferrer" target="_blank">115 South Andrews Avenue<br /> Room 111 <br /> Fort Lauderdale, Florida 33301</a></p>
+                <p><a class="footer_blue" href="Tel:954-357-6830">954-357-6830</a></p>
+                <p><a class="footer_blue" href="mailto:martykiar@bcpa.net">martykiar@bcpa.net</a></p>
+                <p><a class="footer_blue" href="#NoticeADA">Accessibility Statement</a></p>
+            </div>
+            <div class="footer-navigation">
+                <div class="footer-links-holder">
+                    <h4>About BCPA</h4>
+                    <ul class="footer-links">
+                        <li><a href="#MeetMarty">About Marty Kiar</a></li>
+                        <li><a href="#Contact-Us">Contact Us</a></li>
+                        <li><a href="#TaxRoll">Tax Roll Information</a></li>
+                        <li><a title="RFPs & Bids" href="#Business">Business</a></li>
+                        <li><a href="#Jobs">Careers</a></li>
+                        <li><a href="javascript:feedbackwithoutfolionumber();">Ask Marty</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-holder">
+                    <h4>Search</h4>
+                    <ul class="footer-links">
+                        <li><a ui-sref="Record-Search" ui-sref-opts="{reload: true}">Property Search</a></li>
+                        <li><a ui-sref="Tpp-Search" ui-sref-opts="{reload: true}">Tangible Search</a></li>
+                        <li><a ui-sref="Sales-Search" ui-sref-opts="{reload: true}">Sales Search</a></li>
+                        <li><a ui-sref="Sub-Search" ui-sref-opts="{reload: true}">Subdivision Search</a></li>
+                        <li><a ui-sref="Time-Share-Search" ui-sref-opts="{reload: true}">Time Share Search</a></li>
+                        <li><a ui-sref="Commercial-Search" ui-sref-opts="{reload: true}">Commercial Search</a></li>
+                        <li><a ui-sref="Land-Search" ui-sref-opts="{reload: true}">Land Search</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-holder">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#Ask-Questions">FAQ</a></li>
+                        <li><a href="#TPP">Tangible Personal Property</a></li>
+                        <li><a href="#Download-Forms">Download Forms</a></li>
+                        <li><a href="#Related-Links">Related Links</a></li>
+                        <li><a href="#Report-Market-Sales">Market Reports</a></li>
+                        <li><a href="#Video">Video Gallery</a></li>
+                        <li><a href="#News-letter">Newsletters</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-holder">
+                    <h4>Online Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://gisweb-adapters.bcpa.net/bcpawebmap_ex_new_web/bcpawebmap.aspx" target="_blank" rel="noreferrer">Maps &amp; Aerials</a></li>
+                        <li><a href="#Estimate-Status">Exemption Status</a></li>
+                        <li><a href="#Data-Request">Data Request</a></li>
+                        <li><a href="#Tax-Estimator">Tax Estimator</a></li>
+                        <li><a href="#Portability-Estimator">Portability Estimator</a></li>
+                        <li><a href="https://web.bcpa.net/owneralert">Owner Alert</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-holder">
+                    <h4>Exemptions &amp; Classifications</h4>
+                    <ul class="footer-links">
+                        <li><a href="#Homestead">All Exemptions</a></li>
+                        <li><a href="#Agricultural">Agricultural Classification</a></li>
+                        <li><a href="#VAB">Appeals & Petitions</a></li>
+                        <li><a href="#Report-Exemption-Fraud">Report Exemption Fraud</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <a href="#legal" target="_blank" rel="noreferrer" class="fa fa-gavel icon" title="privacypolicy" style="color:white;text-align: center; padding-left: 15px; padding-top:5px;padding-bottom:5px;font-size:20px;"><span style="font-size:16px; font-family:'Source Sans Pro'; padding-left:5px"><b>Privacy Policy</b></span></a>
+            <p style="padding: 6px;">
+                Having trouble viewing our website? Please contact our accessibility hotline for assistance at <a href="mailto:accessibility@bcpa.net" style="padding:0">accessibility@bcpa.net</a> or <a href="Tel:954-357-6830" style="padding:0">954-357-6830</a>.
+                <br /><br />
+                <b>Source:</b> Broward County Property Appraiser's Office - Contact our office at <a class="p-0" href="tel:954-357-6830">954-357-6830</a>. Hours: We are open weekdays from 8 am until 5 pm.
+                <b>Legal Disclaimer:</b> Under Florida law, e-mail addresses are public records. If you do not want your e-mail address
+                released in response to a public records request, do not send electronic mail to this entity.
+                Instead, contact this office by phone. Information provided on this website is for tax roll purposes only and may not be appropriate for other uses.  Values are not final until certified pursuant to Florida law.
+            </p>
+        </div>
+    </footer>
+    <!-- End Footer-->
+    <!-- scripts -->
+
+    <!-- Angular related -->
+    <script src="js/router-menu.js"></script>
+    <script src="js/angular/index.min.js"></script>
+    <!-- End Angular related -->
+
+    <script src="js/common.min.js"></script>
+    <script async type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit(e)"></script>
+
+    <!--Homestead icon Link-->
+    <script async src="js/externalwhitelist.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src=https://www.googletagmanager.com/gtag/js?id =G-MR45PG8FRP></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-MR45PG8FRP', { cookie_flags: 'SameSite=None;Secure' });
+    </script>
+
+    <script>
+        taxRollMenu = null;
+    </script>
+    <script>
+        $(function () {
+            var timerHandler;
+            setTimer();
+
+            function setTimer() {
+                timerHandler = setTimeout(function () {
+                    $("#feedBackContainer").animate({
+                        opacity: 0.5
+                    }, 500);
+                }, 10000);
+            };
+
+            $("#feedBackTA").on("keyup", function (e) {
+                if (e.currentTarget.textLength > 0) {
+                    $("#submitFeedBack").removeClass("disableButton");
+                    $("#submitFeedBack").addClass("enableButton");
+                }
+                else {
+                    $("#submitFeedBack").removeClass("enableButton");
+                    $("#submitFeedBack").addClass("disableButton");
+                }
+            });
+
+            $("#feedBackContainer").keyup(function (event) {
+                if (event.keyCode == 27) {
+                    $("#feedBackContainer").addClass("hideWindows");
+                }
+            });
+
+            $("#feedBackContainer").keypress(function (event) {
+                $("#feedBackContainer").animate({
+                    opacity: 1
+                }, 100, function () {
+                    clearTimeout(timerHandler);
+                });
+            });
+
+            $("#feedBackContainer").mouseenter(function () {
+                $("#feedBackContainer").animate({
+                    opacity: 1
+                }, 100, function () {
+                    clearTimeout(timerHandler);
+                });
+            });
+            $("#feedBackContainer").mouseleave(function () {
+                setTimer();
+            });
+
+            $("#yesFeedBackbutton").click(function () {
+                $("#questionFeedback").addClass("hideWindows");
+                $("#feedback_form").removeClass("hideWindows");
+            });
+
+            $("#noFeedBackbutton").click(function () {
+                $("#questionFeedback").addClass("hideWindows");
+            });
+
+            $(".closeCross").click(function () {
+                $(this).parents(".containerWin").addClass("hideWindows");
+            });
+
+            function showThanksWindows(msg) {
+                $("#thankWinFeedback").find("h4").html(msg);
+                $("#feedback_form").addClass("hideWindows");
+                $("#thankWinFeedback").removeClass("hideWindows");
+                setTimeout(function () {
+                    $("#thankWinFeedback").addClass("hideWindows");
+                }, 10000);
+            }
+
+            function manageBanner() {
+
+            }
+
+            $("#submitFeedBack").click(function () {
+                var value = $("#feedBackTA").val();
+                var name = $('#IdName').val();
+                var email = $('#IdEmail').val();
+                var validate = true;
+
+                if (name == "") {
+                    $("#IdName").css("border-color", "#a94442");
+                }
+                else {
+                    $("#IdName").css("border-color", "#ccc");
+                }
+                if (email == "") {
+                    $("#IdEmail").css("border-color", "#a94442");
+                }
+                else {
+                    $("#IdEmail").css("border-color", "#ccc");
+                }
+                if (value == "") {
+                    $("#feedBackTA").css("border-color", "#a94442");
+                }
+                else {
+                    $("#feedBackTA").css("border-color", "#ccc");
+                }
+                expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!expr.test(email)) {
+                    $("#IdEmail").css("border-color", "#a94442");
+                    validate = false;
+                }
+
+
+                if (value != "" && name != "" && email != "" && validate) {
+                    $.ajax({
+                        type: "POST",
+                        url: "feedback.aspx/SendFeedBack",
+                        data: '{messageToSend: "' + value + '",name:"' + name + '",email:"' + email + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            showThanksWindows(response.d)
+                        },
+                        failure: function (response) {
+                            showThanksWindows(response.d)
+                        }
+                    });
+                }
+            });
+        });
+
+        // toggle mobile footer accordion
+        $(".footer-links-holder h4").click(function () {
+            $(this).parent().toggleClass("active")
+        })
+
+        // collapse menu when navigate using the menu links
+        $(document).on('click', '.navbar-collapse.in', function (e) {
+            if ($(e.target).is('a')) {
+                $(this).collapse('hide');
+            }
+        });
+    </script>
+</body>
+</html>
+

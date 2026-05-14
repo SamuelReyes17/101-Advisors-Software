@@ -1,0 +1,1146 @@
+{
+  "Additionals": {
+    "AddtionalInfo": [
+      {
+        "Key": "LAND USE AND RESTRICTIONS",
+        "Value": [
+          {
+            "InfoName": "Community Development District",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "Community Redevelopment Area",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "Empowerment Zone",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "Enterprise Zone",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "Urban Development",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "Zoning Code",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "Existing Land Use",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "HARB Zoning Code",
+            "InfoValue": "COUNTYGIS",
+            "Message": ""
+          },
+          {
+            "InfoName": "Government Agencies and Community Services",
+            "InfoValue": "http://gisweb.miamidade.gov/communityservices/CommunityServicesAll.html?x=&y=&bufferDistance=5&address=2735 SW 36 AVE",
+            "Message": ""
+          }
+        ]
+      },
+      {
+        "Key": "OTHER GOVERNMENTAL JURISDICTIONS",
+        "Value": [
+          {
+            "InfoName": "Business Incentives",
+            "InfoValue": "https://gisweb.miamidade.gov/businessincentive/default.aspx?searchtype=address&amp;paramvalue=",
+            "Message": ""
+          },
+          {
+            "InfoName": "Childrens Trust",
+            "InfoValue": "https://www.thechildrenstrust.org/",
+            "Message": ""
+          },
+          {
+            "InfoName": "City of Miami",
+            "InfoValue": "http://www.miamigov.com/home/",
+            "Message": ""
+          },
+          {
+            "InfoName": "Environmental Considerations",
+            "InfoValue": "https://gisweb.miamidade.gov/environmentalconsiderations/?searchtype=address&paramvalue=2735 SW 36 AVE",
+            "Message": ""
+          },
+          {
+            "InfoName": "Florida Inland Navigation District",
+            "InfoValue": "http://www.aicw.org",
+            "Message": ""
+          },
+          {
+            "InfoName": "Septic - Well: Property List (MDC)",
+            "InfoValue": "https://gis-mdc.opendata.arcgis.com/maps/MDC::potential-properties-served-by-septic-or-well/about",
+            "Message": ""
+          },
+          {
+            "InfoName": "Septic - Well: Septic GIS Points (DOH)",
+            "InfoValue": "https://gis-mdc.opendata.arcgis.com/datasets/MDC::doh-septic-system/explore",
+            "Message": ""
+          },
+          {
+            "InfoName": "Septic - Well: Well GIS Points (DOH)",
+            "InfoValue": "https://gis-mdc.opendata.arcgis.com/datasets/MDC::doh-well-permit/explore",
+            "Message": ""
+          },
+          {
+            "InfoName": "PA Bulletin Board",
+            "InfoValue": "http://bbs.miamidadepa.gov/",
+            "Message": ""
+          },
+          {
+            "InfoName": "Special Taxing District and Other Non-Ad valorem Assessment",
+            "InfoValue": "/PAOnlineTools/Taxes/NonAdvalorem.aspx?folio=0141160040250",
+            "Message": ""
+          },
+          {
+            "InfoName": "School Board",
+            "InfoValue": "http://www.dadeschools.net/",
+            "Message": ""
+          },
+          {
+            "InfoName": "South Florida Water Mgmt District",
+            "InfoValue": "http://www.sfwmd.gov/portal/page/portal/sfwmdmain/home%20page",
+            "Message": ""
+          },
+          {
+            "InfoName": "Tax Collector",
+            "InfoValue": "http://www.miamidade.gov/taxcollector/",
+            "Message": ""
+          }
+        ]
+      }
+    ],
+    "FooterMessage": "",
+    "HeaderMessage": "* The information listed below is not derived from the Property Appraiser's Office records.  It is provided for convenience and is derived from other government agencies."
+  },
+  "Assessment": {
+    "AssessmentInfos": [
+      {
+        "AssessedValue": 204350,
+        "BuildingOnlyValue": 157796,
+        "ExtraFeatureValue": 21189,
+        "LandValue": 651674,
+        "Message": null,
+        "TotalValue": 830659,
+        "Year": 2025
+      },
+      {
+        "AssessedValue": 198591,
+        "BuildingOnlyValue": 129531,
+        "ExtraFeatureValue": 21423,
+        "LandValue": 570081,
+        "Message": null,
+        "TotalValue": 721035,
+        "Year": 2024
+      },
+      {
+        "AssessedValue": 192807,
+        "BuildingOnlyValue": 128401,
+        "ExtraFeatureValue": 21657,
+        "LandValue": 497083,
+        "Message": null,
+        "TotalValue": 647141,
+        "Year": 2023
+      }
+    ],
+    "Messages": [
+      {
+        "Message": "",
+        "Year": 2025
+      },
+      {
+        "Message": "",
+        "Year": 2024
+      },
+      {
+        "Message": "",
+        "Year": 2023
+      }
+    ]
+  },
+  "Benefit": {
+    "BenefitInfos": [
+      {
+        "Description": "Save Our Homes Cap",
+        "Message": null,
+        "Seq": "4",
+        "TaxYear": 2025,
+        "Type": "Assessment Reduction",
+        "Url": "http://www.miamidade.gov/pa/amendment_10.asp",
+        "Value": 626309
+      },
+      {
+        "Description": "Save Our Homes Cap",
+        "Message": null,
+        "Seq": "4",
+        "TaxYear": 2024,
+        "Type": "Assessment Reduction",
+        "Url": "http://www.miamidade.gov/pa/amendment_10.asp",
+        "Value": 522444
+      },
+      {
+        "Description": "Save Our Homes Cap",
+        "Message": null,
+        "Seq": "4",
+        "TaxYear": 2023,
+        "Type": "Assessment Reduction",
+        "Url": "http://www.miamidade.gov/pa/amendment_10.asp",
+        "Value": 454334
+      },
+      {
+        "Description": "Homestead",
+        "Message": null,
+        "Seq": "5",
+        "TaxYear": 2025,
+        "Type": "Exemption",
+        "Url": "http://www.miamidade.gov/pa/exemptions_homestead.asp",
+        "Value": 25000
+      },
+      {
+        "Description": "Homestead",
+        "Message": null,
+        "Seq": "5",
+        "TaxYear": 2024,
+        "Type": "Exemption",
+        "Url": "http://www.miamidade.gov/pa/exemptions_homestead.asp",
+        "Value": 25000
+      },
+      {
+        "Description": "Homestead",
+        "Message": null,
+        "Seq": "5",
+        "TaxYear": 2023,
+        "Type": "Exemption",
+        "Url": "http://www.miamidade.gov/pa/exemptions_homestead.asp",
+        "Value": 25000
+      },
+      {
+        "Description": "Second Homestead",
+        "Message": null,
+        "Seq": "10",
+        "TaxYear": 2025,
+        "Type": "Exemption",
+        "Url": "http://www.miamidade.gov/pa/exemptions_homestead_additional.asp",
+        "Value": 25722
+      },
+      {
+        "Description": "Second Homestead",
+        "Message": null,
+        "Seq": "10",
+        "TaxYear": 2024,
+        "Type": "Exemption",
+        "Url": "http://www.miamidade.gov/pa/exemptions_homestead_additional.asp",
+        "Value": 25000
+      },
+      {
+        "Description": "Second Homestead",
+        "Message": null,
+        "Seq": "10",
+        "TaxYear": 2023,
+        "Type": "Exemption",
+        "Url": "http://www.miamidade.gov/pa/exemptions_homestead_additional.asp",
+        "Value": 25000
+      }
+    ],
+    "Messages": []
+  },
+  "Building": {
+    "BuildingInfos": [
+      {
+        "Actual": 1946,
+        "ActualArea": 1303,
+        "AdjustedBasePrice": 83.16,
+        "BuildingNo": 1,
+        "DepreciatedValue": 96133,
+        "Effective": 1956,
+        "EffectiveArea": 1156,
+        "GrossArea": 1303,
+        "HeatedArea": 1228,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 54,
+        "ReplacementCostNew": 178024,
+        "RollYear": 2025,
+        "SegNo": 1,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1946,
+        "ActualArea": 1303,
+        "AdjustedBasePrice": 65.88,
+        "BuildingNo": 1,
+        "DepreciatedValue": 76157,
+        "Effective": 1956,
+        "EffectiveArea": 1156,
+        "GrossArea": 1303,
+        "HeatedArea": 1228,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 54,
+        "ReplacementCostNew": 141032,
+        "RollYear": 2024,
+        "SegNo": 1,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1946,
+        "ActualArea": 1303,
+        "AdjustedBasePrice": 65.88,
+        "BuildingNo": 1,
+        "DepreciatedValue": 76157,
+        "Effective": 1956,
+        "EffectiveArea": 1156,
+        "GrossArea": 1303,
+        "HeatedArea": 1228,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 54,
+        "ReplacementCostNew": 141032,
+        "RollYear": 2023,
+        "SegNo": 1,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1995,
+        "ActualArea": 866,
+        "AdjustedBasePrice": 109.34,
+        "BuildingNo": 1,
+        "DepreciatedValue": 43408,
+        "Effective": 1995,
+        "EffectiveArea": 397,
+        "GrossArea": 866,
+        "HeatedArea": 226,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 71,
+        "ReplacementCostNew": 61138,
+        "RollYear": 2025,
+        "SegNo": 2,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1995,
+        "ActualArea": 866,
+        "AdjustedBasePrice": 87.84,
+        "BuildingNo": 1,
+        "DepreciatedValue": 34872,
+        "Effective": 1995,
+        "EffectiveArea": 397,
+        "GrossArea": 866,
+        "HeatedArea": 226,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 72,
+        "ReplacementCostNew": 48434,
+        "RollYear": 2024,
+        "SegNo": 2,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1995,
+        "ActualArea": 866,
+        "AdjustedBasePrice": 89.06,
+        "BuildingNo": 1,
+        "DepreciatedValue": 35357,
+        "Effective": 1995,
+        "EffectiveArea": 397,
+        "GrossArea": 866,
+        "HeatedArea": 226,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 73,
+        "ReplacementCostNew": 48434,
+        "RollYear": 2023,
+        "SegNo": 2,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1995,
+        "ActualArea": 420,
+        "AdjustedBasePrice": 34.79,
+        "BuildingNo": 2,
+        "DepreciatedValue": 14612,
+        "Effective": 1995,
+        "EffectiveArea": 420,
+        "GrossArea": 420,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 71,
+        "ReplacementCostNew": 20580,
+        "RollYear": 2025,
+        "SegNo": 1,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1995,
+        "ActualArea": 420,
+        "AdjustedBasePrice": 35.28,
+        "BuildingNo": 2,
+        "DepreciatedValue": 14818,
+        "Effective": 1995,
+        "EffectiveArea": 420,
+        "GrossArea": 420,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 72,
+        "ReplacementCostNew": 20580,
+        "RollYear": 2024,
+        "SegNo": 1,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 1995,
+        "ActualArea": 420,
+        "AdjustedBasePrice": 35.77,
+        "BuildingNo": 2,
+        "DepreciatedValue": 15023,
+        "Effective": 1995,
+        "EffectiveArea": 420,
+        "GrossArea": 420,
+        "HeatedArea": 420,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 73,
+        "ReplacementCostNew": 20580,
+        "RollYear": 2023,
+        "SegNo": 1,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 2010,
+        "ActualArea": 49,
+        "AdjustedBasePrice": 42.14,
+        "BuildingNo": 2,
+        "DepreciatedValue": 2065,
+        "Effective": 2010,
+        "EffectiveArea": 49,
+        "GrossArea": 49,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 86,
+        "ReplacementCostNew": 2401,
+        "RollYear": 2025,
+        "SegNo": 2,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 2010,
+        "ActualArea": 49,
+        "AdjustedBasePrice": 42.63,
+        "BuildingNo": 2,
+        "DepreciatedValue": 2089,
+        "Effective": 2010,
+        "EffectiveArea": 49,
+        "GrossArea": 49,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 87,
+        "ReplacementCostNew": 2401,
+        "RollYear": 2024,
+        "SegNo": 2,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 2010,
+        "ActualArea": 49,
+        "AdjustedBasePrice": 43.12,
+        "BuildingNo": 2,
+        "DepreciatedValue": 1035,
+        "Effective": 2010,
+        "EffectiveArea": 24,
+        "GrossArea": 49,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 88,
+        "ReplacementCostNew": 1176,
+        "RollYear": 2023,
+        "SegNo": 2,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 2016,
+        "ActualArea": 35,
+        "AdjustedBasePrice": 45.09,
+        "BuildingNo": 2,
+        "DepreciatedValue": 1578,
+        "Effective": 2016,
+        "EffectiveArea": 35,
+        "GrossArea": 35,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 92,
+        "ReplacementCostNew": 1715,
+        "RollYear": 2025,
+        "SegNo": 3,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 2016,
+        "ActualArea": 35,
+        "AdjustedBasePrice": 45.57,
+        "BuildingNo": 2,
+        "DepreciatedValue": 1595,
+        "Effective": 2016,
+        "EffectiveArea": 35,
+        "GrossArea": 35,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 93,
+        "ReplacementCostNew": 1715,
+        "RollYear": 2024,
+        "SegNo": 3,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      },
+      {
+        "Actual": 2016,
+        "ActualArea": 35,
+        "AdjustedBasePrice": 46.06,
+        "BuildingNo": 2,
+        "DepreciatedValue": 829,
+        "Effective": 2016,
+        "EffectiveArea": 18,
+        "GrossArea": 35,
+        "HeatedArea": 0,
+        "Message": null,
+        "PercentComp": 1,
+        "PercentageGood": 94,
+        "ReplacementCostNew": 882,
+        "RollYear": 2023,
+        "SegNo": 3,
+        "TotalAdjustedPoints": 100,
+        "TraversePoints": "Y",
+        "improvementModelDesc": "Single Family Residential"
+      }
+    ],
+    "Messages": [
+      {
+        "Message": "",
+        "Year": 2025
+      },
+      {
+        "Message": "",
+        "Year": 2024
+      },
+      {
+        "Message": "",
+        "Year": 2023
+      }
+    ]
+  },
+  "ClassifiedAgInfo": {
+    "Acreage": 0,
+    "CalculatedValue": 0,
+    "LandCode": null,
+    "LandUse": null,
+    "Message": null,
+    "UnitPrice": 0
+  },
+  "Completed": true,
+  "District": 1,
+  "ExtraFeature": {
+    "ExtraFeatureInfos": [
+      {
+        "ActualYearBuilt": 1971,
+        "AdjustedUnitPrice": 4.95,
+        "DepreciatedValue": 1688,
+        "Description": "Chain-link Fence 4-5 ft high",
+        "Message": null,
+        "PercentCondition": 49.5,
+        "RollYear": 2025,
+        "Units": 341,
+        "UseCode": "0034"
+      },
+      {
+        "ActualYearBuilt": 1971,
+        "AdjustedUnitPrice": 4.95,
+        "DepreciatedValue": 1688,
+        "Description": "Chain-link Fence 4-5 ft high",
+        "Message": null,
+        "PercentCondition": 49.5,
+        "RollYear": 2024,
+        "Units": 341,
+        "UseCode": "0034"
+      },
+      {
+        "ActualYearBuilt": 1971,
+        "AdjustedUnitPrice": 4.95,
+        "DepreciatedValue": 1688,
+        "Description": "Chain-link Fence 4-5 ft high",
+        "Message": null,
+        "PercentCondition": 49.5,
+        "RollYear": 2023,
+        "Units": 341,
+        "UseCode": "0034"
+      },
+      {
+        "ActualYearBuilt": 1995,
+        "AdjustedUnitPrice": 8.76,
+        "DepreciatedValue": 1927,
+        "Description": "Carport - Aluminum - With Floor",
+        "Message": null,
+        "PercentCondition": 73,
+        "RollYear": 2025,
+        "Units": 220,
+        "UseCode": "0012"
+      },
+      {
+        "ActualYearBuilt": 1995,
+        "AdjustedUnitPrice": 8.88,
+        "DepreciatedValue": 1954,
+        "Description": "Carport - Aluminum - With Floor",
+        "Message": null,
+        "PercentCondition": 74,
+        "RollYear": 2024,
+        "Units": 220,
+        "UseCode": "0012"
+      },
+      {
+        "ActualYearBuilt": 1995,
+        "AdjustedUnitPrice": 9,
+        "DepreciatedValue": 1980,
+        "Description": "Carport - Aluminum - With Floor",
+        "Message": null,
+        "PercentCondition": 75,
+        "RollYear": 2023,
+        "Units": 220,
+        "UseCode": "0012"
+      },
+      {
+        "ActualYearBuilt": 2006,
+        "AdjustedUnitPrice": 3.28,
+        "DepreciatedValue": 968,
+        "Description": "Patio - Concrete Slab",
+        "Message": null,
+        "PercentCondition": 82,
+        "RollYear": 2025,
+        "Units": 295,
+        "UseCode": "0087"
+      },
+      {
+        "ActualYearBuilt": 2006,
+        "AdjustedUnitPrice": 9.02,
+        "DepreciatedValue": 9011,
+        "Description": "Patio - Brick, Tile, Flagstone",
+        "Message": null,
+        "PercentCondition": 82,
+        "RollYear": 2025,
+        "Units": 999,
+        "UseCode": "0090"
+      },
+      {
+        "ActualYearBuilt": 2006,
+        "AdjustedUnitPrice": 9.13,
+        "DepreciatedValue": 9121,
+        "Description": "Patio - Brick, Tile, Flagstone",
+        "Message": null,
+        "PercentCondition": 83,
+        "RollYear": 2024,
+        "Units": 999,
+        "UseCode": "0090"
+      },
+      {
+        "ActualYearBuilt": 2006,
+        "AdjustedUnitPrice": 3.32,
+        "DepreciatedValue": 979,
+        "Description": "Patio - Concrete Slab",
+        "Message": null,
+        "PercentCondition": 83,
+        "RollYear": 2024,
+        "Units": 295,
+        "UseCode": "0087"
+      },
+      {
+        "ActualYearBuilt": 2006,
+        "AdjustedUnitPrice": 3.36,
+        "DepreciatedValue": 991,
+        "Description": "Patio - Concrete Slab",
+        "Message": null,
+        "PercentCondition": 84,
+        "RollYear": 2023,
+        "Units": 295,
+        "UseCode": "0087"
+      },
+      {
+        "ActualYearBuilt": 2006,
+        "AdjustedUnitPrice": 9.24,
+        "DepreciatedValue": 9231,
+        "Description": "Patio - Brick, Tile, Flagstone",
+        "Message": null,
+        "PercentCondition": 84,
+        "RollYear": 2023,
+        "Units": 999,
+        "UseCode": "0090"
+      },
+      {
+        "ActualYearBuilt": 2009,
+        "AdjustedUnitPrice": 9.35,
+        "DepreciatedValue": 3273,
+        "Description": "Patio - Brick, Tile, Flagstone",
+        "Message": null,
+        "PercentCondition": 85,
+        "RollYear": 2025,
+        "Units": 350,
+        "UseCode": "0090"
+      },
+      {
+        "ActualYearBuilt": 2009,
+        "AdjustedUnitPrice": 9.46,
+        "DepreciatedValue": 3311,
+        "Description": "Patio - Brick, Tile, Flagstone",
+        "Message": null,
+        "PercentCondition": 86,
+        "RollYear": 2024,
+        "Units": 350,
+        "UseCode": "0090"
+      },
+      {
+        "ActualYearBuilt": 2009,
+        "AdjustedUnitPrice": 9.57,
+        "DepreciatedValue": 3350,
+        "Description": "Patio - Brick, Tile, Flagstone",
+        "Message": null,
+        "PercentCondition": 87,
+        "RollYear": 2023,
+        "Units": 350,
+        "UseCode": "0090"
+      },
+      {
+        "ActualYearBuilt": 2014,
+        "AdjustedUnitPrice": 3.6,
+        "DepreciatedValue": 320,
+        "Description": "Patio - Concrete Slab",
+        "Message": null,
+        "PercentCondition": 90,
+        "RollYear": 2025,
+        "Units": 89,
+        "UseCode": "0087"
+      },
+      {
+        "ActualYearBuilt": 2014,
+        "AdjustedUnitPrice": 3.64,
+        "DepreciatedValue": 324,
+        "Description": "Patio - Concrete Slab",
+        "Message": null,
+        "PercentCondition": 91,
+        "RollYear": 2024,
+        "Units": 89,
+        "UseCode": "0087"
+      },
+      {
+        "ActualYearBuilt": 2014,
+        "AdjustedUnitPrice": 3.69,
+        "DepreciatedValue": 328,
+        "Description": "Patio - Concrete Slab",
+        "Message": null,
+        "PercentCondition": 92,
+        "RollYear": 2023,
+        "Units": 89,
+        "UseCode": "0087"
+      },
+      {
+        "ActualYearBuilt": 2016,
+        "AdjustedUnitPrice": 12.88,
+        "DepreciatedValue": 3091,
+        "Description": "Carport - Wood - Built-up Tar & Gravel",
+        "Message": null,
+        "PercentCondition": 92,
+        "RollYear": 2025,
+        "Units": 240,
+        "UseCode": "0014"
+      },
+      {
+        "ActualYearBuilt": 2016,
+        "AdjustedUnitPrice": 13.02,
+        "DepreciatedValue": 3125,
+        "Description": "Carport - Wood - Built-up Tar & Gravel",
+        "Message": null,
+        "PercentCondition": 93,
+        "RollYear": 2024,
+        "Units": 240,
+        "UseCode": "0014"
+      },
+      {
+        "ActualYearBuilt": 2016,
+        "AdjustedUnitPrice": 13.16,
+        "DepreciatedValue": 3158,
+        "Description": "Carport - Wood - Built-up Tar & Gravel",
+        "Message": null,
+        "PercentCondition": 94,
+        "RollYear": 2023,
+        "Units": 240,
+        "UseCode": "0014"
+      },
+      {
+        "ActualYearBuilt": 2017,
+        "AdjustedUnitPrice": 13.01,
+        "DepreciatedValue": 911,
+        "Description": "Carport - Wood - Built-up Tar & Gravel",
+        "Message": null,
+        "PercentCondition": 93,
+        "RollYear": 2025,
+        "Units": 70,
+        "UseCode": "0014"
+      },
+      {
+        "ActualYearBuilt": 2017,
+        "AdjustedUnitPrice": 13.16,
+        "DepreciatedValue": 921,
+        "Description": "Carport - Wood - Built-up Tar & Gravel",
+        "Message": null,
+        "PercentCondition": 94,
+        "RollYear": 2024,
+        "Units": 70,
+        "UseCode": "0014"
+      },
+      {
+        "ActualYearBuilt": 2017,
+        "AdjustedUnitPrice": 13.3,
+        "DepreciatedValue": 931,
+        "Description": "Carport - Wood - Built-up Tar & Gravel",
+        "Message": null,
+        "PercentCondition": 95,
+        "RollYear": 2023,
+        "Units": 70,
+        "UseCode": "0014"
+      }
+    ],
+    "Messages": [
+      {
+        "Message": "",
+        "Year": 2025
+      },
+      {
+        "Message": "",
+        "Year": 2024
+      },
+      {
+        "Message": "",
+        "Year": 2023
+      }
+    ]
+  },
+  "GeoParcel": null,
+  "Land": {
+    "Landlines": [
+      {
+        "AdjustedUnitPrice": 80,
+        "CalculatedValue": 651674,
+        "Depth": 0,
+        "FrontFeet": 0,
+        "LandUse": "GENERAL",
+        "LandlineType": "C",
+        "Message": null,
+        "MuniZone": "T3 O",
+        "MuniZoneDescription": null,
+        "PAZoneDescription": "DUPLEXES - GENERAL",
+        "PercentCondition": 1,
+        "RollYear": 2025,
+        "TotalAdjustments": 1,
+        "UnitType": "Square Ft.",
+        "Units": 8145.92,
+        "UseCode": "00",
+        "Zone": "5700"
+      },
+      {
+        "AdjustedUnitPrice": 10357.584,
+        "CalculatedValue": 570081,
+        "Depth": 0,
+        "FrontFeet": 0,
+        "LandUse": "GENERAL",
+        "LandlineType": "C",
+        "Message": null,
+        "MuniZone": "T3 O",
+        "MuniZoneDescription": null,
+        "PAZoneDescription": "DUPLEXES - GENERAL",
+        "PercentCondition": 1,
+        "RollYear": 2024,
+        "TotalAdjustments": 1.0526,
+        "UnitType": "Front Ft.",
+        "Units": 55.04,
+        "UseCode": "00",
+        "Zone": "5700"
+      },
+      {
+        "AdjustedUnitPrice": 9031.308,
+        "CalculatedValue": 497083,
+        "Depth": 0,
+        "FrontFeet": 0,
+        "LandUse": "GENERAL",
+        "LandlineType": "C",
+        "Message": null,
+        "MuniZone": "T3 O",
+        "MuniZoneDescription": null,
+        "PAZoneDescription": "DUPLEXES - GENERAL",
+        "PercentCondition": 1,
+        "RollYear": 2023,
+        "TotalAdjustments": 1.0526,
+        "UnitType": "Front Ft.",
+        "Units": 55.04,
+        "UseCode": "00",
+        "Zone": "5700"
+      }
+    ],
+    "Messages": [
+      {
+        "Message": "",
+        "Year": 2025
+      },
+      {
+        "Message": "",
+        "Year": 2024
+      },
+      {
+        "Message": "",
+        "Year": 2023
+      }
+    ]
+  },
+  "LegalDescription": {
+    "Description": "CORAL PL REVISED      PB 43-57|LOT 3                 BLK 3|LOT SIZE     55.040 X   148",
+    "Message": null,
+    "Number": null
+  },
+  "MailingAddress": {
+    "Address1": "2735 SW 36 AVE",
+    "Address2": "",
+    "Address3": "",
+    "City": "MIAMI",
+    "Country": "USA",
+    "Message": null,
+    "State": "FL",
+    "ZipCode": "33133"
+  },
+  "Message": "",
+  "OwnerInfos": [
+    {
+      "Description": "Life Estate",
+      "MarriedFlag": "H",
+      "Message": null,
+      "Name": "HERNANDO AMIL LE",
+      "PercentageOwn": 1,
+      "Role": null,
+      "ShortDescription": "Life Estate",
+      "TenancyCd": "C"
+    },
+    {
+      "Description": "Life Estate",
+      "MarriedFlag": "W",
+      "Message": null,
+      "Name": "JULIA AMIL LE",
+      "PercentageOwn": 1,
+      "Role": null,
+      "ShortDescription": "Life Estate",
+      "TenancyCd": "C"
+    },
+    {
+      "Description": "Remainder",
+      "MarriedFlag": "M",
+      "Message": null,
+      "Name": "REM HERNANDO AMIL JR",
+      "PercentageOwn": 0,
+      "Role": null,
+      "ShortDescription": "Remainder",
+      "TenancyCd": "D"
+    },
+    {
+      "Description": "Remainder",
+      "MarriedFlag": "M",
+      "Message": null,
+      "Name": "REM VANESSA RAMIREZ",
+      "PercentageOwn": 0,
+      "Role": null,
+      "ShortDescription": "Remainder",
+      "TenancyCd": "D"
+    }
+  ],
+  "PropertyInfo": {
+    "BathroomCount": 1,
+    "BedroomCount": 3,
+    "BuildingActualArea": 2673,
+    "BuildingBaseArea": 0,
+    "BuildingEffectiveArea": 2057,
+    "BuildingGrossArea": 2673,
+    "BuildingHeatedArea": 1454,
+    "DORCode": "0101",
+    "DORDescription": "RESIDENTIAL - SINGLE FAMILY : 1 UNIT",
+    "DORDescriptionCurrent": null,
+    "EncodedFolioAndTaxYear": "L5cgA%2f52Z7%2fkhwzZHxqiy5lfVyIeaDCAk32mJjc634A%3d",
+    "FloorCount": 1,
+    "FolioNumber": "01-4116-004-0250",
+    "HalfBathroomCount": 0,
+    "HxBaseYear": 1994,
+    "LotSize": 8145.92,
+    "Message": null,
+    "Municipality": "Miami",
+    "Neighborhood": 3910,
+    "NeighborhoodDescription": "DOUGLAS PARK",
+    "ParentFolio": "",
+    "PercentHomesteadCapped": 100,
+    "PlatBook": "43",
+    "PlatPage": "57",
+    "PrimaryZone": "5700",
+    "PrimaryZoneDescription": "DUPLEXES - GENERAL",
+    "ShowCurrentValuesFlag": "N",
+    "Status": "AC Active",
+    "Subdivision": "014116004",
+    "SubdivisionDescription": "CORAL PLACE REV",
+    "UnitCount": 1,
+    "YearAnnexed": 0,
+    "YearBuilt": "Multiple (See Building Info.)"
+  },
+  "RollYear1": 2025,
+  "SalesInfos": [
+    {
+      "DateOfSale": "11/24/2025",
+      "DocumentStamps": 0.6,
+      "EncodedRecordBookAndPage": "M6QKSgoe%2bhc5xAWPeyepXoHo6Xmmhd%2fMyL%2bxRW0%2fYesIkaRTFugUmiHx9PrFTMSVi5t4Q1Purm%2fgxwbLA4cahA%3d%3d",
+      "GranteeName1": "HERNANDO AMIL LE",
+      "GranteeName2": "JULIA AMIL LE",
+      "GrantorName1": "HERMINIO AMIL &W JULIA",
+      "GrantorName2": "",
+      "Message": null,
+      "OfficialRecordBook": "35058",
+      "OfficialRecordPage": "4499",
+      "QualificationDescription": "Life Estate interest",
+      "QualifiedFlag": "U",
+      "QualifiedSYear": null,
+      "QualifiedSourceCode": "",
+      "ReasonCode": "14",
+      "ReviewCode": null,
+      "SaleId": 2,
+      "SaleInstrument": "DEE",
+      "SalePrice": 100,
+      "VacantFlag": "\u0000",
+      "ValidCode": null,
+      "VerifyCode": null
+    },
+    {
+      "DateOfSale": "12/1/1970",
+      "DocumentStamps": 0,
+      "EncodedRecordBookAndPage": "M6QKSgoe%2bhd1iN1X2pl9c7hjsjY1haqKL3Y0ERQXzZw5d5HoKZEeodczI0CKUNG2eTBXKtmPsZxX9QD5udpouu2dKpc0l5zJ",
+      "GranteeName1": "",
+      "GranteeName2": "",
+      "GrantorName1": "",
+      "GrantorName2": "",
+      "Message": null,
+      "OfficialRecordBook": "00000",
+      "OfficialRecordPage": "00000",
+      "QualificationDescription": "Sales which are qualified",
+      "QualifiedFlag": "Q",
+      "QualifiedSYear": null,
+      "QualifiedSourceCode": "",
+      "ReasonCode": "00",
+      "ReviewCode": null,
+      "SaleId": 1,
+      "SaleInstrument": "",
+      "SalePrice": 23000,
+      "VacantFlag": "\u0000",
+      "ValidCode": null,
+      "VerifyCode": null
+    }
+  ],
+  "SiteAddress": [
+    {
+      "Address": "2735 SW 36 AVE, Miami, FL 33133-0000",
+      "BuildingNumber": 1,
+      "City": "Miami",
+      "HouseNumberSuffix": "",
+      "Message": null,
+      "StreetName": "36",
+      "StreetNumber": 2735,
+      "StreetPrefix": "SW",
+      "StreetSuffix": "AVE",
+      "StreetSuffixDirection": "",
+      "Unit": "",
+      "Zip": "33133-0000"
+    }
+  ],
+  "Taxable": {
+    "Messages": [],
+    "TaxableInfos": [
+      {
+        "CityExemptionValue": 50722,
+        "CityTaxableValue": 153628,
+        "CountyExemptionValue": 50722,
+        "CountyTaxableValue": 153628,
+        "Message": null,
+        "RegionalExemptionValue": 50722,
+        "RegionalTaxableValue": 153628,
+        "SchoolExemptionValue": 25000,
+        "SchoolTaxableValue": 179350,
+        "Year": 2025
+      },
+      {
+        "CityExemptionValue": 50000,
+        "CityTaxableValue": 148591,
+        "CountyExemptionValue": 50000,
+        "CountyTaxableValue": 148591,
+        "Message": null,
+        "RegionalExemptionValue": 50000,
+        "RegionalTaxableValue": 148591,
+        "SchoolExemptionValue": 25000,
+        "SchoolTaxableValue": 173591,
+        "Year": 2024
+      },
+      {
+        "CityExemptionValue": 50000,
+        "CityTaxableValue": 142807,
+        "CountyExemptionValue": 50000,
+        "CountyTaxableValue": 142807,
+        "Message": null,
+        "RegionalExemptionValue": 50000,
+        "RegionalTaxableValue": 142807,
+        "SchoolExemptionValue": 25000,
+        "SchoolTaxableValue": 167807,
+        "Year": 2023
+      }
+    ]
+  }
+}

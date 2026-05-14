@@ -1,0 +1,240 @@
+[
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/",
+    "method": "GET",
+    "resource_type": "document",
+    "status": 200,
+    "ct": "text/html"
+  },
+  {
+    "url": "https://www.googletagmanager.com/gtag/js?id=G-FYN2C2G6LC",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "application/javascript; charset=UTF-8"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/assets/index-J4XjyG00.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "text/javascript"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/assets/index-Bm5edTMA.css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "ct": "text/css"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/Environment/getStatus",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "{\"developmentStatus\":\"inter\",\"downTime\":{\"isScheduled\":true,\"start\":\"2025-06-05T05:00:00\",\"end\":\"2025-06-10T20:00:00\",\"downTimeMessage\":\"Due to scheduled system maintenance, payment processing services will be unavailable on Monday, May 20th from 05:00PM \u2013 08:00PM.  Sorry for any inconvenience this may cause.\",\"isDownTime\":false,\"downTimeMessageHtml\":\"\"},\"maintenanceStartDate\":\"2024-05-05T00:00:00-04:00\",\"maintenanceEndDate\":\"2026-04-19T08:00:00-04:00\",\"maintenanceMessage\":\"Due to scheduled maintenance, the County Recorder's Official Record Search will be unavailable during the following dates and times: Wednesday, April 18 from 8:00 AM to 12:00 PM. We apologize for any inconvenience this may cause.\"}"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/home/isLoggedInIntra",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "{\"firstName\":null,\"lastName\":null,\"phoneNumber\":null,\"emailAddress\":null,\"roleId\":0,\"units\":0,\"flBarNumber\":null,\"isLoggedIn\":false,\"fullPath\":null,\"userId\":null}"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-FYN2C2G6LC&gtm=45je65b1v893703999za200zd893703999&_p=1778713893825&gcs=G1-0&gcd=13l3p3l3l5l1&npa=0&dma=0&are=1&cid=926941623.1778713894&frm=0&pscdl=noapi&rcb=15&sr=1280x720&uaa=x86&uab=64&uafvl=HeadlessChrome%3B147.0.7727.15%7CNot.A%252FBrand%3B8.0.0.0%7CChromium%3B147.0.7727.15&uam=&uamb=0&uap=macOS&uapv=10.15.7&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938469&sid=1778713894&sct=1&seg=0&dl=https%3A%2F%2Fonlineservices.miamidadeclerk.gov%2Fofficialrecords%2F&dt=Official%20Records&_tu=QA&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=378",
+    "method": "POST",
+    "resource_type": "fetch",
+    "status": 204,
+    "ct": "text/plain"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-B1CW6YYNBP&gtm=45je65b1v893703999za200zd893703999&_p=1778713893825&gcs=G1-0&gcd=13l3p3l3l5l1&npa=0&dma=0&are=1&cid=926941623.1778713894&frm=0&pscdl=noapi&rcb=15&sr=1280x720&uaa=x86&uab=64&uafvl=HeadlessChrome%3B147.0.7727.15%7CNot.A%252FBrand%3B8.0.0.0%7CChromium%3B147.0.7727.15&uam=&uamb=0&uap=macOS&uapv=10.15.7&uaw=0&ul=en-us&_s=1&tag_exp=0~115938465~115938469&sid=1778713894&sct=1&seg=0&dl=https%3A%2F%2Fonlineservices.miamidadeclerk.gov%2Fofficialrecords%2F&dt=Official%20Records&_tu=QA&en=page_view&_fv=1&_ss=1&_ee=1&tfd=381",
+    "method": "POST",
+    "resource_type": "fetch",
+    "status": 204,
+    "ct": "text/plain"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/home/isLoggedIn",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "{\"firstName\":null,\"lastName\":null,\"phoneNumber\":null,\"emailAddress\":null,\"roleId\":0,\"units\":0,\"flBarNumber\":null,\"isLoggedIn\":false,\"fullPath\":\"https://www2.miamidadeclerk.gov\",\"userId\":null}"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/home/GetDate",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "\"2026-05-06T00:00:00\""
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/settings/basketcounter",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "text/plain; charset=utf-8"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/settings/loggedin",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "false"
+  },
+  {
+    "url": "https://www.google.com/recaptcha/api.js?render=6LfI8ikaAAAAAH0qlQMApskMGd1U6EqDyniH5t0x",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/settings/loggedin",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "false"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/Environment/getStatus",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "application/json; charset=utf-8",
+    "body_preview": "{\"developmentStatus\":\"inter\",\"downTime\":{\"isScheduled\":true,\"start\":\"2025-06-05T05:00:00\",\"end\":\"2025-06-10T20:00:00\",\"downTimeMessage\":\"Due to scheduled system maintenance, payment processing services will be unavailable on Monday, May 20th from 05:00PM \u2013 08:00PM.  Sorry for any inconvenience this may cause.\",\"isDownTime\":false,\"downTimeMessageHtml\":\"\"},\"maintenanceStartDate\":\"2024-05-05T00:00:00-04:00\",\"maintenanceEndDate\":\"2026-04-19T08:00:00-04:00\",\"maintenanceMessage\":\"Due to scheduled maintenance, the County Recorder's Official Record Search will be unavailable during the following dates and times: Wednesday, April 18 from 8:00 AM to 12:00 PM. We apologize for any inconvenience this may cause.\"}"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/settings/basketcounter",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "text/plain; charset=utf-8"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/assets/seal-gold-BKrf8Qfr.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "ct": "image/png"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/assets/Oswald-Regular-CJfeyJmY.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/assets/BebasNeue-Bold-DqarbXCh.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/assets/Roboto-Bold-BKtbn9Wi.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/assets/Roboto-Regular-BHeBnKzs.ttf",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "application/x-font-ttf"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/settings/basketcounter",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "text/plain; charset=utf-8"
+  },
+  {
+    "url": "https://onlineservices.miamidadeclerk.gov/officialrecords/api/settings/basketcounter",
+    "method": "GET",
+    "resource_type": "fetch",
+    "status": 200,
+    "ct": "text/plain; charset=utf-8"
+  },
+  {
+    "url": "https://www.gstatic.com/recaptcha/releases/Br0hYqpfWeFzYCAXLD4UuCIV/recaptcha__en.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "text/javascript"
+  },
+  {
+    "url": "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfI8ikaAAAAAH0qlQMApskMGd1U6EqDyniH5t0x&co=aHR0cHM6Ly9vbmxpbmVzZXJ2aWNlcy5taWFtaWRhZGVjbGVyay5nb3Y6NDQz&hl=en&v=Br0hYqpfWeFzYCAXLD4UuCIV&size=invisible&anchor-ms=20000&execute-ms=30000&cb=9pkyi6loqn8e",
+    "method": "GET",
+    "resource_type": "document",
+    "status": 200,
+    "ct": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.gstatic.com/recaptcha/releases/Br0hYqpfWeFzYCAXLD4UuCIV/styles__ltr.css",
+    "method": "GET",
+    "resource_type": "stylesheet",
+    "status": 200,
+    "ct": "text/css"
+  },
+  {
+    "url": "https://www.gstatic.com/recaptcha/releases/Br0hYqpfWeFzYCAXLD4UuCIV/recaptcha__en.js",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "text/javascript"
+  },
+  {
+    "url": "https://www.google.com/recaptcha/api2/webworker.js?hl=en&v=Br0hYqpfWeFzYCAXLD4UuCIV",
+    "method": "GET",
+    "resource_type": "script",
+    "status": 200,
+    "ct": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "https://www.gstatic.com/recaptcha/api2/logo_48.png",
+    "method": "GET",
+    "resource_type": "image",
+    "status": 200,
+    "ct": "image/png"
+  },
+  {
+    "url": "https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+    "method": "GET",
+    "resource_type": "font",
+    "status": 200,
+    "ct": "font/woff2"
+  },
+  {
+    "url": "https://www.gstatic.com/recaptcha/releases/Br0hYqpfWeFzYCAXLD4UuCIV/recaptcha__en.js",
+    "method": "GET",
+    "resource_type": "other",
+    "status": 200,
+    "ct": "text/javascript"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-FYN2C2G6LC&gtm=45je65b1v893703999za200zd893703999&_p=1778713893825&gcs=G1-0&gcd=13l3p3l3l5l1&npa=0&dma=0&_eu=AEA&ae=a&are=1&cid=926941623.1778713894&frm=0&pscdl=noapi&rcb=15&sr=1280x720&uaa=x86&uab=64&uafvl=HeadlessChrome%3B147.0.7727.15%7CNot.A%252FBrand%3B8.0.0.0%7CChromium%3B147.0.7727.15&uam=&uamb=0&uap=macOS&uapv=10.15.7&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938469&sid=1778713894&sct=1&seg=0&dl=https%3A%2F%2Fonlineservices.miamidadeclerk.gov%2Fofficialrecords%2F&dt=Official%20Records&_tu=QA&en=scroll&epn.percent_scrolled=90&_et=6&tfd=5386",
+    "method": "POST",
+    "resource_type": "fetch",
+    "status": 204,
+    "ct": "text/plain"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-B1CW6YYNBP&gtm=45je65b1v893703999za200zd893703999&_p=1778713893825&gcs=G1-0&gcd=13l3p3l3l5l1&npa=0&dma=0&_eu=AEA&ae=a&are=1&cid=926941623.1778713894&frm=0&pscdl=noapi&rcb=15&sr=1280x720&uaa=x86&uab=64&uafvl=HeadlessChrome%3B147.0.7727.15%7CNot.A%252FBrand%3B8.0.0.0%7CChromium%3B147.0.7727.15&uam=&uamb=0&uap=macOS&uapv=10.15.7&uaw=0&ul=en-us&_s=2&tag_exp=0~115938465~115938469&sid=1778713894&sct=1&seg=0&dl=https%3A%2F%2Fonlineservices.miamidadeclerk.gov%2Fofficialrecords%2F&dt=Official%20Records&_tu=QA&en=scroll&epn.percent_scrolled=90&_et=3&tfd=5388",
+    "method": "POST",
+    "resource_type": "fetch",
+    "status": 204,
+    "ct": "text/plain"
+  }
+]
