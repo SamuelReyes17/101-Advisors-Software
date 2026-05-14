@@ -1,6 +1,7 @@
 # Dashboard
 streamlit>=1.30.0
 pandas>=2.0.0
+openpyxl>=3.1.0              # Excel (.xlsx) export
 
 # Pipeline
 pyyaml>=6.0

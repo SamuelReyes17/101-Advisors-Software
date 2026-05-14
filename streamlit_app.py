@@ -384,6 +384,15 @@ with st.sidebar:
         help="Por defecto ocultamos Phone/Email/Attorney (data no disponible auto). Destildar para verlas vacías.",
     )
 
+    # ── Date Added filter — para ver solo los leads nuevos del día/semana ──
+    st.markdown("**📅 Date Added**")
+    date_filter = st.selectbox(
+        "Cuándo se agregaron",
+        options=["Todos", "Hoy", "Ayer", "Últimos 7 días", "Últimos 30 días"],
+        index=0,
+        help="Filtrá leads por cuándo entraron al sistema. Útil para enfocarse en los nuevos del día.",
+    )
+
 # =========================================================================
 # Apply filters
 # =========================================================================
@@ -407,6 +416,19 @@ if not show_offtarget:
 
 if only_with_clerk_case:
     mask = mask & (df["clerk_case_number"].astype(str).str.strip() != "")
+
+# Date Added filter
+if date_filter != "Todos":
+    today_ts = pd.Timestamp.today().normalize()
+    df_first_seen = pd.to_datetime(df["first_seen"], errors="coerce")
+    if date_filter == "Hoy":
+        mask = mask & (df_first_seen == today_ts)
+    elif date_filter == "Ayer":
+        mask = mask & (df_first_seen == today_ts - pd.Timedelta(days=1))
+    elif date_filter == "Últimos 7 días":
+        mask = mask & (df_first_seen >= today_ts - pd.Timedelta(days=7))
+    elif date_filter == "Últimos 30 días":
+        mask = mask & (df_first_seen >= today_ts - pd.Timedelta(days=30))
 
 filtered = df[mask].copy()
 
@@ -480,6 +502,11 @@ display.loc[display["_sort_is_new_today"] == 1, "full_address"] = (
 display.loc[display["_sort_is_new_today"] == 1, "property_address"] = (
     "🆕 " + display.loc[display["_sort_is_new_today"] == 1, "property_address"]
 )
+
+# Format Date Added column nicely (MM/DD/YYYY) so Leon ve fácil cuándo entró cada lead
+display["date_added_display"] = pd.to_datetime(
+    display["first_seen"], errors="coerce"
+).dt.strftime("%m/%d/%Y").fillna("")
 
 # Bank/Plaintiff: for REOs, the owner is the bank itself.
 # For active cases, the lender_name column holds the foreclosure plaintiff
@@ -575,6 +602,8 @@ display_renamed["outstanding_debt_col"] = display["outstanding_debt"]
 final_cols = [
     # ⭐ Criterio PRIMERO — siempre visible sin scroll
     "leon_category",
+    # 📅 Date Added — cuándo entró al sistema (útil para ver nuevos diarios)
+    "date_added_display",
     "property_address",
     # 🎯 Lookup buttons
     "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
@@ -623,6 +652,10 @@ selection = st.dataframe(
         "leon_category":      st.column_config.TextColumn(
             "Criterio", width="medium", pinned=True,
             help="Tipo de propiedad distressed — Foreclosure / Auction / Short Sale / Lis Pendens",
+        ),
+        "date_added_display": st.column_config.TextColumn(
+            "Date Added", width="small",
+            help="Fecha en que el lead entró al sistema. Útil para filtrar los nuevos del día.",
         ),
         "property_address":   st.column_config.TextColumn("Property Address", width="large"),
         "zip":                st.column_config.TextColumn("Zipcode", width="small"),
@@ -686,12 +719,30 @@ selection = st.dataframe(
     key="main_table",
 )
 
-st.download_button(
-    "📥 Export CSV (formato Leon)",
-    data=display_renamed[final_cols].to_csv(index=False).encode("utf-8"),
-    file_name=f"101advisors_{datetime.now().strftime('%Y%m%d')}.csv",
-    mime="text/csv",
-)
+# Build Excel (.xlsx) file in memory for download
+import io as _io
+_excel_buf = _io.BytesIO()
+with pd.ExcelWriter(_excel_buf, engine="openpyxl") as _writer:
+    display_renamed[final_cols].to_excel(_writer, index=False, sheet_name="Leads")
+_excel_buf.seek(0)
+
+dl_col1, dl_col2 = st.columns([1, 4])
+with dl_col1:
+    st.download_button(
+        "📥 Exportar a Excel",
+        data=_excel_buf.getvalue(),
+        file_name=f"101advisors_leads_{datetime.now().strftime('%Y%m%d')}.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        use_container_width=True,
+    )
+with dl_col2:
+    # Keep CSV as backup option in case Excel doesn't open somewhere
+    st.download_button(
+        "Export CSV",
+        data=display_renamed[final_cols].to_csv(index=False).encode("utf-8"),
+        file_name=f"101advisors_leads_{datetime.now().strftime('%Y%m%d')}.csv",
+        mime="text/csv",
+    )
 
 # =========================================================================
 # Detail panel
