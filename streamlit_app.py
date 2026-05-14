@@ -346,6 +346,12 @@ with st.sidebar:
         help="Filtra los ~40 leads donde detectamos un caso de foreclosure activo en el Clerk de Miami-Dade",
     )
 
+    hide_empty_cols = st.checkbox(
+        "🧹 Ocultar columnas sin data",
+        value=True,
+        help="Por defecto ocultamos Phone/Email/Attorney (data no disponible auto). Destildar para verlas vacías.",
+    )
+
 # =========================================================================
 # Apply filters
 # =========================================================================
@@ -397,13 +403,26 @@ display["tax_url"] = display.apply(
 )
 display["clerk_url"] = display["county"].apply(build_clerk_url)
 
-# Sort: Miami-Dade leads first (most data), then by tax estimate descending
-# (high-value leads on top). Empty rows last.
-display["_sort_has_owner"] = (display["owner_name"].str.strip() != "").astype(int)
+# Filter out deprecated "z DO NOT USE - Legacy Mortgage" Clerk cases
+# (those are old records, not actionable)
+LEGACY_PATTERNS = ("Z DO NOT USE", "Z LEGACY", "Z OLD")
+display["_legacy_case"] = display["clerk_case_type"].astype(str).str.upper().str.startswith(LEGACY_PATTERNS)
+# Clear the clerk fields for legacy cases (keep the lead, just hide the bad data)
+legacy_mask = display["_legacy_case"]
+for col in ("clerk_case_number", "clerk_filing_date", "clerk_case_status",
+            "clerk_case_type", "clerk_plaintiff", "clerk_defendant", "lender_name"):
+    if col in display.columns:
+        display.loc[legacy_mask, col] = ""
+
+# Sort: leads with active Clerk case first (OPEN status), then those with any case,
+# then those with owner data, then by tax descending.
+display["_sort_clerk_open"] = (display["clerk_case_status"].str.upper() == "OPEN").astype(int)
+display["_sort_has_case"]   = (display["clerk_case_number"].astype(str).str.strip() != "").astype(int)
+display["_sort_has_owner"]  = (display["owner_name"].str.strip() != "").astype(int)
 display["_sort_tax"] = pd.to_numeric(display.get("unpaid_taxes_2025", 0), errors="coerce").fillna(0)
 display = display.sort_values(
-    ["_sort_has_owner", "_sort_tax"],
-    ascending=[False, False],
+    ["_sort_clerk_open", "_sort_has_case", "_sort_has_owner", "_sort_tax"],
+    ascending=[False, False, False, False],
 )
 
 # Bank: para REOs, el owner es el banco
@@ -467,6 +486,33 @@ final_cols = [
     # 🆕 Clerk data (Lis Pendens / Foreclosure case)
     "clerk_case_number", "clerk_filing_date", "clerk_case_status", "clerk_case_type",
 ]
+
+# Hide columns that are 100% empty if user toggled it (default ON)
+# These are fields we don't auto-populate: phone, email, attorney info, etc.
+if hide_empty_cols:
+    cols_with_data = []
+    for c in final_cols:
+        if c.endswith("_url"):
+            cols_with_data.append(c)  # always keep link columns
+            continue
+        if c not in display_renamed.columns:
+            continue
+        col_vals = display_renamed[c]
+        # Check if column has any non-empty / non-zero values
+        if col_vals.dtype.kind in ("i", "f"):
+            has_data = (col_vals != 0).any()
+        else:
+            has_data = col_vals.astype(str).str.strip().replace("nan", "").ne("").any()
+        if has_data:
+            cols_with_data.append(c)
+    hidden = [c for c in final_cols if c not in cols_with_data]
+    if hidden:
+        st.caption(
+            f"🧹 Ocultando {len(hidden)} columna(s) sin data: "
+            f"{', '.join(c.replace('_', ' ').title() for c in hidden[:8])}"
+            + ("..." if len(hidden) > 8 else "")
+        )
+    final_cols = cols_with_data
 
 selection = st.dataframe(
     display_renamed[final_cols],
