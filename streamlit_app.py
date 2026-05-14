@@ -504,6 +504,18 @@ def _classify_plaintiff(name: str) -> str:
 
 display["plaintiff_type"] = display["bank_name_display"].apply(_classify_plaintiff)
 
+# Add emoji prefix to the Criterio column so it pops visually in the table
+CRITERIO_EMOJI = {
+    "Foreclosure":    "🏦 Foreclosure",
+    "Auction":        "🔨 Auction",
+    "Short Sale":     "🏠 Short Sale",
+    "Lis Pendens":    "⚖️ Lis Pendens",
+    "Probate":        "📜 Probate",
+    "Tax Delinquent": "🧾 Tax Delinquent",
+    "Liens":          "🔗 Liens",
+}
+display["leon_category"] = display["leon_category"].map(CRITERIO_EMOJI).fillna(display["leon_category"])
+
 st.caption(
     f"📋 **{len(display)} leads** · estructura idéntica al Sheet de Leon · "
     "click 🏡/🔎/🧾/⚖️ para abrir lookups"
@@ -547,20 +559,20 @@ display_renamed["outstanding_debt_col"] = display["outstanding_debt"]
 # Final columns to show — botones de lookup PRIMERO para que sean visibles
 # sin necesidad de scrollar horizontalmente.
 final_cols = [
-    "property_address",
-    # 🎯 Lookup buttons al principio
-    "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
-    # ⭐ Criterio Búsqueda (Foreclosure / Auction / Short Sale / Lis Pendens) — lo más importante
+    # ⭐ Criterio PRIMERO — siempre visible sin scroll
     "leon_category",
+    "property_address",
+    # 🎯 Lookup buttons
+    "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
     # Datos
     "zip", "purchase_price", "purchase_date", "property_type",
     "units", "bedrooms", "owner_first", "owner_last", "owner_phone", "owner_email",
-    # Plaintiff / Bank info (with classification)
+    # Plaintiff / Bank info
     "bank_name_display", "plaintiff_type",
     "lender_phone", "lender_email", "bank_address",
     "outstanding_debt_col", "attorney_name", "attorney_phone", "attorney_email",
     "unpaid_taxes_2024", "unpaid_taxes_2025",
-    # 🆕 Clerk data (Lis Pendens / Foreclosure case)
+    # 🆕 Clerk data
     "clerk_case_number", "clerk_filing_date", "clerk_case_status", "clerk_case_type",
 ]
 
@@ -594,11 +606,11 @@ if hide_empty_cols:
 selection = st.dataframe(
     display_renamed[final_cols],
     column_config={
-        "property_address":   st.column_config.TextColumn("Property Address", width="large"),
         "leon_category":      st.column_config.TextColumn(
-            "Criterio", width="small",
+            "Criterio", width="medium", pinned=True,
             help="Tipo de propiedad distressed — Foreclosure / Auction / Short Sale / Lis Pendens",
         ),
+        "property_address":   st.column_config.TextColumn("Property Address", width="large"),
         "zip":                st.column_config.TextColumn("Zipcode", width="small"),
         "purchase_price":     st.column_config.NumberColumn("Purchase Price", format="$%d", width="small"),
         "purchase_date":      st.column_config.TextColumn("Purchase Date", width="small"),
