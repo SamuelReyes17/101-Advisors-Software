@@ -42,3 +42,6 @@ logs/
 "101 Advisors - Plataforma Lead Generation v2.docx"
 "101 Advisors - Costos y Timeline.xlsx"
 "101 Advisors - Costos y Plan v2.xlsx"
+
+# Probe / debug captures (HTML dumps, screenshots, request logs)
+scripts/captures/

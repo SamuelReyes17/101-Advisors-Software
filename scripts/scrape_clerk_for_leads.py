@@ -83,7 +83,12 @@ def main() -> int:
     # Add Clerk-derived columns to schema if not present
     for col in ("clerk_case_number", "clerk_filing_date", "clerk_case_type",
                 "clerk_case_status", "clerk_section", "clerk_plaintiff",
-                "clerk_defendant", "clerk_match_confidence"):
+                "clerk_defendant", "clerk_match_confidence",
+                # ── Case detail (parties + attorneys + hearings) ──
+                "attorney_name", "attorney_bar_number",
+                "defendant_attorney_name", "defendant_attorney_bar",
+                "judge_name", "next_hearing_date", "next_hearing_time",
+                "next_hearing_type", "clerk_disposition_date"):
         if col not in fieldnames:
             fieldnames.append(col)
             for row in rows:
@@ -203,15 +208,49 @@ def main() -> int:
                 row["clerk_defendant"] = defendant
                 row["clerk_match_confidence"] = "verified"
                 found_count += 1
-                print(f"✅ {plaintiff[:35]} vs {defendant[:25]} · {best_match.get('caseNumber')}")
+                print(f"✅ {plaintiff[:35]} vs {defendant[:25]} · {best_match.get('caseNumber')}",
+                      end="", flush=True)
+
+                # ── Fetch case detail for attorney + judge + hearings ──
+                case_id = best_match.get("caseID")
+                if case_id:
+                    try:
+                        detail = session.get_case_detail(case_id)
+                    except Exception as e:
+                        detail = None
+                        print(f"  · detail error: {e}", end="")
+                    if detail:
+                        row["attorney_name"] = detail.get("plaintiff_attorney", "")
+                        row["attorney_bar_number"] = detail.get("plaintiff_attorney_bar", "")
+                        row["defendant_attorney_name"] = detail.get("defendant_attorney", "")
+                        row["defendant_attorney_bar"] = detail.get("defendant_attorney_bar", "")
+                        row["judge_name"] = detail.get("judge_name", "")
+                        row["next_hearing_date"] = detail.get("next_hearing_date", "")
+                        row["next_hearing_time"] = detail.get("next_hearing_time", "")
+                        row["next_hearing_type"] = detail.get("next_hearing_type", "")
+                        row["clerk_disposition_date"] = detail.get("disposition_date", "")
+                        atty = detail.get("plaintiff_attorney", "")
+                        next_hr = detail.get("next_hearing_date", "")
+                        extras = []
+                        if atty:
+                            extras.append(f"atty:{atty[:25]}")
+                        if next_hr:
+                            extras.append(f"hearing:{next_hr}")
+                        if extras:
+                            print(f"  · {' · '.join(extras)}", end="")
+                print()  # newline
             else:
                 # Clear any previous (potentially bad) data on re-run
                 for col in ("lender_name", "clerk_case_number", "clerk_filing_date",
                             "clerk_case_type", "clerk_case_status", "clerk_section",
-                            "clerk_plaintiff", "clerk_defendant", "clerk_match_confidence"):
+                            "clerk_plaintiff", "clerk_defendant", "clerk_match_confidence",
+                            "attorney_name", "attorney_bar_number",
+                            "defendant_attorney_name", "defendant_attorney_bar",
+                            "judge_name", "next_hearing_date", "next_hearing_time",
+                            "next_hearing_type", "clerk_disposition_date"):
                     row[col] = ""
                 skipped_count += 1
-                print(f"⚪ no match ({len(cases)} total cases, "
+                print(f"no match ({len(cases)} total cases, "
                       f"{len(foreclosure_cases)} foreclosure)")
 
             # Checkpoint save every N leads

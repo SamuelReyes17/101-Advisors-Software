@@ -270,6 +270,136 @@ class ClerkSession:
             log.warning("Clerk search for '%s' failed: %s", last_name, e)
             return []
 
+    def get_case_detail(self, case_id: int | str,
+                        timeout_ms: int = 20000) -> dict[str, Any] | None:
+        """Fetch the full case detail (parties, attorneys, hearings) for one case.
+
+        Uses the same Playwright page (cookies + recaptcha already set up).
+        Internally calls:
+            POST /ocs/api/CaseInfo/PostSearchByCaseID?caseID=X
+            GET  /ocs/api/CaseInfo/GetSingleCaseResult?qs=...
+
+        Returns parsed dict with:
+            plaintiff_name, plaintiff_attorney, plaintiff_attorney_bar
+            defendant_name, defendant_attorney, defendant_attorney_bar
+            judge_name, court_location, disposition_date
+            next_hearing_date, next_hearing_time, next_hearing_type
+        """
+        if not case_id or not self._page:
+            return None
+        page = self._page
+
+        # Use the browser's fetch to call the endpoints (preserves cookies + captcha).
+        # NOTE: PostSearchByCaseID returns the qs token as PLAIN TEXT (not JSON),
+        # different from PostSearchByPartyName which wraps it in {success, qs}.
+        try:
+            result = page.evaluate(
+                """
+                async (caseId) => {
+                    // Step 1: POST returns the encrypted qs as plain text
+                    const postResp = await fetch(
+                        `/ocs/api/CaseInfo/PostSearchByCaseID?caseID=${caseId}`,
+                        { method: 'POST', credentials: 'include' }
+                    );
+                    if (!postResp.ok) return { error: 'POST failed', status: postResp.status };
+                    let qs = (await postResp.text()).trim();
+                    // Strip surrounding quotes if the server wrapped the string
+                    if (qs.startsWith('"') && qs.endsWith('"')) {
+                        qs = qs.slice(1, -1);
+                    }
+                    if (!qs) return { error: 'Empty qs from POST' };
+
+                    // Step 2: GET case detail with the qs token
+                    const getResp = await fetch(
+                        `/ocs/api/CaseInfo/GetSingleCaseResult?qs=${encodeURIComponent(qs)}`,
+                        { credentials: 'include' }
+                    );
+                    if (!getResp.ok) return { error: 'GET failed', status: getResp.status };
+                    return await getResp.json();
+                }
+                """,
+                case_id,
+            )
+        except Exception as e:
+            log.warning("Case detail fetch failed for %s: %s", case_id, e)
+            return None
+
+        if not result or result.get("error"):
+            log.debug("Case detail error for %s: %s", case_id, result)
+            return None
+
+        # Parse parties — find plaintiff + defendant + their attorneys
+        plaintiff_name = ""
+        plaintiff_attorney = ""
+        plaintiff_attorney_bar = ""
+        defendant_name = ""
+        defendant_attorney = ""
+        defendant_attorney_bar = ""
+
+        for party in result.get("parties") or []:
+            ptype = (party.get("partyTypeCode") or "").upper()
+            if ptype == "PN":  # Plaintiff
+                if not plaintiff_name:
+                    plaintiff_name = party.get("partyName", "")
+                    plaintiff_attorney = party.get("leadAttName", "")
+                    plaintiff_attorney_bar = party.get("leadAttBarnumber", "")
+            elif ptype == "DN":  # Defendant
+                if not defendant_name:
+                    defendant_name = party.get("partyName", "")
+                    defendant_attorney = party.get("leadAttName", "")
+                    defendant_attorney_bar = party.get("leadAttBarnumber", "")
+
+        # Find the NEXT hearing (or most recent if all past)
+        hearings = result.get("hearings") or []
+        next_hearing_date = ""
+        next_hearing_time = ""
+        next_hearing_type = ""
+        judge_name = ""
+        if hearings:
+            # Sort by courtSessionDate descending (most recent first)
+            # Then optionally find the next future one
+            from datetime import datetime as _dt
+            today = _dt.today()
+            future_hearings = []
+            past_hearings = []
+            for h in hearings:
+                date_str = h.get("courtSessionDate", "")
+                try:
+                    h_date = _dt.strptime(date_str, "%m/%d/%Y")
+                    if h_date >= today:
+                        future_hearings.append((h_date, h))
+                    else:
+                        past_hearings.append((h_date, h))
+                except Exception:
+                    pass
+            if future_hearings:
+                future_hearings.sort(key=lambda x: x[0])
+                _, h = future_hearings[0]
+            elif past_hearings:
+                past_hearings.sort(key=lambda x: x[0], reverse=True)
+                _, h = past_hearings[0]
+            else:
+                h = hearings[0]
+            next_hearing_date = h.get("courtSessionDate", "")
+            next_hearing_time = h.get("hearingTime", "").strip()
+            next_hearing_type = h.get("hearingTypeDesc", "")
+            judge_name = h.get("judgeName", "")
+
+        return {
+            "plaintiff_name":          plaintiff_name,
+            "plaintiff_attorney":      plaintiff_attorney,
+            "plaintiff_attorney_bar":  plaintiff_attorney_bar,
+            "defendant_name":          defendant_name,
+            "defendant_attorney":      defendant_attorney,
+            "defendant_attorney_bar":  defendant_attorney_bar,
+            "judge_name":              judge_name,
+            "court_location":          result.get("courtLocation", ""),
+            "disposition_date":        result.get("dispositionDate", ""),
+            "next_hearing_date":       next_hearing_date,
+            "next_hearing_time":       next_hearing_time,
+            "next_hearing_type":       next_hearing_type,
+        }
+
     def find_foreclosure(self, last_name: str, first_name: str = "",
                           cases: list[dict] | None = None) -> dict | None:
         """Find the most-recent foreclosure-related case for this party.
@@ -335,3 +465,12 @@ if __name__ == "__main__":
             print(json.dumps(result, indent=2))
         else:
             print("  (none found)")
+
+        # NEW: test case detail fetch for the found case
+        if result and result.get("case_id"):
+            print(f"\n--- Fetching case detail for caseID={result['case_id']} ---")
+            detail = session.get_case_detail(result["case_id"])
+            if detail:
+                print(json.dumps(detail, indent=2))
+            else:
+                print("  (no detail returned)")

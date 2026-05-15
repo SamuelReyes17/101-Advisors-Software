@@ -180,7 +180,12 @@ def load_data() -> tuple[pd.DataFrame, str]:
                 "owner_mailing_address", "is_absentee_owner", "folio",
                 "clerk_case_number", "clerk_filing_date", "clerk_case_type",
                 "clerk_case_status", "clerk_section", "clerk_plaintiff",
-                "clerk_defendant", "clerk_match_confidence"):
+                "clerk_defendant", "clerk_match_confidence",
+                # ── Case detail fields (parties + attorneys + hearings) ──
+                "attorney_bar_number", "defendant_attorney_name",
+                "defendant_attorney_bar", "judge_name",
+                "next_hearing_date", "next_hearing_time", "next_hearing_type",
+                "clerk_disposition_date"):
         if col not in df.columns:
             df[col] = ""
         else:
@@ -286,6 +291,84 @@ def build_clerk_url(county: str, owner_name: str = "") -> str:
     return CLERK_URLS.get(county, CLERK_URLS["Miami-Dade"])
 
 
+def build_fl_bar_url(bar_number: str) -> str:
+    """Deep link to FL Bar member profile (has attorney's phone + email)."""
+    if not bar_number or not str(bar_number).strip():
+        return ""
+    return f"https://www.floridabar.org/directories/find-mbr/?fnm=&lnm=&barnumber={str(bar_number).strip()}"
+
+
+def _parse_us_date(s: str):
+    """Parse MM/DD/YYYY or YYYY-MM-DD into a Timestamp, else NaT."""
+    if not s or not str(s).strip():
+        return pd.NaT
+    s = str(s).strip()
+    for fmt in ("%m/%d/%Y", "%Y-%m-%d", "%m/%d/%y"):
+        try:
+            return pd.Timestamp(datetime.strptime(s, fmt))
+        except ValueError:
+            continue
+    try:
+        return pd.to_datetime(s, errors="coerce")
+    except Exception:
+        return pd.NaT
+
+
+def classify_stage(row) -> str:
+    """Derive a 'Stage' label for the lead. Lis Pendens is THE MOST IMPORTANT
+    — it's the pre-foreclosure stage where Leon's team can still help the
+    homeowner before they lose the property at auction.
+
+    LIS PENDENS    — OPEN case, no auction/hearing scheduled yet (HOT)
+    PENDING AUCTION — OPEN case with hearing in next 4 weeks
+    REO            — CLOSED in last 90 days OR owner is a bank (bank-owned)
+    HISTORICAL     — CLOSED >90 days ago
+    (empty)        — no clerk case data
+    """
+    status = (row.get("clerk_case_status") or "").strip().upper()
+    case_no = (row.get("clerk_case_number") or "").strip()
+    next_hearing = _parse_us_date(row.get("next_hearing_date", ""))
+    disposition = _parse_us_date(row.get("clerk_disposition_date", ""))
+    owner = row.get("owner_name", "") or ""
+    today = pd.Timestamp.today().normalize()
+
+    # Bank-owned (no case needed)
+    if is_bank_owned(owner):
+        return "REO"
+
+    if not case_no:
+        return ""
+
+    if status == "OPEN":
+        if pd.notna(next_hearing):
+            delta = (next_hearing - today).days
+            # Hearing in next 4 weeks → auction is imminent
+            if -7 <= delta <= 28:
+                return "PENDING AUCTION"
+        return "LIS PENDENS"
+
+    if status in ("CLOSED", "REOPENED"):
+        if pd.notna(disposition):
+            delta_close = (today - disposition).days
+            if delta_close <= 90:
+                return "REO"
+            return "HISTORICAL"
+        return "HISTORICAL"
+
+    # Unknown status with case number — treat as Lis Pendens (better safe)
+    return "LIS PENDENS"
+
+
+def is_hearing_urgent(row, days: int = 14) -> bool:
+    """True if next_hearing_date is in the next N days. Used for red highlight."""
+    next_hearing = _parse_us_date(row.get("next_hearing_date", ""))
+    if pd.isna(next_hearing):
+        return False
+    today = pd.Timestamp.today().normalize()
+    delta = (next_hearing - today).days
+    return 0 <= delta <= days
+
+
 df, data_source = load_data()
 
 # =========================================================================
@@ -378,6 +461,21 @@ with st.sidebar:
         help="Filtra los ~40 leads donde detectamos un caso de foreclosure activo en el Clerk de Miami-Dade",
     )
 
+    only_lis_pendens = st.checkbox(
+        "Solo Lis Pendens (MÁS CALIENTE)",
+        value=False,
+        help="Lis Pendens es el ESTADO PRE-FORECLOSURE — caso abierto, sin auction "
+             "todavía. Es donde tu equipo puede intervenir antes de que pierdan la "
+             "propiedad. Estos leads tienen 6-12 meses de ventana para actuar.",
+    )
+
+    only_urgent_hearing = st.checkbox(
+        "Solo con hearing en próximas 2 semanas",
+        value=False,
+        help="Leads con audiencia agendada en los próximos 14 días. URGENTE — "
+             "llamar primero a estos antes de que sean subastados.",
+    )
+
     hide_empty_cols = st.checkbox(
         "Ocultar columnas sin data",
         value=True,
@@ -416,6 +514,16 @@ if not show_offtarget:
 
 if only_with_clerk_case:
     mask = mask & (df["clerk_case_number"].astype(str).str.strip() != "")
+
+# Stage classification — derive from clerk fields (used by filters + display)
+df["stage"] = df.apply(classify_stage, axis=1)
+df["hearing_urgent"] = df.apply(is_hearing_urgent, axis=1)
+
+if only_lis_pendens:
+    mask = mask & df["stage"].isin(["LIS PENDENS", "PENDING AUCTION"])
+
+if only_urgent_hearing:
+    mask = mask & df["hearing_urgent"]
 
 # Date Added filter
 if date_filter != "Todos":
@@ -478,22 +586,43 @@ for col in ("clerk_case_number", "clerk_filing_date", "clerk_case_status",
     if col in display.columns:
         display.loc[legacy_mask, col] = ""
 
-# Sort priority (most important first):
-#   1. Leads added TODAY first (so the daily new ones appear on top)
-#   2. Then leads with active Clerk case OPEN
-#   3. Then leads with any Clerk case
-#   4. Then leads with owner data
-#   5. Then by tax descending
+# Sort priority — Lis Pendens es LO MÁS IMPORTANTE para Leon (pre-foreclosure
+# es donde su equipo puede intervenir antes del auction).
+#   1. URGENT hearings (next 14 days) — llamar HOY
+#   2. PENDING AUCTION — hearing scheduled, auction imminente
+#   3. LIS PENDENS — caso abierto, sin auction agendado (HOT, 6-12 mo window)
+#   4. Leads agregados HOY (nuevos del día)
+#   5. REO (foreclosure cerrado recientemente)
+#   6. HISTORICAL / otros
+#   7. Tax desc
 today_str = pd.Timestamp.today().strftime("%Y-%m-%d")
+STAGE_PRIORITY = {
+    "PENDING AUCTION": 4,
+    "LIS PENDENS":     3,
+    "REO":             2,
+    "HISTORICAL":      1,
+    "":                0,
+}
+display["_sort_urgent"] = display["hearing_urgent"].astype(int)
+display["_sort_stage"]  = display["stage"].map(STAGE_PRIORITY).fillna(0).astype(int)
 display["_sort_is_new_today"] = display["first_seen"].astype(str).str.startswith(today_str).astype(int)
 display["_sort_clerk_open"] = (display["clerk_case_status"].str.upper() == "OPEN").astype(int)
 display["_sort_has_case"]   = (display["clerk_case_number"].astype(str).str.strip() != "").astype(int)
 display["_sort_has_owner"]  = (display["owner_name"].str.strip() != "").astype(int)
 display["_sort_tax"] = pd.to_numeric(display.get("unpaid_taxes_2025", 0), errors="coerce").fillna(0)
 display = display.sort_values(
-    ["_sort_is_new_today", "_sort_clerk_open", "_sort_has_case", "_sort_has_owner", "_sort_tax"],
-    ascending=[False, False, False, False, False],
+    ["_sort_urgent", "_sort_stage", "_sort_is_new_today",
+     "_sort_clerk_open", "_sort_has_case", "_sort_has_owner", "_sort_tax"],
+    ascending=[False, False, False, False, False, False, False],
 )
+
+# Build a Stage column for display (text with URGENT prefix for red flag)
+def _stage_display(row):
+    stage = row.get("stage", "") or ""
+    if row.get("hearing_urgent"):
+        return f"!! URGENT · {stage}" if stage else "!! URGENT"
+    return stage
+display["stage_display"] = display.apply(_stage_display, axis=1)
 
 # Add "NEW" text prefix to address for today's new leads (no emoji, Excel-safe)
 display.loc[display["_sort_is_new_today"] == 1, "full_address"] = (
@@ -591,7 +720,9 @@ display_renamed["outstanding_debt_col"] = display["outstanding_debt"]
 # Final columns to show — botones de lookup PRIMERO para que sean visibles
 # sin necesidad de scrollar horizontalmente.
 final_cols = [
-    # ⭐ Criterio PRIMERO — siempre visible sin scroll
+    # Stage PRIMERO — LIS PENDENS / PENDING AUCTION / REO / HISTORICAL
+    "stage_display",
+    # Criterio (MLS bucket)
     "leon_category",
     # Date Added — cuándo entró al sistema (útil para ver nuevos diarios)
     "date_added_display",
@@ -604,9 +735,13 @@ final_cols = [
     # Plaintiff / Bank info
     "bank_name_display", "plaintiff_type",
     "lender_phone", "lender_email", "bank_address",
-    "outstanding_debt_col", "attorney_name", "attorney_phone", "attorney_email",
+    "outstanding_debt_col",
+    # Attorney info + next hearing (CRITICAL for Lis Pendens leads)
+    "attorney_name", "attorney_bar_number",
+    "attorney_phone", "attorney_email",
+    "next_hearing_date", "next_hearing_type", "judge_name",
     "unpaid_taxes_2024", "unpaid_taxes_2025",
-    # 🆕 Clerk data
+    # Clerk case data
     "clerk_case_number", "clerk_filing_date", "clerk_case_status", "clerk_case_type",
 ]
 
@@ -640,8 +775,16 @@ if hide_empty_cols:
 selection = st.dataframe(
     display_renamed[final_cols],
     column_config={
+        "stage_display":      st.column_config.TextColumn(
+            "Stage", width="medium", pinned=True,
+            help="LIS PENDENS = pre-foreclosure (HOT, 6-12 mo window) · "
+                 "PENDING AUCTION = hearing en próx 4 semanas (URGENTE) · "
+                 "REO = bank-owned o foreclosure cerrado · "
+                 "HISTORICAL = caso cerrado hace +90 días. "
+                 "Prefijo '!! URGENT' = hearing en próx 14 días.",
+        ),
         "leon_category":      st.column_config.TextColumn(
-            "Criterio", width="medium", pinned=True,
+            "Criterio", width="medium",
             help="Tipo de propiedad distressed — Foreclosure / Auction / Short Sale / Lis Pendens",
         ),
         "date_added_display": st.column_config.TextColumn(
@@ -669,9 +812,27 @@ selection = st.dataframe(
         "lender_email":       st.column_config.TextColumn("Bank Email", width="medium"),
         "bank_address":       st.column_config.TextColumn("Bank Address", width="medium"),
         "outstanding_debt_col": st.column_config.NumberColumn("Outstanding Debt / Loan", format="$%d", width="small"),
-        "attorney_name":      st.column_config.TextColumn("Attorney Name", width="medium"),
+        "attorney_name":      st.column_config.TextColumn(
+            "Attorney Name", width="medium",
+            help="Abogado del PLAINTIFF (banco/HOA/lender). Es a quien podés "
+                 "llamar para confirmar el estado del caso.",
+        ),
+        "attorney_bar_number": st.column_config.TextColumn(
+            "FL Bar #", width="small",
+            help="Número de FL Bar — click el botón FL Bar en el detail panel "
+                 "para ver phone + email del attorney en floridabar.org",
+        ),
         "attorney_phone":     st.column_config.TextColumn("Attorney Phone", width="small"),
         "attorney_email":     st.column_config.TextColumn("Attorney Email", width="medium"),
+        "next_hearing_date":  st.column_config.TextColumn(
+            "Next Hearing", width="small",
+            help="Fecha de próxima audiencia. Si está en próx 14 días = URGENTE.",
+        ),
+        "next_hearing_type":  st.column_config.TextColumn(
+            "Hearing Type", width="medium",
+            help="Tipo de audiencia (Foreclosure Sale, Motion Hearing, etc.)",
+        ),
+        "judge_name":         st.column_config.TextColumn("Judge", width="small"),
         "unpaid_taxes_2024":  st.column_config.NumberColumn(
             "Est. Tax 2024", format="$%d", width="small",
             help="Estimado del tax bill anual (Taxable Value × 22 mills). "
@@ -723,6 +884,7 @@ import re as _re
 # MOST IMPORTANT — that's the pre-foreclosure stage where the team can
 # still help the homeowner (short sale, refinance, etc.)
 EXPORT_COLS_LEON = [
+    "stage_display",
     "leon_category",
     "date_added_display",
     "property_address",
@@ -751,9 +913,18 @@ EXPORT_COLS_LEON = [
     "lender_phone",
     "lender_email",
     "bank_address",
+    # Attorney + judge + hearing (auto-scraped from Clerk case detail)
     "attorney_name",
+    "attorney_bar_number",
     "attorney_phone",
     "attorney_email",
+    "defendant_attorney_name",
+    "defendant_attorney_bar",
+    "judge_name",
+    "next_hearing_date",
+    "next_hearing_time",
+    "next_hearing_type",
+    "clerk_disposition_date",
     # Financial
     "outstanding_debt_col",
     "unpaid_taxes_2024",
@@ -789,6 +960,7 @@ for col in export_df.select_dtypes(include=["object"]).columns:
 
 # Rename columns to friendly labels matching Leon's sheet
 COLUMN_LABELS = {
+    "stage_display":         "Stage",
     "leon_category":         "Criterio",
     "date_added_display":    "Date Added",
     "property_address":      "Property Address",
@@ -817,8 +989,16 @@ COLUMN_LABELS = {
     "lender_email":          "Bank Email",
     "bank_address":          "Bank Address",
     "attorney_name":         "Attorney Name",
+    "attorney_bar_number":   "Attorney FL Bar #",
     "attorney_phone":        "Attorney Phone",
     "attorney_email":        "Attorney Email",
+    "defendant_attorney_name": "Defendant Attorney",
+    "defendant_attorney_bar": "Defendant Attorney FL Bar #",
+    "judge_name":            "Judge",
+    "next_hearing_date":     "Next Hearing Date",
+    "next_hearing_time":     "Next Hearing Time",
+    "next_hearing_type":     "Next Hearing Type",
+    "clerk_disposition_date": "Case Disposition Date",
     "outstanding_debt_col":  "Outstanding Debt / Loan",
     "unpaid_taxes_2024":     "Est. Tax 2024",
     "unpaid_taxes_2025":     "Est. Tax 2025",
@@ -988,14 +1168,60 @@ We can wire any of these into the dashboard in 1 hour of code if you choose to s
         st.link_button("Verificar tax delinquency", lead["tax_url"])
 
     # Attorney + Lis Pendens
-    if lead["leon_category"] in ("Lis Pendens", "Foreclosure"):
+    if (lead["leon_category"] in ("Lis Pendens", "Foreclosure")
+            or (lead.get("clerk_case_number") or "").strip()):
         st.markdown("**Attorney + Case info**")
+
+        # URGENT hearing warning at the TOP
+        if is_hearing_urgent(lead, days=14):
+            hearing = lead.get("next_hearing_date", "")
+            htype = lead.get("next_hearing_type", "")
+            st.error(
+                f"**!! URGENT HEARING — {hearing}** ({htype})  \n"
+                "Llamar a este lead ANTES de la audiencia."
+            )
+        elif lead.get("next_hearing_date"):
+            hearing = lead.get("next_hearing_date", "")
+            htype = lead.get("next_hearing_type", "")
+            st.info(f"Próxima audiencia: **{hearing}** — {htype}")
+
         if lead.get("attorney_name"):
-            st.write(f"Attorney: {lead['attorney_name']}")
-            st.write(f"Phone: {lead.get('attorney_phone') or '—'}")
-            st.write(f"Email: {lead.get('attorney_email') or '—'}")
+            ac1, ac2 = st.columns([2, 1])
+            with ac1:
+                st.write(f"**Plaintiff Attorney**: {lead['attorney_name']}")
+                if lead.get("attorney_bar_number"):
+                    st.write(f"FL Bar #: `{lead['attorney_bar_number']}`")
+                if lead.get("attorney_phone"):
+                    st.write(f"Phone: {lead['attorney_phone']}")
+                if lead.get("attorney_email"):
+                    st.write(f"Email: {lead['attorney_email']}")
+                if lead.get("defendant_attorney_name"):
+                    st.write(f"**Defendant Attorney**: {lead['defendant_attorney_name']}")
+                    if lead.get("defendant_attorney_bar"):
+                        st.write(f"FL Bar #: `{lead['defendant_attorney_bar']}`")
+                if lead.get("judge_name"):
+                    st.write(f"**Judge**: {lead['judge_name']}")
+            with ac2:
+                # FL Bar lookup button → opens floridabar.org profile
+                # con phone + email del attorney
+                bar_url = build_fl_bar_url(lead.get("attorney_bar_number", ""))
+                if bar_url:
+                    st.link_button(
+                        "FL Bar Profile",
+                        bar_url,
+                        use_container_width=True,
+                        help="Phone + email oficiales del attorney en floridabar.org",
+                    )
+                # Defendant attorney FL Bar (si está)
+                dbar_url = build_fl_bar_url(lead.get("defendant_attorney_bar", ""))
+                if dbar_url:
+                    st.link_button(
+                        "Def. Attorney FL Bar",
+                        dbar_url,
+                        use_container_width=True,
+                    )
         else:
-            st.caption("Click Clerk Search para ver case number + plaintiff (banco) + attorney")
+            st.caption("No detectamos attorney en el Clerk. Click Clerk Search para buscarlo manualmente.")
         if lead["clerk_url"]:
             st.link_button("Buscar caso en el Clerk", lead["clerk_url"], key="clerk_attorney_btn")
 
