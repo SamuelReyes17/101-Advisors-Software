@@ -15,7 +15,7 @@ from pathlib import Path
 # =========================================================================
 st.set_page_config(
     page_title="101 Advisors · Leads",
-    page_icon="🏠",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -54,7 +54,7 @@ def check_password() -> bool:
 
     _, mid, _ = st.columns([1, 1.2, 1])
     with mid:
-        st.markdown("# 🏠 101 Advisors")
+        st.markdown("# 101 Advisors")
         st.markdown("### Property Leads Platform")
         st.text_input("Password", type="password", on_change=_password_entered,
                       key="password", label_visibility="collapsed",
@@ -296,14 +296,14 @@ with hcol1:
     st.title("101 Advisors")
     st.caption(
         f"{datetime.now().strftime('%Y-%m-%d %H:%M')} · "
-        f"{'🟢 Live' if data_source == 'production' else '🟡 Preview'}"
+        f"{'Live' if data_source == 'production' else 'Preview'}"
     )
 
 with hcol2:
     st.write("")
     cc1, cc2 = st.columns(2)
     with cc1:
-        if st.button("🔄", help="Refresh", use_container_width=True):
+        if st.button("Refresh", help="Refresh", use_container_width=True):
             st.cache_data.clear()
             st.rerun()
     with cc2:
@@ -315,7 +315,7 @@ with hcol2:
 # Sidebar
 # =========================================================================
 with st.sidebar:
-    st.markdown("### 📤 Subir CSV de MLS")
+    st.markdown("### Subir CSV de MLS")
     uploaded = st.file_uploader("CSV de Matrix", type=["csv"], label_visibility="collapsed")
     if uploaded is not None:
         try:
@@ -330,7 +330,7 @@ with st.sidebar:
                 target = Path(__file__).parent / "data" / "leads.csv"
                 target.parent.mkdir(parents=True, exist_ok=True)
                 new_df.to_csv(target, index=False)
-                st.success(f"✅ {len(new_leads)} leads. Click refresh.")
+                st.success(f"{len(new_leads)} leads. Click refresh.")
                 st.cache_data.clear()
             else:
                 st.warning("No se detectaron leads en el CSV.")
@@ -338,7 +338,7 @@ with st.sidebar:
             st.error(f"Error: {e}")
 
     st.markdown("---")
-    st.markdown("### 🔍 Filtros (Criterio Búsqueda)")
+    st.markdown("### Filtros (Criterio Búsqueda)")
 
     # ── Criterio (Leon's 5 buckets) ─────────────────────────────────────
     available_leon_cats = sorted(set(df["leon_category"].dropna()) & set(LEON_CATEGORIES))
@@ -373,19 +373,19 @@ with st.sidebar:
     show_offtarget = st.checkbox("Mostrar leads fuera del área", value=False)
 
     only_with_clerk_case = st.checkbox(
-        "🎯 Solo con caso Clerk identificado",
+        "Solo con caso Clerk identificado",
         value=False,
         help="Filtra los ~40 leads donde detectamos un caso de foreclosure activo en el Clerk de Miami-Dade",
     )
 
     hide_empty_cols = st.checkbox(
-        "🧹 Ocultar columnas sin data",
+        "Ocultar columnas sin data",
         value=True,
         help="Por defecto ocultamos Phone/Email/Attorney (data no disponible auto). Destildar para verlas vacías.",
     )
 
     # ── Date Added filter — para ver solo los leads nuevos del día/semana ──
-    st.markdown("**📅 Date Added**")
+    st.markdown("**Date Added**")
     date_filter = st.selectbox(
         "Cuándo se agregaron",
         options=["Todos", "Hoy", "Ayer", "Últimos 7 días", "Últimos 30 días"],
@@ -495,12 +495,12 @@ display = display.sort_values(
     ascending=[False, False, False, False, False],
 )
 
-# Add 🆕 marker to address for today's new leads (visible at a glance)
+# Add "NEW" text prefix to address for today's new leads (no emoji, Excel-safe)
 display.loc[display["_sort_is_new_today"] == 1, "full_address"] = (
-    "🆕 " + display.loc[display["_sort_is_new_today"] == 1, "full_address"]
+    "[NEW] " + display.loc[display["_sort_is_new_today"] == 1, "full_address"]
 )
 display.loc[display["_sort_is_new_today"] == 1, "property_address"] = (
-    "🆕 " + display.loc[display["_sort_is_new_today"] == 1, "property_address"]
+    "[NEW] " + display.loc[display["_sort_is_new_today"] == 1, "property_address"]
 )
 
 # Format Date Added column nicely (MM/DD/YYYY) so Leon ve fácil cuándo entró cada lead
@@ -526,40 +526,31 @@ def _classify_plaintiff(name: str) -> str:
                                 "FEDERAL NATIONAL", "FANNIE", "FREDDIE",
                                 "DEUTSCHE", "AURORA LOAN", "WACHOVIA",
                                 "SUNTRUST", "TRUIST", "HSBC", "WILMINGTON")):
-        return "🏦 Bank"
+        return "Bank"
     if any(k in upper for k in ("CONDO", "CONDOMINIUM", "ASSOCIATION",
                                 "HOMEOWNERS", "HOA", "TOWNHOMES", "VILLAS",
                                 "TOWERS", "MASTER MAINTENANCE")):
-        return "🏘️ HOA/Condo"
+        return "HOA/Condo"
     if any(k in upper for k in ("CREDIT UNION", "FCU", "CU")):
-        return "🏦 Credit Union"
+        return "Credit Union"
     if any(k in upper for k in ("MOTOR CREDIT", "AUTO", "LEASING", "LEASE")):
-        return "🚗 Auto Lender"
+        return "Auto Lender"
     if any(k in upper for k in ("CONSTRUCTION", "CONTRACTOR", "REPAIR",
                                 "ELECTRICAL", "PLUMBING", "ROOFING",
                                 "WINDOWS", "DOORS")):
-        return "🔨 Contractor"
+        return "Contractor"
     if "TRUST" in upper:
-        return "📋 Trust"
-    return "🏢 Other"
+        return "Trust"
+    return "Other"
 
 display["plaintiff_type"] = display["bank_name_display"].apply(_classify_plaintiff)
 
-# Add emoji prefix to the Criterio column so it pops visually in the table
-CRITERIO_EMOJI = {
-    "Foreclosure":    "🏦 Foreclosure",
-    "Auction":        "🔨 Auction",
-    "Short Sale":     "🏠 Short Sale",
-    "Lis Pendens":    "⚖️ Lis Pendens",
-    "Probate":        "📜 Probate",
-    "Tax Delinquent": "🧾 Tax Delinquent",
-    "Liens":          "🔗 Liens",
-}
-display["leon_category"] = display["leon_category"].map(CRITERIO_EMOJI).fillna(display["leon_category"])
+# Criterio Búsqueda values stay as plain text — no emojis (cleaner for Leon
+# y para que Excel no muestre números raros)
 
 st.caption(
-    f"📋 **{len(display)} leads** · estructura idéntica al Sheet de Leon · "
-    "click 🏡/🔎/🧾/⚖️ para abrir lookups"
+    f"**{len(display)} leads** · estructura idéntica al Sheet de Leon · "
+    "click Zillow / Owner / Tax / Clerk para abrir lookups"
 )
 
 # Column order matches Leon's sheet exactly (scrape section)
@@ -602,10 +593,10 @@ display_renamed["outstanding_debt_col"] = display["outstanding_debt"]
 final_cols = [
     # ⭐ Criterio PRIMERO — siempre visible sin scroll
     "leon_category",
-    # 📅 Date Added — cuándo entró al sistema (útil para ver nuevos diarios)
+    # Date Added — cuándo entró al sistema (útil para ver nuevos diarios)
     "date_added_display",
     "property_address",
-    # 🎯 Lookup buttons
+    # Lookup buttons
     "zillow_url", "owner_lookup_url", "tax_url", "clerk_url",
     # Datos
     "zip", "purchase_price", "purchase_date", "property_type",
@@ -640,7 +631,7 @@ if hide_empty_cols:
     hidden = [c for c in final_cols if c not in cols_with_data]
     if hidden:
         st.caption(
-            f"🧹 Ocultando {len(hidden)} columna(s) sin data: "
+            f"Ocultando {len(hidden)} columna(s) sin data: "
             f"{', '.join(c.replace('_', ' ').title() for c in hidden[:8])}"
             + ("..." if len(hidden) > 8 else "")
         )
@@ -684,31 +675,31 @@ selection = st.dataframe(
         "unpaid_taxes_2024":  st.column_config.NumberColumn(
             "Est. Tax 2024", format="$%d", width="small",
             help="Estimado del tax bill anual (Taxable Value × 22 mills). "
-                 "Para delinquency real click 🧾 Tax.",
+                 "Para delinquency real click Tax.",
         ),
         "unpaid_taxes_2025":  st.column_config.NumberColumn(
             "Est. Tax 2025", format="$%d", width="small",
             help="Estimado del tax bill anual (Taxable Value × 22 mills). "
-                 "Para delinquency real click 🧾 Tax.",
+                 "Para delinquency real click Tax.",
         ),
-        # 🆕 Clerk data columns
+        # Clerk data columns
         "clerk_case_number":  st.column_config.TextColumn("Case Number", width="medium",
             help="Caso de foreclosure/Lis Pendens en Miami-Dade Clerk OCS"),
         "clerk_filing_date":  st.column_config.TextColumn("Case Filed", width="small"),
         "clerk_case_status":  st.column_config.TextColumn("Case Status", width="small"),
         "clerk_case_type":    st.column_config.TextColumn("Case Type", width="medium"),
         # Lookup buttons al final
-        "zillow_url":         st.column_config.LinkColumn("🏡", display_text="Zillow", width="small"),
+        "zillow_url":         st.column_config.LinkColumn("Zillow", display_text="Open", width="small"),
         "owner_lookup_url":   st.column_config.LinkColumn(
-            "🔎 Owner", display_text="Buscar",
-            help="LLC → Sunbiz · Persona → TruePeople", width="small",
+            "Owner Search", display_text="Search",
+            help="LLC -> Sunbiz · Persona -> TruePeople", width="small",
         ),
         "tax_url":            st.column_config.LinkColumn(
-            "🧾 Tax", display_text="Tax",
+            "Tax Search", display_text="Tax",
             help="Tax delinquency en el county tax collector", width="small",
         ),
         "clerk_url":          st.column_config.LinkColumn(
-            "⚖️ Clerk", display_text="Clerk",
+            "Clerk Search", display_text="Clerk",
             help="Lis Pendens + plaintiff + attorney en el Clerk", width="small",
         ),
     },
@@ -719,27 +710,142 @@ selection = st.dataframe(
     key="main_table",
 )
 
-# Build Excel (.xlsx) file in memory for download
+# ──────────────────────────────────────────────────────────────────
+# Build Excel export — clean (no emojis) + ALL Leon's sheet columns
+# (including empty ones like Attorney, Lis Pendens info — Leon needs
+# those columns visible to fill them in manually for now).
+# ──────────────────────────────────────────────────────────────────
 import io as _io
+import re as _re
+
+# Always include these columns in the Excel export, even if empty.
+# This matches Leon's sheet structure exactly. Lis Pendens info is the
+# MOST IMPORTANT — that's the pre-foreclosure stage where the team can
+# still help the homeowner (short sale, refinance, etc.)
+EXPORT_COLS_LEON = [
+    "leon_category",
+    "date_added_display",
+    "property_address",
+    "zip",
+    "city",
+    "county",
+    "purchase_price",
+    "purchase_date",
+    "property_type",
+    "units",
+    "bedrooms",
+    "owner_first",
+    "owner_last",
+    "owner_phone",
+    "owner_email",
+    "owner_mailing_address",
+    "is_absentee_owner",
+    # Lis Pendens / Foreclosure case info (LO MÁS IMPORTANTE)
+    "clerk_case_number",
+    "clerk_filing_date",
+    "clerk_case_type",
+    "clerk_case_status",
+    "clerk_plaintiff",
+    "clerk_defendant",
+    "lender_name",
+    "lender_phone",
+    "lender_email",
+    "bank_address",
+    "attorney_name",
+    "attorney_phone",
+    "attorney_email",
+    # Financial
+    "outstanding_debt_col",
+    "unpaid_taxes_2024",
+    "unpaid_taxes_2025",
+    "folio",
+]
+
+# Filter to only columns that actually exist
+export_cols_present = [c for c in EXPORT_COLS_LEON if c in display_renamed.columns]
+
+# Build a clean copy WITHOUT emojis for Excel export
+# Strip any emoji/non-printable chars from text cells. Excel-safe.
+_EMOJI_RE = _re.compile(
+    "["
+    "\U0001F300-\U0001F9FF"  # emoticons, symbols & pictographs, transport, etc.
+    "\U00002600-\U000027BF"  # misc symbols, dingbats
+    "\U0001FA70-\U0001FAFF"
+    "\U00002B00-\U00002BFF"
+    "‍️"           # zero-width joiner, variation selector
+    "]+",
+    flags=_re.UNICODE,
+)
+
+def _strip_emojis(val):
+    if isinstance(val, str):
+        cleaned = _EMOJI_RE.sub("", val).strip()
+        return cleaned
+    return val
+
+export_df = display_renamed[export_cols_present].copy()
+for col in export_df.select_dtypes(include=["object"]).columns:
+    export_df[col] = export_df[col].map(_strip_emojis)
+
+# Rename columns to friendly labels matching Leon's sheet
+COLUMN_LABELS = {
+    "leon_category":         "Criterio",
+    "date_added_display":    "Date Added",
+    "property_address":      "Property Address",
+    "zip":                   "Zipcode",
+    "city":                  "City",
+    "county":                "County",
+    "purchase_price":        "Purchase Price",
+    "purchase_date":         "Property Purchase Date",
+    "property_type":         "Property Type",
+    "units":                 "Units",
+    "bedrooms":              "Bedrooms",
+    "owner_first":           "Owner First Name",
+    "owner_last":            "Owner Last Name",
+    "owner_phone":           "Owner Phone",
+    "owner_email":           "Owner Email Address",
+    "owner_mailing_address": "Owner Mailing Address",
+    "is_absentee_owner":     "Absentee Owner",
+    "clerk_case_number":     "Lis Pendens / Case Number",
+    "clerk_filing_date":     "Lis Pendens / Filing Date",
+    "clerk_case_type":       "Lis Pendens / Case Type",
+    "clerk_case_status":     "Lis Pendens / Status",
+    "clerk_plaintiff":       "Lis Pendens / Plaintiff",
+    "clerk_defendant":       "Lis Pendens / Defendant",
+    "lender_name":           "Bank / Lender Name",
+    "lender_phone":          "Bank Phone",
+    "lender_email":          "Bank Email",
+    "bank_address":          "Bank Address",
+    "attorney_name":         "Attorney Name",
+    "attorney_phone":        "Attorney Phone",
+    "attorney_email":        "Attorney Email",
+    "outstanding_debt_col":  "Outstanding Debt / Loan",
+    "unpaid_taxes_2024":     "Est. Tax 2024",
+    "unpaid_taxes_2025":     "Est. Tax 2025",
+    "folio":                 "Folio",
+}
+export_df = export_df.rename(columns=COLUMN_LABELS)
+
+# Build the Excel file in memory
 _excel_buf = _io.BytesIO()
 with pd.ExcelWriter(_excel_buf, engine="openpyxl") as _writer:
-    display_renamed[final_cols].to_excel(_writer, index=False, sheet_name="Leads")
+    export_df.to_excel(_writer, index=False, sheet_name="Leads")
 _excel_buf.seek(0)
 
 dl_col1, dl_col2 = st.columns([1, 4])
 with dl_col1:
     st.download_button(
-        "📥 Exportar a Excel",
+        "Exportar a Excel",
         data=_excel_buf.getvalue(),
         file_name=f"101advisors_leads_{datetime.now().strftime('%Y%m%d')}.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         use_container_width=True,
     )
 with dl_col2:
-    # Keep CSV as backup option in case Excel doesn't open somewhere
+    # Keep CSV as backup option (same clean data, no emojis)
     st.download_button(
         "Export CSV",
-        data=display_renamed[final_cols].to_csv(index=False).encode("utf-8"),
+        data=export_df.to_csv(index=False).encode("utf-8"),
         file_name=f"101advisors_leads_{datetime.now().strftime('%Y%m%d')}.csv",
         mime="text/csv",
     )
@@ -773,26 +879,26 @@ if selection.selection.rows:
     # Owner block + Skip-Trace Toolkit
     o1, o2 = st.columns([2, 1])
     with o1:
-        st.markdown("**👤 Owner**")
+        st.markdown("**Owner**")
         st.write(f"Nombre: {lead['owner_name'] or '—'}")
         st.write(f"Phone: {lead['owner_phone'] or '— (skip-trace)'}")
         st.write(f"Email: {lead['owner_email'] or '— (skip-trace)'}")
         if lead.get("owner_mailing_address"):
-            st.write(f"📬 Mailing: {lead['owner_mailing_address']}")
+            st.write(f"Mailing: {lead['owner_mailing_address']}")
         if lead.get("is_absentee_owner") == "yes":
-            st.warning("🚨 **ABSENTEE OWNER** — el dueño no vive ahí. Mejor lead para cold call.")
+            st.warning("**ABSENTEE OWNER** — el dueño no vive ahí. Mejor lead para cold call.")
     with o2:
         st.markdown("**Property**")
         if lead["zillow_url"]:
-            st.link_button("🏡 Zillow", lead["zillow_url"], use_container_width=True)
+            st.link_button("Zillow", lead["zillow_url"], use_container_width=True)
 
     # ── Skip-Trace Toolkit — phones/emails buscando en sitios gratis ───
-    st.markdown("**📞 Skip-Trace Toolkit** — buscar phone + email del owner")
+    st.markdown("**Skip-Trace Toolkit** — buscar phone + email del owner")
     if is_llc(lead["owner_name"]):
         # LLC owner — Sunbiz is the right place
         if lead.get("owner_lookup_url"):
             st.link_button(
-                "🏢 Sunbiz — ver officers + mailing address del LLC",
+                "Sunbiz — ver officers + mailing address del LLC",
                 lead["owner_lookup_url"],
             )
         st.caption(
@@ -804,18 +910,18 @@ if selection.selection.rows:
         st1, st2, st3 = st.columns(3)
         with st1:
             if lead.get("owner_lookup_url"):
-                st.link_button("🔎 TruePeople", lead["owner_lookup_url"],
+                st.link_button("TruePeople", lead["owner_lookup_url"],
                                use_container_width=True)
         with st2:
             if lead.get("fastpeople_url"):
-                st.link_button("🔎 FastPeople", lead["fastpeople_url"],
+                st.link_button("FastPeople", lead["fastpeople_url"],
                                use_container_width=True)
         with st3:
             if lead.get("whitepages_url"):
-                st.link_button("🔎 WhitePages", lead["whitepages_url"],
+                st.link_button("WhitePages", lead["whitepages_url"],
                                use_container_width=True)
         st.caption(
-            "👆 3 sitios gratis. Si TruePeople no muestra phone, probá FastPeople o WhitePages. "
+            "3 sitios gratis. Si TruePeople no muestra phone, probá FastPeople o WhitePages. "
             "Suelen tener data complementaria. ~30 segundos de búsqueda por lead."
         )
 
@@ -844,33 +950,32 @@ We can wire any of these into the dashboard in 1 hour of code if you choose to s
         """)
 
     # Bank + Clerk case (auto-fetched from Miami-Dade Clerk OCS)
-    st.markdown("**🏦 Bank / Foreclosure Case**")
+    st.markdown("**Bank / Foreclosure Case**")
     clerk_case = (lead.get("clerk_case_number") or "").strip()
     if clerk_case:
         # We have a Clerk case auto-detected
         status = (lead.get("clerk_case_status") or "").strip()
-        status_icon = "🔴 OPEN" if status == "OPEN" else f"⚪ {status}"
         c1, c2 = st.columns([2, 1])
         with c1:
-            st.success(f"**🏦 Plaintiff**: {lead.get('clerk_plaintiff') or lead.get('lender_name', '—')}")
-            st.write(f"**📋 Case**: `{clerk_case}` · {status_icon}")
-            st.write(f"**📅 Filed**: {lead.get('clerk_filing_date', '—')}")
-            st.write(f"**⚖️ Type**: {lead.get('clerk_case_type', '—')}")
-            st.write(f"**👥 Defendant**: {lead.get('clerk_defendant', '—')}")
+            st.success(f"**Plaintiff**: {lead.get('clerk_plaintiff') or lead.get('lender_name', '—')}")
+            st.write(f"**Case**: `{clerk_case}` · {status}")
+            st.write(f"**Filed**: {lead.get('clerk_filing_date', '—')}")
+            st.write(f"**Type**: {lead.get('clerk_case_type', '—')}")
+            st.write(f"**Defendant**: {lead.get('clerk_defendant', '—')}")
         with c2:
             if lead["clerk_url"]:
-                st.link_button("⚖️ Ver en Clerk", lead["clerk_url"], use_container_width=True)
+                st.link_button("Ver en Clerk", lead["clerk_url"], use_container_width=True)
     elif is_bank_owned(lead["owner_name"]):
         st.info(f"REO — el owner ES el banco: **{lead['owner_name']}**")
     elif lead["leon_category"] in ("Lis Pendens", "Foreclosure"):
-        st.caption("No detectamos caso Clerk activo. Click ⚖️ para buscar manualmente.")
+        st.caption("No detectamos caso Clerk activo. Click Clerk Search para buscar manualmente.")
         if lead["clerk_url"]:
-            st.link_button("⚖️ Buscar en el Clerk", lead["clerk_url"])
+            st.link_button("Buscar en el Clerk", lead["clerk_url"])
     else:
         st.caption("Sin caso de foreclosure asociado")
 
     # Tax
-    st.markdown("**🧾 Tax Delinquency**")
+    st.markdown("**Tax Delinquency**")
     tax_2024 = float(lead.get("unpaid_taxes_2024") or 0)
     tax_2025 = float(lead.get("unpaid_taxes_2025") or 0)
     if tax_2024 or tax_2025:
@@ -878,21 +983,21 @@ We can wire any of these into the dashboard in 1 hour of code if you choose to s
         t1.metric("Tax 2024 vencido", f"${tax_2024:,.0f}")
         t2.metric("Tax 2025 vencido", f"${tax_2025:,.0f}")
     else:
-        st.caption("Datos de tax no auto-populados aún. Click 🧾 Tax para verificar manualmente.")
+        st.caption("Datos de tax no auto-populados aún. Click Tax Search para verificar manualmente.")
     if lead["tax_url"]:
-        st.link_button("🧾 Verificar tax delinquency", lead["tax_url"])
+        st.link_button("Verificar tax delinquency", lead["tax_url"])
 
     # Attorney + Lis Pendens
     if lead["leon_category"] in ("Lis Pendens", "Foreclosure"):
-        st.markdown("**⚖️ Attorney + Case info**")
+        st.markdown("**Attorney + Case info**")
         if lead.get("attorney_name"):
             st.write(f"Attorney: {lead['attorney_name']}")
             st.write(f"Phone: {lead.get('attorney_phone') or '—'}")
             st.write(f"Email: {lead.get('attorney_email') or '—'}")
         else:
-            st.caption("Click ⚖️ Clerk para ver case number + plaintiff (banco) + attorney")
+            st.caption("Click Clerk Search para ver case number + plaintiff (banco) + attorney")
         if lead["clerk_url"]:
-            st.link_button("⚖️ Buscar caso en el Clerk", lead["clerk_url"], key="clerk_attorney_btn")
+            st.link_button("Buscar caso en el Clerk", lead["clerk_url"], key="clerk_attorney_btn")
 
     if lead.get("notes") and not pd.isna(lead["notes"]):
-        st.caption(f"💬 {lead['notes']}")
+        st.caption(f"Notas: {lead['notes']}")
