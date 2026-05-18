@@ -62,55 +62,73 @@ logging.basicConfig(
 log = logging.getLogger("discover_lis_pendens")
 
 
-# Top ~80 surnames common in Miami-Dade (US Census 2020 + local skew toward
-# Hispanic and Caribbean populations). Covers ~70-75% of homeowners.
+# SMARTER APPROACH: search by FORECLOSURE PLAINTIFF (banks, mortgage servicers,
+# HOAs) instead of common surnames. The Clerk's Party Name search caps at 200
+# results per query — surname searches get drowned by traffic/divorce/civil
+# cases. But searching for a distinctive bank token like "DEUTSCHE" or
+# "NATIONSTAR" returns 200 cases that are ALL foreclosures (since those names
+# only show up as plaintiffs in mortgage cases).
+#
+# Each token below is a SINGLE distinctive word. The Clerk search matches it
+# against any party name (plaintiff OR defendant). For these terms, ~all
+# results are real estate foreclosures filed by that lender.
 DEFAULT_SURNAMES = [
-    # Hispanic
-    "GARCIA","RODRIGUEZ","MARTINEZ","HERNANDEZ","LOPEZ","GONZALEZ","PEREZ",
-    "SANCHEZ","DIAZ","FERNANDEZ","CRUZ","REYES","TORRES","RAMIREZ","FLORES",
-    "RIVERA","GOMEZ","ALVAREZ","ROMERO","SUAREZ","CASTILLO","GUTIERREZ",
-    "MORALES","ORTIZ","RUIZ","ALONSO","CASTRO","VARGAS","JIMENEZ","MENDOZA",
-    "MEDINA","AGUILAR","SANTOS","DOMINGUEZ","PENA","DELGADO","MUNOZ","ROJAS",
-    "MORENO","ACOSTA","ESPINOZA","HERRERA","SOTO","CABRERA","BAEZ","SALAZAR",
-    "VEGA","CARDENAS","NAVARRO",
-    # English (Miami-Dade still has substantial English-surname homeowners)
-    "SMITH","JOHNSON","WILLIAMS","BROWN","JONES","MILLER","DAVIS","WILSON",
-    "ANDERSON","TAYLOR","THOMAS","MOORE","JACKSON","MARTIN","WHITE","HARRIS",
-    "THOMPSON","ROBINSON","CLARK","LEWIS",
-    # Caribbean / Haitian
-    "PIERRE","JOSEPH","JEAN","LOUIS","CHARLES","LAURENT","FRANCOIS",
+    # Mortgage servicers (very high signal — almost 100% foreclosure cases)
+    "NATIONSTAR","NEWREZ","SHELLPOINT","FREEDOM","CARRINGTON",
+    "PENNYMAC","SPECIALIZED","SELECT","OCWEN","DITECH",
+    "ROUNDPOINT","FAY","COOPER","RUSHMORE","COMMUNITY",
+    "PHH","RESIDENTIAL","STATEBRIDGE","PLANET","CENLAR",
+    # Major banks (still high signal for foreclosures)
+    "DEUTSCHE","JPMORGAN","HSBC","CITIBANK","WACHOVIA",
+    "WILMINGTON","NATIONAL","CAPITAL","TRUIST","CITIGROUP",
+    "BAYVIEW","BAYSHORE","REVERSE","SETERUS","LOANCARE",
+    # GSEs and government
+    "FREDDIE","FANNIE","HUD","VA","USDA",
+    # Major HOA management companies in Miami-Dade (file foreclosures
+    # for unpaid HOA dues — VERY common in Miami-Dade condos)
+    "LENNAR","PULTE","TOWNHOMES","CONDOMINIUM","ASSOCIATION",
+    # Sub-prime / private lenders
+    "HMC","SAXON","AMERIQUEST","COUNTRYWIDE","NEW CENTURY",
+    "AURORA","AMC","WMC","INDYMAC","GMAC",
 ]
 
 
-def passes_strict_filter(case: dict[str, Any], days: int) -> bool:
+def passes_strict_filter(case: dict[str, Any], days: int,
+                          diag: dict | None = None) -> bool:
     """Filter to ONLY:
         - 'Mortgage/Real Property Foreclosure' case types (not auto liens)
         - caseStatus == 'OPEN'
         - filingDate within last <days> days
         - NOT a legacy 'Z DO NOT USE' case
+
+    If `diag` dict is passed, increments counters for each rejection reason.
     """
+    def reject(reason: str) -> bool:
+        if diag is not None:
+            diag[reason] = diag.get(reason, 0) + 1
+        return False
+
     case_type = (case.get("caseType") or "").upper()
     if not case_type:
-        return False
+        return reject("no_case_type")
     if any(k in case_type for k in ("Z DO NOT USE", "Z LEGACY", "Z OLD", "LEGACY")):
-        return False
-    # Must be foreclosure / lis pendens
+        return reject("legacy")
     if not is_foreclosure_case(case):
-        return False
-    # Status must be OPEN
+        return reject("not_foreclosure")
     status = (case.get("caseStatus") or "").upper()
     if status != "OPEN":
-        return False
-    # Filing date must be recent
+        return reject(f"status={status or 'EMPTY'}")
     filing_iso = case.get("filingDateSort") or ""
     if not filing_iso:
-        return False
+        return reject("no_filing_date")
     try:
         filed = datetime.fromisoformat(filing_iso.replace("Z", "")[:10])
     except ValueError:
-        return False
+        return reject("bad_filing_date")
     cutoff = datetime.today() - timedelta(days=days)
-    return filed >= cutoff
+    if filed < cutoff:
+        return reject(f"too_old (filed {filed.date()})")
+    return True
 
 
 def _county_from_zip(zip_: str) -> str:
@@ -157,6 +175,7 @@ def main() -> int:
     # ── Phase 1: Clerk search by surname ────────────────────────────────
     all_matched_cases: list[dict[str, Any]] = []
     seen_case_numbers: set[str] = set()
+    global_diag: dict[str, int] = {}  # aggregated rejection counters
 
     with ClerkSession(headless=not args.headed) as session:
         for i, surname in enumerate(surnames, 1):
@@ -169,14 +188,34 @@ def main() -> int:
             if not cases:
                 print(" no cases")
                 continue
-            # Filter
-            relevant = [c for c in cases if passes_strict_filter(c, args.days)]
+            # Filter (with diagnostics)
+            diag: dict[str, int] = {}
+            relevant = [c for c in cases if passes_strict_filter(c, args.days, diag)]
             new = [c for c in relevant if c.get("caseNumber") not in seen_case_numbers]
             for c in new:
                 seen_case_numbers.add(c.get("caseNumber", ""))
-            print(f" {len(cases)} total, {len(relevant)} match filter, "
+            print(f" {len(cases)} total, {len(relevant)} match, "
                   f"{len(new)} new")
+            # Accumulate diagnostics across all surnames
+            for k, v in diag.items():
+                global_diag[k] = global_diag.get(k, 0) + v
             all_matched_cases.extend(new)
+
+        # Print aggregate diagnostics so we understand what's being filtered
+        if global_diag:
+            print(f"\nRejection breakdown (all surnames):")
+            for reason, count in sorted(global_diag.items(),
+                                         key=lambda x: -x[1]):
+                print(f"  {count:5d}  {reason}")
+            # Show a few sample case types from the rejected pool to inspect
+            sample_types: dict[str, int] = {}
+            for c in cases[:50]:
+                ct = (c.get("caseType") or "").strip()
+                sample_types[ct] = sample_types.get(ct, 0) + 1
+            print(f"\nSample case-types from last surname '{surname}':")
+            for t, n in sorted(sample_types.items(),
+                                key=lambda x: -x[1])[:10]:
+                print(f"  {n:3d}  {t}")
 
         print(f"\n{'='*70}")
         print(f"Phase 1 complete: {len(all_matched_cases)} candidate cases")
@@ -206,7 +245,12 @@ def main() -> int:
     print(f"Phase 3: Cross-referencing defendants with Property Appraiser …")
     print("=" * 70)
 
-    leads: list[Lead] = []
+    # leads is now a list of (Lead, extra_dict) tuples where extra_dict
+    # carries the Clerk-specific columns that aren't part of the Lead
+    # dataclass (attorney, FL Bar #, judge, hearing) — they get written
+    # to dedicated CSV columns so the dashboard's Stage/Attorney/Hearing
+    # cells display them properly.
+    leads: list[tuple[Lead, dict]] = []
     no_property = 0
     today = date.today()
 
@@ -229,7 +273,6 @@ def main() -> int:
                 continue
             mls_like = f"clerk-{case.get('caseNumber','')}-{prop.get('folio','')[:6]}"
             owner_full = prop.get("owner_name") or defendant
-            # Split owner from PA's normal order
             owner_parts = owner_full.split()
             owner_first = owner_parts[0] if owner_parts else ""
             owner_last  = " ".join(owner_parts[1:]) if len(owner_parts) > 1 else ""
@@ -254,14 +297,29 @@ def main() -> int:
                 owner_last=owner_last,
                 lender_name=plaintiff,
                 status="New",
-                notes=(
-                    f"Case {case.get('caseNumber','')} OPEN · "
-                    f"filed {case.get('filingDate','')} · "
-                    f"attorney {detail.get('plaintiff_attorney','')}"
-                ),
+                notes=f"Source: Clerk OCS — case filed {case.get('filingDate','')}",
                 source="clerk-discovery",
             )
-            leads.append(lead)
+            # Extra columns the dashboard reads (these aren't Lead fields)
+            extras = {
+                "clerk_case_number":      case.get("caseNumber", ""),
+                "clerk_filing_date":      case.get("filingDate", ""),
+                "clerk_case_type":        case.get("caseType", ""),
+                "clerk_case_status":      "OPEN",
+                "clerk_plaintiff":        plaintiff,
+                "clerk_defendant":        defendant,
+                "clerk_match_confidence": "verified",
+                "attorney_name":          detail.get("plaintiff_attorney", ""),
+                "attorney_bar_number":    detail.get("plaintiff_attorney_bar", ""),
+                "defendant_attorney_name":detail.get("defendant_attorney", ""),
+                "defendant_attorney_bar": detail.get("defendant_attorney_bar", ""),
+                "judge_name":             detail.get("judge_name", ""),
+                "next_hearing_date":      detail.get("next_hearing_date", ""),
+                "next_hearing_time":      detail.get("next_hearing_time", ""),
+                "next_hearing_type":      detail.get("next_hearing_type", ""),
+                "clerk_disposition_date": detail.get("disposition_date", ""),
+            }
+            leads.append((lead, extras))
         if k % 20 == 0:
             print(f"  [{k}/{len(all_matched_cases)}] {defendant[:40]}: "
                   f"+{len(properties)} property(ies)")
@@ -276,7 +334,7 @@ def main() -> int:
 
     if args.dry_run:
         print("DRY-RUN — sample of leads (first 10):")
-        for l in leads[:10]:
+        for l, _ex in leads[:10]:
             print(f"  • {l.property_address}, {l.city} {l.zip} · "
                   f"owner: {l.owner_first} {l.owner_last} · "
                   f"plaintiff: {l.lender_name[:40]}")
@@ -300,24 +358,38 @@ def main() -> int:
     return 0
 
 
-def _merge_into_csv(leads: list[Lead]) -> int:
+def _merge_into_csv(leads: list[tuple[Lead, dict]]) -> int:
+    """Merge (Lead, extras_dict) tuples into data/leads.csv.
+
+    extras_dict carries Clerk-specific columns (attorney, FL Bar, judge,
+    hearing) that aren't part of the Lead dataclass but ARE columns in
+    the CSV.
+    """
+    sample_lead, sample_extras = leads[0]
     if not CSV_PATH.exists():
         existing_rows = []
-        fieldnames = list(leads[0].to_dict().keys())
+        fieldnames = list(sample_lead.to_dict().keys())
     else:
         with CSV_PATH.open() as f:
             reader = csv.DictReader(f)
             existing_rows = list(reader)
             fieldnames = list(reader.fieldnames or [])
 
-    for k in leads[0].to_dict().keys():
+    # Ensure all Lead fields + all extras keys are in fieldnames
+    for k in list(sample_lead.to_dict().keys()) + list(sample_extras.keys()):
         if k not in fieldnames:
             fieldnames.append(k)
 
     by_id = {r.get("lead_id", ""): r for r in existing_rows}
     added = 0
     today_iso = date.today().isoformat()
-    for lead in leads:
+    LEAD_UPDATE_IF_EMPTY = (
+        "property_address", "city", "zip", "folio",
+        "owner_first", "owner_last", "lender_name", "notes",
+    )
+    # All clerk-discovery extras get OVERWRITTEN (not if-empty) because
+    # the Clerk is the authoritative source for attorney/hearing data.
+    for lead, extras in leads:
         d = lead.to_dict()
         for k in ("first_seen", "last_updated"):
             if not isinstance(d[k], str):
@@ -326,15 +398,20 @@ def _merge_into_csv(leads: list[Lead]) -> int:
             row = {fn: "" for fn in fieldnames}
             for k, v in d.items():
                 row[k] = v
+            for k, v in extras.items():
+                if v:
+                    row[k] = v
             by_id[lead.lead_id] = row
             added += 1
         else:
             existing = by_id[lead.lead_id]
-            # Update if-empty for key fields
-            for k in ("property_address", "city", "zip", "folio",
-                      "owner_first", "owner_last", "lender_name", "notes"):
+            for k in LEAD_UPDATE_IF_EMPTY:
                 if not (existing.get(k) or "").strip() and d.get(k):
                     existing[k] = d[k]
+            # Clerk extras are authoritative — overwrite
+            for k, v in extras.items():
+                if v:
+                    existing[k] = v
             existing["last_updated"] = today_iso
 
     final = list(by_id.values())

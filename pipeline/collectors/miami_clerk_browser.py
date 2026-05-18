@@ -49,6 +49,9 @@ FORECLOSURE_KEYWORDS = (
     "LIS PENDENS",        # Lis Pendens filings
     "REAL PROPERTY",      # Real property disputes
     "QUIET TITLE",        # Title disputes
+    # Miami-Dade Clerk uses RPMF abbreviation for Circuit-court mortgage
+    # foreclosures (Real Property Mortgage Foreclosure - Homestead / Non-Homestead)
+    "RPMF",
 )
 
 # Case types to EXCLUDE even if a bank is plaintiff (these are NOT foreclosures)
