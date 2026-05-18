@@ -153,22 +153,28 @@ def main() -> int:
             # Filter to foreclosure-related cases
             foreclosure_cases = [c for c in cases if is_foreclosure_case(c)]
 
-            # Try to find a case where the defendant matches our owner.
-            # STRICT: the defendant must contain our owner's last name OR
-            # at least 2 significant words from the LLC name. No fallback to
-            # "most recent foreclosure" — false positives were too common.
-            our_owner_words = set()
-            owner_last = (row.get("owner_last") or "").strip()
+            # STRICT MATCH — fix false positives detected in audit (2026-05-18)
+            #
+            # For PERSONS (owner_first + owner_last both populated):
+            #   Require defendant to contain BOTH our owner's last name AND
+            #   first name (or first initial). Apellidos comunes (Cruz, Jones,
+            #   Flores) by themselves are too broad.
+            #
+            # For LLCs (owner_first empty):
+            #   Require defendant to contain ALL distinctive words of the LLC
+            #   name (not just the first word). E.g. "PINE NEEDLE LANE SEC"
+            #   → need defendant to contain both "PINE" AND "NEEDLE", not
+            #   just "PINE" (which falsely matched "Pineda").
+            #
+            # Always reject:
+            #   - Commercial plaintiff vs Financial company defendant
+            #     (e.g. Auto Body Shop vs Westlake Financial = auto lien, not
+            #     real estate foreclosure on a homeowner)
+
+            owner_last  = (row.get("owner_last")  or "").strip()
             owner_first = (row.get("owner_first") or "").strip()
-            if owner_last:
-                our_owner_words.update(
-                    w.upper() for w in owner_last.split() if len(w) > 2
-                )
-            if owner_first:
-                our_owner_words.update(
-                    w.upper() for w in owner_first.split() if len(w) > 2
-                )
-            # Drop generic LLC/entity tokens that match too widely
+            is_person = bool(owner_first and owner_last)
+
             GENERIC_TOKENS = {
                 "LLC", "INC", "CORP", "CORPORATION", "TRUST", "TRS", "LTD",
                 "LLP", "LP", "FOUNDATION", "GROUP", "HOLDINGS", "PROPERTIES",
@@ -176,25 +182,84 @@ def main() -> int:
                 "CAPITAL", "FINANCIAL", "FINANCE", "MANAGEMENT", "ASSOCIATES",
                 "PARTNERS", "FUND", "ENTERPRISES", "REALTY", "BANK", "MORTGAGE",
                 "NATIONAL", "FEDERAL", "ASSOC", "ASSN", "ASSOCIATION",
+                "THE", "AND", "OF", "FOR", "IN", "AT", "ON", "INVESTMENT",
+                # Street/place common words that fooled the old matcher
+                "LANE", "LN", "STREET", "ST", "AVENUE", "AVE", "ROAD", "RD",
+                "BLVD", "DRIVE", "DR", "WAY", "PLACE", "PL", "COURT", "CT",
+                "TER", "TERRACE", "CIR", "CIRCLE", "SEC", "SECTION",
+                "NORTH", "SOUTH", "EAST", "WEST", "N", "S", "E", "W",
             }
-            our_owner_words -= GENERIC_TOKENS
+
+            # Build distinctive word set for the OWNER
+            if is_person:
+                # For persons: last name + first name (must both match)
+                last_words  = [w.upper() for w in owner_last.split()
+                               if len(w) > 1 and w.upper() not in GENERIC_TOKENS]
+                first_words = [w.upper() for w in owner_first.split()
+                               if len(w) > 1 and w.upper() not in GENERIC_TOKENS]
+            else:
+                # For LLCs: ALL distinctive words (not just first)
+                llc_words = [w.upper() for w in owner_last.split()
+                             if len(w) > 2 and w.upper() not in GENERIC_TOKENS]
+                last_words  = llc_words
+                first_words = []
+
+            if not last_words and not first_words:
+                # Nothing distinctive to match on — skip
+                pass
+
+            # Commercial plaintiff indicators (cases that are NOT residential
+            # foreclosure even though they show up as "Construction Lien Foreclosure")
+            COMMERCIAL_PLAINTIFF_KEYWORDS = (
+                "AUTO BODY", "AUTO REPAIR", "AUTO EXPRESS", "AUTO SALES",
+                "AUTOMOTIVE", "TIRE", "TOWING", "BODY SHOP",
+            )
+            FINANCIAL_DEFENDANT_KEYWORDS = (
+                "FINANCIAL SERVICES", "FINANCE LLC", "AUTO CREDIT",
+                "MOTOR CREDIT", "LEASE", "LEASING",
+            )
 
             best_match = None
             for c in foreclosure_cases:
-                _, defendant = parse_case_style(c.get("caseStyle", ""))
+                plaintiff, defendant = parse_case_style(c.get("caseStyle", ""))
                 if not defendant:
                     continue
                 defendant_upper = defendant.upper()
-                # Count how many of our distinctive owner words appear in defendant
-                matches = sum(1 for w in our_owner_words if w in defendant_upper)
-                # Require at least 1 strong word match (last name is usually distinctive)
-                if our_owner_words and matches >= 1:
-                    # Pick the most recent (highest filingDateSort)
-                    if not best_match or (c.get("filingDateSort") or "") > (best_match.get("filingDateSort") or ""):
-                        best_match = c
+                plaintiff_upper = plaintiff.upper()
 
-            # NO fallback to "most recent foreclosure". If no defendant match,
-            # we skip. Quality over quantity.
+                # Reject obvious commercial/auto cases
+                if (any(k in plaintiff_upper for k in COMMERCIAL_PLAINTIFF_KEYWORDS)
+                    and any(k in defendant_upper for k in FINANCIAL_DEFENDANT_KEYWORDS)):
+                    continue
+
+                # Apply tight matching rules
+                if is_person:
+                    # Require BOTH last name AND first name to appear in defendant.
+                    # We do NOT accept just a middle initial — that's how
+                    # "Ahmed Cruz" falsely matched "John A. Cruz".
+                    has_last  = any(w in defendant_upper for w in last_words)
+                    has_first = any(w in defendant_upper for w in first_words)
+                    if not (has_last and has_first):
+                        continue
+                else:
+                    # LLC — need ALL distinctive words to appear in defendant
+                    if not last_words:
+                        continue
+                    matches = sum(1 for w in last_words if w in defendant_upper)
+                    # Require at least 2 distinctive words OR all of them if <2
+                    needed = min(2, len(last_words)) if len(last_words) >= 2 else len(last_words)
+                    if matches < needed:
+                        continue
+                    # If only 1 distinctive word AND that word is <5 chars, reject
+                    # (catches "PINE" matching "Pineda")
+                    if len(last_words) == 1 and len(last_words[0]) < 5:
+                        continue
+
+                # Passed all filters — candidate. Pick most recent.
+                if not best_match or (c.get("filingDateSort") or "") > (best_match.get("filingDateSort") or ""):
+                    best_match = c
+
+            # NO fallback. Quality over quantity.
 
             if best_match:
                 plaintiff, defendant = parse_case_style(best_match.get("caseStyle", ""))

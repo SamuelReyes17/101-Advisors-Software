@@ -334,6 +334,153 @@ def _split_owner_name(full: str) -> tuple[str, str]:
     return parts[0], " ".join(parts[1:])
 
 
+def _normalize_clerk_defendant(name: str) -> tuple[str, str]:
+    """Convert a Clerk-style defendant name into (last_name, first_name).
+
+    Clerk OCS returns names in several formats; the most common are:
+        'Cruz, John A.'           → ('CRUZ', 'JOHN')
+        'John A. Cruz'            → ('CRUZ', 'JOHN')
+        'Baez, Eddy O.'           → ('BAEZ', 'EDDY')
+        'IZQUIERDO LLC'           → ('IZQUIERDO LLC', '')
+        'Maria Del Rosario Vega Flores et al' → ('FLORES', 'MARIA')
+
+    We only return the FIRST/LAST tokens (skip middle names + 'et al' +
+    titles like Jr.). For LLC/Corp entities, last_name = full entity.
+    """
+    if not name:
+        return "", ""
+    name = re.sub(r"\bet al\.?\b", "", name, flags=re.IGNORECASE)
+    name = re.sub(r"\s+", " ", name).strip(" ,.").upper()
+
+    # Organization → keep whole name as "last", no first
+    if _ORG_PATTERN.search(name):
+        return name, ""
+
+    if "," in name:
+        # 'CRUZ, JOHN A.' → last='CRUZ', first='JOHN'
+        last, _, rest = name.partition(",")
+        first = rest.strip().split()[0] if rest.strip() else ""
+        return last.strip(), first.strip()
+
+    # No comma → 'JOHN A. CRUZ' → first='JOHN', last='CRUZ'
+    parts = [p.strip(".,") for p in name.split() if p.strip(".,")]
+    # Drop trailing legal suffixes
+    while parts and parts[-1] in ("JR", "SR", "II", "III", "IV", "ESQ"):
+        parts.pop()
+    if len(parts) >= 2:
+        return parts[-1], parts[0]
+    if len(parts) == 1:
+        return parts[0], ""
+    return "", ""
+
+
+def search_by_owner_name(defendant_name: str,
+                          max_results: int = 5) -> list[dict[str, Any]]:
+    """Find properties in Miami-Dade Property Appraiser by owner name.
+
+    Used to cross-reference Clerk foreclosure case defendants with their
+    actual property address (so we can build a pure Lis Pendens lead).
+
+    Returns a list of property dicts (each has folio, address, city, zip,
+    owner_name, etc.). May return [] if no match, or multiple if the
+    defendant owns several properties.
+
+    Args:
+        defendant_name: Clerk-style name like 'Cruz, John A.' or 'IZQUIERDO LLC'
+        max_results: hard cap on number of properties returned (PA can return
+            500+ for a common surname; we only want a few candidates)
+    """
+    last, first = _normalize_clerk_defendant(defendant_name)
+    if not last:
+        return []
+
+    # Build LIKE pattern. PA owner field is stored uppercase, typical format:
+    # individual = 'FIRST [MIDDLE] LAST', organization = 'COMPANY LLC'.
+    # We bias toward LAST + FIRST being present (most specific).
+    escaped_last  = last.replace("'", "''")
+    escaped_first = first.replace("'", "''") if first else ""
+
+    if first:
+        # Both first and last must appear (any order).
+        where = (
+            f"(TRUE_OWNER1 LIKE '%{escaped_first}%' AND TRUE_OWNER1 LIKE '%{escaped_last}%')"
+            f" OR (TRUE_OWNER2 LIKE '%{escaped_first}%' AND TRUE_OWNER2 LIKE '%{escaped_last}%')"
+        )
+    else:
+        # Organization — match whole entity in primary owner only
+        # (strict to avoid matching anything that contains "LLC")
+        where = f"TRUE_OWNER1 LIKE '%{escaped_last}%'"
+
+    try:
+        data = _http_get_json(
+            PAGIS_QUERY_URL,
+            {
+                "where": where,
+                "outFields": (
+                    "FOLIO,TRUE_SITE_ADDR,TRUE_SITE_CITY,TRUE_SITE_ZIP_CODE,"
+                    "TRUE_OWNER1,TRUE_OWNER2,TRUE_OWNER3,"
+                    "TRUE_MAILING_ADDR1,TRUE_MAILING_CITY,TRUE_MAILING_STATE,"
+                    "TRUE_MAILING_ZIP_CODE,DOR_CODE_CUR,DOR_DESC,CONDO_FLAG,"
+                    "UNIT_COUNT,BEDROOM_COUNT,YEAR_BUILT,LOT_SIZE,"
+                    "BUILDING_HEATED_AREA,TOTAL_VAL_CUR"
+                ),
+                "resultRecordCount": max_results,
+                "f": "json",
+            },
+        )
+    except Exception as e:
+        log.warning("PA search_by_owner_name(%r) failed: %s", defendant_name, e)
+        return []
+
+    if "error" in data:
+        log.warning("PA error for owner %r: %s", defendant_name, data["error"])
+        return []
+
+    feats = data.get("features", [])
+    results = []
+    for feat in feats[:max_results]:
+        attrs = feat.get("attributes", {})
+        owner = (attrs.get("TRUE_OWNER1") or "").strip()
+        units = int(attrs.get("UNIT_COUNT") or 0)
+        ptype = _classify_from_dor(
+            attrs.get("DOR_DESC", ""),
+            attrs.get("CONDO_FLAG", ""),
+            units,
+        )
+        site_addr = _normalize_address(attrs.get("TRUE_SITE_ADDR") or "")
+        site_zip = (attrs.get("TRUE_SITE_ZIP_CODE") or "").split("-")[0]
+        m_addr1 = _normalize_address(attrs.get("TRUE_MAILING_ADDR1") or "")
+        is_absentee = bool(
+            m_addr1 and site_addr and m_addr1.upper() != site_addr.upper()
+        )
+        results.append({
+            "folio": (attrs.get("FOLIO") or "").strip(),
+            "property_address": site_addr,
+            "city": (attrs.get("TRUE_SITE_CITY") or "").strip(),
+            "zip": site_zip,
+            "owner_name": owner,
+            "owners": [
+                o for o in (
+                    owner,
+                    (attrs.get("TRUE_OWNER2") or "").strip(),
+                    (attrs.get("TRUE_OWNER3") or "").strip(),
+                ) if o
+            ],
+            "property_type": ptype,
+            "units": units,
+            "bedrooms": int(attrs.get("BEDROOM_COUNT") or 0),
+            "year_built": int(attrs.get("YEAR_BUILT") or 0) or None,
+            "total_value": float(attrs.get("TOTAL_VAL_CUR") or 0) or None,
+            "is_absentee_owner": is_absentee,
+            "mailing_address": (
+                f"{m_addr1}, {(attrs.get('TRUE_MAILING_CITY') or '').strip()}, "
+                f"{(attrs.get('TRUE_MAILING_STATE') or '').strip()} "
+                f"{(attrs.get('TRUE_MAILING_ZIP_CODE') or '').split('-')[0]}"
+            ).strip(", "),
+        })
+    return results
+
+
 def is_target_property_type(info: dict[str, Any], include: list[str], exclude: list[str]) -> bool:
     """Apply include/exclude rules from config.yaml.
 

@@ -60,6 +60,9 @@ EXCLUDE_PATTERNS = (
     "PERSONAL INJURY", "AUTO TORT",
     "PROBATE", "ESTATE", "GUARDIAN",
     "SP",                 # Small claims (most are debt)
+    # Legacy cases — Clerk marks these with "z DO NOT USE" prefix
+    # to indicate they're historical records, often pre-2010.
+    "Z DO NOT USE", "Z LEGACY", "Z OLD", "LEGACY",
 )
 
 import re
