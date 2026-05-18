@@ -453,29 +453,6 @@ with st.sidebar:
         default=["Miami-Dade", "Broward", "Palm Beach"],
     )
 
-    show_offtarget = st.checkbox("Mostrar leads fuera del área", value=False)
-
-    only_with_clerk_case = st.checkbox(
-        "Solo con caso Clerk identificado",
-        value=False,
-        help="Filtra los ~40 leads donde detectamos un caso de foreclosure activo en el Clerk de Miami-Dade",
-    )
-
-    only_lis_pendens = st.checkbox(
-        "Solo Lis Pendens (MÁS CALIENTE)",
-        value=False,
-        help="Lis Pendens es el ESTADO PRE-FORECLOSURE — caso abierto, sin auction "
-             "todavía. Es donde tu equipo puede intervenir antes de que pierdan la "
-             "propiedad. Estos leads tienen 6-12 meses de ventana para actuar.",
-    )
-
-    only_urgent_hearing = st.checkbox(
-        "Solo con hearing en próximas 2 semanas",
-        value=False,
-        help="Leads con audiencia agendada en los próximos 14 días. URGENTE — "
-             "llamar primero a estos antes de que sean subastados.",
-    )
-
     hide_empty_cols = st.checkbox(
         "Ocultar columnas sin data",
         value=True,
@@ -509,21 +486,12 @@ if counties:
     county_mask = df["county"].isin(counties) | df["county"].isna() | (df["county"] == "")
     mask = mask & county_mask
 
-if not show_offtarget:
-    mask = mask & df["in_target_area"]
+# Always exclude leads outside the tri-county target area
+mask = mask & df["in_target_area"]
 
-if only_with_clerk_case:
-    mask = mask & (df["clerk_case_number"].astype(str).str.strip() != "")
-
-# Stage classification — derive from clerk fields (used by filters + display)
+# Stage classification — derive from clerk fields (used by display Stage col)
 df["stage"] = df.apply(classify_stage, axis=1)
 df["hearing_urgent"] = df.apply(is_hearing_urgent, axis=1)
-
-if only_lis_pendens:
-    mask = mask & df["stage"].isin(["LIS PENDENS", "PENDING AUCTION"])
-
-if only_urgent_hearing:
-    mask = mask & df["hearing_urgent"]
 
 # Date Added filter
 if date_filter != "Todos":
@@ -541,93 +509,9 @@ if date_filter != "Todos":
 filtered = df[mask].copy()
 
 # =========================================================================
-# Top metrics — Lis Pendens es LO MÁS IMPORTANTE, va destacado
+# Single metric — total leads
 # =========================================================================
-n_total      = len(filtered)
-n_lis        = int((filtered["stage"] == "LIS PENDENS").sum())
-n_pending    = int((filtered["stage"] == "PENDING AUCTION").sum())
-n_urgent     = int(filtered["hearing_urgent"].sum())
-n_reo        = int((filtered["stage"] == "REO").sum())
-n_with_atty  = int(filtered["attorney_name"].astype(str).str.strip().ne("").sum())
-
-m1, m2, m3, m4, m5 = st.columns(5)
-m1.metric("Total Leads", n_total)
-m2.metric(
-    "LIS PENDENS",
-    n_lis,
-    help="PRIORIDAD #1 — pre-foreclosure. El dueño aún tiene la propiedad. "
-         "Ventana de 6-12 meses para ayudarlo (short sale, refinance, venta rápida).",
-)
-m3.metric(
-    "Pending Auction",
-    n_pending,
-    help="Caso abierto + audiencia en próximas 4 semanas. La subasta es inminente.",
-)
-m4.metric(
-    "Urgent (≤14d)",
-    n_urgent,
-    help="Hearings en los próximos 14 días. Llamar HOY.",
-)
-m5.metric("REO + with Atty", f"{n_reo} · {n_with_atty}")
-
-# Banner explicando por qué Lis Pendens es lo más importante
-if n_lis > 0 or n_pending > 0 or n_urgent > 0:
-    banner_parts = []
-    if n_urgent > 0:
-        banner_parts.append(
-            f"**{n_urgent} hearing(s) en próximas 2 semanas** — llamar HOY antes del auction."
-        )
-    if n_lis > 0:
-        banner_parts.append(
-            f"**{n_lis} Lis Pendens activo(s)** — pre-foreclosure, mejor momento "
-            "para intervenir (short sale / refinance / venta rápida)."
-        )
-    if n_pending > 0:
-        banner_parts.append(
-            f"**{n_pending} caso(s) con auction inminente** — hearing programado en ≤4 semanas."
-        )
-    st.warning("PRIORIDAD COLD CALLING:  \n" + "  \n".join(banner_parts))
-else:
-    st.info(
-        "Lis Pendens = la fase pre-foreclosure (cuando se abre el caso en el court "
-        "pero antes de que se subaste la propiedad). Es donde tu equipo puede ayudar "
-        "al dueño con short sale, refinance, o venta rápida. Por eso lo priorizamos arriba."
-    )
-
-# Quick-filter buttons (one-click toggles para los flujos más comunes)
-# — independientes del sidebar, persisten en session_state.
-for _k, _d in (("_qf_lis", False), ("_qf_urgent", False)):
-    if _k not in st.session_state:
-        st.session_state[_k] = _d
-
-qf1, qf2, qf3, _ = st.columns([1.4, 1.4, 1, 5])
-with qf1:
-    if st.button(
-        "Solo Lis Pendens  →  prioridad #1",
-        use_container_width=True,
-        type="primary" if st.session_state["_qf_lis"] else "secondary",
-    ):
-        st.session_state["_qf_lis"] = not st.session_state["_qf_lis"]
-        st.rerun()
-with qf2:
-    if st.button(
-        "Solo hearing en 14 días",
-        use_container_width=True,
-        type="primary" if st.session_state["_qf_urgent"] else "secondary",
-    ):
-        st.session_state["_qf_urgent"] = not st.session_state["_qf_urgent"]
-        st.rerun()
-with qf3:
-    if st.button("Ver todos", use_container_width=True):
-        st.session_state["_qf_lis"] = False
-        st.session_state["_qf_urgent"] = False
-        st.rerun()
-
-# Apply quick-filter state (combines additively with sidebar filters)
-if st.session_state["_qf_lis"]:
-    filtered = filtered[filtered["stage"].isin(["LIS PENDENS", "PENDING AUCTION"])]
-if st.session_state["_qf_urgent"]:
-    filtered = filtered[filtered["hearing_urgent"]]
+st.metric("Leads", len(filtered))
 
 st.divider()
 
